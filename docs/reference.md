@@ -4,6 +4,8 @@
 
 This document is a reference for the gitStream 1.x, used in .cm/gitstream.cm file.
 
+The file fomrat is based on Yaml with support for Jinja2 rendering using Nunjucks engine.
+
 ### Schema
 
 - [`manifest`](#the-manifest-section)
@@ -56,8 +58,9 @@ automations:
   mark_small_pr:
     if:
       - {{ checks.size.is.xsmall }}
-    run: 
-      - action: gitstream:add-label@v1
+    run:
+      - action: add-label@v1
+        engine: gitstream
         args:
           - text: xsmall
 ```
@@ -80,15 +83,25 @@ The `run` field includes the automation to execute.
 | Key         | Required | Type    | Description                                     |
 | ----------- | ---------|---------|------------------------------------------------ |
 | `action`    | Y        | String  | The action pointer                              |
+| `engine`    | N        | String  | The action engine, default is `gitstream`       |
 | `args`      | N        | Map     | The action inputs                               |
 
-The action pointer is descibed by: `provider:name@version`
+For `gitstream` engine the action is specfied by: `name@version`
 
-### Filters
+### Filter functions
 
 Filters are essentially functions that can be applied to variables. They are called with a pipe 
-operator `|` and can take arguments. All nunjucks filters are supported, as well as gitStream 
+operator `|` and can take arguments. All Nunjucks filters are supported, as well as gitStream 
 built-in filters. You can also add custom filters byt editing the .cm/filters.js file.
+
+- [`allExtensions`](#the-allExtensions-filter)
+- [`allDocs`](#the-allDocs-filter)
+- [`allImages`](#the-allImages-filter)
+- [`extensions`](#the-extensions-filter)
+- [`allTests`](#the-allTests-filter)
+- [`estimatedReviewTime`](#the-estimatedReviewTime-filter)
+- [`regex`](#the-regex-filter)
+- [`grep`](#the-grep-filter)
 
 ### Context varaibales
 
@@ -97,7 +110,9 @@ for use with the [`checks`](#the-checks-section) condtions in the
 [gitStream automation file](#gitstream-automation-file).
 
 - [`branch`](#the-branch-context)
-  - [`diff`](#the-branch-diff-context)
-    - [`size`](#the-branch-diff-size-context)
-
-
+    - [`diff`](#the-branch-diff-context)
+        - [`size`](#the-branch-diff-size-context)
+- [`files`](#the-files-context)
+- [`source`](#the-source-context)
+    - [`diff`](#the-source-diff-context)
+        - [`content`](#the-source-diff-content-context)
