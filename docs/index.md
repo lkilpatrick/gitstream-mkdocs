@@ -39,7 +39,8 @@ checks:
       small_or_less: {{ branch.diff.size < 50 }}
       medium_or_less: {{ branch.diff.size < 200 }}
       large: {{ branch.diff.size >= 200 }}
-gates:
+
+automations:
   change_tests:
     on: [pull_request]
     rules:
