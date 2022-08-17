@@ -1,9 +1,22 @@
 site_name: gitStream docs
 
 theme:
-  name: null
-  custom_dir: cinder
-  highlightjs: true
-  hljs_style: 'github'
-  hljs_languages:
-    - yaml
+  name: material
+  palette: 
+      # Palette toggle for dark mode
+      - scheme: slate
+        toggle:
+          icon: material/brightness-4
+          name: Switch to light mode
+
+      # Palette toggle for light mode
+      - scheme: default
+        toggle:
+          icon: material/brightness-7 
+          name: Switch to dark mode
+  features:
+      - header.autohide
+extra_css:
+  - stylesheets/extra.css
+plugins:
+  - search
