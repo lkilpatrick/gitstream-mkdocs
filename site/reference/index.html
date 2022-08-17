@@ -36,6 +36,8 @@
       
     
     
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -47,12 +49,16 @@
   
     
     
+      
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="">
   
     
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -99,6 +105,15 @@
         </div>
       </div>
     </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+          
+        
+      </form>
     
     
     
@@ -181,6 +196,21 @@
     <li class="md-nav__item">
       <a href=".." class="md-nav__link">
         Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github-app/" class="md-nav__link">
+        gitStream GitHub app
       </a>
     </li>
   
@@ -284,8 +314,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#filters" class="md-nav__link">
-    Filters
+  <a href="#filter-functions" class="md-nav__link">
+    Filter functions
   </a>
   
 </li>
@@ -393,8 +423,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#filters" class="md-nav__link">
-    Filters
+  <a href="#filter-functions" class="md-nav__link">
+    Filter functions
   </a>
   
 </li>
@@ -428,6 +458,7 @@
 <h1 id="configuring-gitstream-automation">Configuring gitStream automation</h1>
 <h2 id="gitstream-automation-file">gitStream automation file</h2>
 <p>This document is a reference for the gitStream 1.x, used in .cm/gitstream.cm file.</p>
+<p>The file fomrat is based on Yaml with support for Jinja2 rendering using Nunjucks engine.</p>
 <h3 id="schema">Schema</h3>
 <ul>
 <li><a href="#the-manifest-section"><code>manifest</code></a><ul>
@@ -443,9 +474,9 @@
 </ul>
 <h4 id="the-manifest-section">The <code>manifest</code> section</h4>
 <p>The first section in a gitstream.cm is <code>manifest</code>.</p>
-<pre><code class="language-yaml">manifest:
-  version: 1.0
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">manifest</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
+</code></pre></div>
 <p>The only field required is <code>version</code>.</p>
 <table>
 <thead>
@@ -475,24 +506,25 @@
 introdcued to the parser - older automation are still supported.</p>
 <h4 id="the-checks-section">The <code>checks</code> section</h4>
 <p>The <code>checks</code> section defines conditions that are nested under the <code>checks</code> section.  </p>
-<pre><code class="language-yaml">checks:
-  size:
-    is:
-      xsmall: {{ branch.diff.size &lt; 20 }}
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">checks</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">size</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">is</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">      </span><span class="nt">xsmall</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">branch.diff.size &lt; 20</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="w"></span>
+</code></pre></div>
 <p>Each condition includes a logic expresison that eventually results with a boolean value: <code>true</code> or <code>false</code>. </p>
 <p>The logic expression are based on Jinja2 syntax, and includes gitStream context varaibales.</p>
 <h4 id="the-automations-section">The <code>automations</code> section</h4>
 <p>The <code>automations</code> section defines the automations and their conditions. </p>
-<pre><code class="language-yaml">automations:
-  mark_small_pr:
-    if:
-      - {{ checks.size.is.xsmall }}
-    run: 
-      - action: gitstream:add-label@v1
-        args:
-          - text: xsmall
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">automations</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">mark_small_pr</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">if</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">checks.size.is.xsmall</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="w"></span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">add-label@v1</span><span class="w"></span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">        </span><span class="nt">engine</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gitstream</span><span class="w"></span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"></span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xsmall</span><span class="w"></span>
+</code></pre></div>
 <p>Each automation includes its name, and few fields: <code>if</code> and <code>run</code>.</p>
 <table>
 <thead>
@@ -539,6 +571,12 @@ introdcued to the parser - older automation are still supported.</p>
 <td>The action pointer</td>
 </tr>
 <tr>
+<td><code>engine</code></td>
+<td>N</td>
+<td>String</td>
+<td>The action engine, default is <code>gitstream</code></td>
+</tr>
+<tr>
 <td><code>args</code></td>
 <td>N</td>
 <td>Map</td>
@@ -546,19 +584,39 @@ introdcued to the parser - older automation are still supported.</p>
 </tr>
 </tbody>
 </table>
-<p>The action pointer is descibed by: <code>provider:name@version</code></p>
-<h3 id="filters">Filters</h3>
+<p>For <code>gitstream</code> engine the action is specfied by: <code>name@version</code></p>
+<h3 id="filter-functions">Filter functions</h3>
 <p>Filters are essentially functions that can be applied to variables. They are called with a pipe 
-operator <code>|</code> and can take arguments. All nunjucks filters are supported, as well as gitStream 
+operator <code>|</code> and can take arguments. All Nunjucks filters are supported, as well as gitStream 
 built-in filters. You can also add custom filters byt editing the .cm/filters.js file.</p>
+<ul>
+<li><a href="#the-allExtensions-filter"><code>allExtensions</code></a></li>
+<li><a href="#the-allDocs-filter"><code>allDocs</code></a></li>
+<li><a href="#the-allImages-filter"><code>allImages</code></a></li>
+<li><a href="#the-extensions-filter"><code>extensions</code></a></li>
+<li><a href="#the-allTests-filter"><code>allTests</code></a></li>
+<li><a href="#the-estimatedReviewTime-filter"><code>estimatedReviewTime</code></a></li>
+<li><a href="#the-regex-filter"><code>regex</code></a></li>
+<li><a href="#the-grep-filter"><code>grep</code></a></li>
+</ul>
 <h3 id="context-varaibales">Context varaibales</h3>
 <p>gitStream includes a collection of variables called contexts. These variables are intended 
 for use with the <a href="#the-checks-section"><code>checks</code></a> condtions in the 
 <a href="#gitstream-automation-file">gitStream automation file</a>.</p>
 <ul>
-<li><a href="#the-branch-context"><code>branch</code></a></li>
+<li><a href="#the-branch-context"><code>branch</code></a><ul>
 <li><a href="#the-branch-diff-context"><code>diff</code></a><ul>
 <li><a href="#the-branch-diff-size-context"><code>size</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#the-files-context"><code>files</code></a></li>
+<li><a href="#the-source-context"><code>source</code></a><ul>
+<li><a href="#the-source-diff-context"><code>diff</code></a><ul>
+<li><a href="#the-source-diff-content-context"><code>content</code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -580,7 +638,7 @@ for use with the <a href="#the-checks-section"><code>checks</code></a> condtions
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Introduction" rel="prev">
+        <a href="../github-app/" class="md-footer__link md-footer__link--prev" aria-label="Previous: gitStream GitHub app" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -589,7 +647,7 @@ for use with the <a href="#the-checks-section"><code>checks</code></a> condtions
               <span class="md-footer__direction">
                 Previous
               </span>
-              Introduction
+              gitStream GitHub app
             </div>
           </div>
         </a>
@@ -618,7 +676,7 @@ for use with the <a href="#the-checks-section"><code>checks</code></a> condtions
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
