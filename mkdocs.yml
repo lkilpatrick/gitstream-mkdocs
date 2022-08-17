@@ -1,3 +1,9 @@
 site_name: gitStream docs
+
 theme:
-  name: material
+  name: null
+  custom_dir: cinder
+  highlightjs: true
+  hljs_style: 'github'
+  hljs_languages:
+    - yaml
