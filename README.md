@@ -29,4 +29,4 @@ For Mac M1, its better to use:
 docker run --rm -it -p 8000:8000 -v ${PWD}:/docs ghcr.io/afritzler/mkdocs-material
 ```
 
-Then go to http://http://localhost:8000
+Then go to http://localhost:8000
