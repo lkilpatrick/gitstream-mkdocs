@@ -2,6 +2,7 @@ site_name: gitStream docs
 
 theme:
   name: material
+  logo: assets/gistream-w.webp
   palette: 
       - scheme: slate
   features:
