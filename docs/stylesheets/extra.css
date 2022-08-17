@@ -8,3 +8,7 @@
   --md-primary-fg-color--light: #4555d4;
   --md-primary-fg-color--dark:  #a4e1bd;
 }
+
+h4 { 
+   text-transform: uppercase; 
+} 
