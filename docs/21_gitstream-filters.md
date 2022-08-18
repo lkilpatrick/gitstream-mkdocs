@@ -12,6 +12,7 @@ of transformations and that's what ends up in rendered templates.
 - [`estimatedReviewTime`](#estimatedReviewTime-filter)
 - [`regexFilter`](#regexFilter-filter)
 - [`includes`](#includes-filter)
+- [`grep`](#grep-filter)
 
 #### allExtensions filter
 
@@ -124,7 +125,7 @@ estimatedReviewTime(branch)
 
 | Values                 | Usage    | Type      | Description                                     |
 | ---------------------- | ---------|-----------|------------------------------------------------ |
-| `branch-context`       | Input    | Object    | The gitstream generated [branch context varaible](#branch-context) |
+| `branch-context`       | Input    | Object    | gitStream generated [branch context varaible](20_reference#branch-context) |
 | `result`               | Output   | String    | the estimated time for review in minutes |
 
 #### regexFilter filter
@@ -154,8 +155,21 @@ Syntax:
 includes(string, searchElement)
 ```
 
-| Values        | Usage    | Type      | Description                                     |
-| ------------- | ---------|-----------|------------------------------------------------ |
-| `items`       | Input    | String    | Text string                                     |
-| `searchElement`  | Input    | String    | The value to search for                                   |
-| `result`      | Output   | Bool      | `true` if the search element is found              |
+| Values          | Usage    | Type      | Description                                     |
+| ----------------| ---------|-----------|------------------------------------------------ |
+| `items`         | Input    | String    | Text string                                     |
+| `searchElement` | Input    | String    | The value to search for                         |
+| `result`        | Output   | Bool      | `true` if the search element is found           |
+
+####  grep filter
+
+Syntax: 
+```
+grep(source, searchElement)
+```
+
+| Values          | Usage  | Type   | Description                                     |
+|-----------------|--------|--------|------------------------------------------------ |
+| `source`        | Input  | Object | gitStream generated [source object](20_reference#source-context) |
+| `searchElement` | Input  | String | The value to search for                                   |
+| `result`        | Output | [Map]  | List of file diff maps that includes the `searchElement`   |
