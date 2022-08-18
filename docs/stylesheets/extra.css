@@ -13,3 +13,8 @@ h4 {
   padding-top: 4%;
   text-transform: uppercase; 
 } 
+
+th{
+  color: white;
+  background: #23252F;
+}
