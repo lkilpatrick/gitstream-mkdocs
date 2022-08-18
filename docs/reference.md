@@ -208,10 +208,10 @@ grep(string, searchTerm)
 | Values        | Usage    | Type      | Description                                     |
 | ------------- | ---------|-----------|------------------------------------------------ |
 | `items`       | Input    | String    | Text string                                     |
-| `searchTerm`  | Input    | String    | Filter, `rm -fr`                                |
+| `searchTerm`  | Input    | String    | Filter string                                   |
 | `result`      | Output   | Bool      | `true` if the search term is found              |
 
-## Context varaibales
+## Context variables
 
 gitStream includes a collection of variables called contexts. These variables are intended 
 for use with the [`checks`](#checks-section) condtions in the 
