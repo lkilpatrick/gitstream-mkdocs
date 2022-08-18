@@ -23,6 +23,15 @@ The permissions are:
 
 Once installation completes, the following files are added to each of the selected repos under their root directory.
 
+```
+.
+├─ .cm/
+│  └─ gitstream.cm
+├─ .github/
+│  └─ workflows/
+│     └─ gitstream.yml
+```
+
 | File and path        | Customizable | Reason |
 |----------------------|--------------|----------------------------------------|
 | .cm/gitstream.cm     | Y            | Used to specify gitStream automations, you can edit this file |
