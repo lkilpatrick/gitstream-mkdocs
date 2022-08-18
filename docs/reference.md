@@ -218,9 +218,26 @@ for use with the [`checks`](#checks-section) condtions in the
 [gitStream automation file](#gitstream-automation-file).
 
 - [`branch`](#branch-context)
-    - [`diff`](#branch-diff-context)
-        - [`size`](#branch-diff-size-context)
-- [`files`](#files-context)
+    - [`diff`](#branch-context)
+        - [`size`](#branch-context)
+        - [`files`](#branch-context)
 - [`source`](#source-context)
-    - [`diff`](#source-diff-context)
-        - [`content`](#source-diff-content-context)
+    - [`diff`](#source-context)
+        - [`content`](#source-context)
+
+#### branch context
+
+| Values      | Type      | Description                                              |
+| ------------|-----------|--------------------------------------------------------- |
+| `branch`    | Map       | Includes the info related to the current branch          |
+| `diff`      | Map       | Includes the info compared to the default branch, `main` |
+| `size`      | Integer   | The sum of line changed: addtions, edits and deletions   |
+| `files`     | [String]  | List of changed files including their relative path      |
+
+#### source context
+
+| Values      | Type      | Description                                                     |
+| ------------|-----------|---------------------------------------------------------------- |
+| `source`    | Map       | Includes the info related to source code                        |
+| `diff`      | Map       | Includes the info compared to the default branch, `main`        |
+| `content`   | String    | The content of all lines changed: addtions, edits and deletions |
