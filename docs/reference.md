@@ -1,10 +1,8 @@
 # Configuring gitStream automation
 
-## gitStream automation file
-
 This document is a reference for the gitStream 1.x, used in .cm/gitstream.cm file.
 
-### Schema
+## Schema
 
 - [`manifest`](#manifest-section)
     - [`version`](#version-field)
@@ -86,7 +84,7 @@ The `run` field includes the automation to execute.
 
 For `gitstream` engine the action is specfied by: `name@version`
 
-### Filter functions
+## Filter functions
 
 Filters are essentially functions that can be applied to variables. They are called with a pipe 
 operator `|` and can take arguments. All Nunjucks filters are supported, as well as gitStream 
@@ -213,7 +211,7 @@ grep(string, searchTerm)
 | `searchTerm`  | Input    | String    | Filter, `rm -fr`                                |
 | `result`      | Output   | Bool      | `true` if the search term is found              |
 
-### Context varaibales
+## Context varaibales
 
 gitStream includes a collection of variables called contexts. These variables are intended 
 for use with the [`checks`](#checks-section) condtions in the 
