@@ -8,6 +8,5 @@ The filters are implemented in javascript.
 .
 ├─ .cm/
 │  └─ gitstream.cm
-│  └─ filters.js
-│   
+│  └─ filters.js 
 ```

@@ -15,7 +15,7 @@ gitStream includes a collection of variables called contexts.
     - [`wip`](#pr-context)
     - [`name`](#pr-context)
 
-#### branch context
+#### `branch` context
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -29,7 +29,7 @@ gitStream includes a collection of variables called contexts.
 
 The branch context dosnt include any source code, but only related metadata.
 
-#### source context
+#### `source` context
 
 :octicons-beaker-24: Coming soon
 
@@ -49,7 +49,7 @@ The files mapping includes a list of the following structure:
 | `new_file`      | String    | The name of the file after the changes, including its path      |
 | `diff`          | String    | The content in diff format `+` for addtions, `-` for deletions  |
 
-#### pr context
+#### `pr` context
 
 :octicons-beaker-24: Coming soon
 

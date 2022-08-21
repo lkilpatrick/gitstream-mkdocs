@@ -22,7 +22,6 @@ automations:
       - {{ checks.size.is.xsmall }}
     run:
       - action: add-label@v1
-        engine: gitstream
         args:
           - label: xsmall
 ```
@@ -47,7 +46,6 @@ automations:
       - true
     run:
       - action: add-comment@v1
-        engine: gitstream
         args:
           - comment: "Estimated {{ checks.etr }} to review"
 ```
@@ -74,7 +72,6 @@ automations:
       - {{ checks.filetypes.is.docs }}
     run:
       - action: approve@v1
-        engine: gitstream
 ```
 
 ### Set 2 reviwers for high complexity PRs 
@@ -90,7 +87,7 @@ checks:
   ...
   change:
     is:
-      core: {{ branch.diff.files | regexFilter('core\/') | length > 0 }}
+      core: {{ branch.diff.files | filterRegex('core\/') | length > 0 }}
 
 automations:
   ...
@@ -99,7 +96,6 @@ automations:
       - {{ checks.change.is.core }}
     run:
       - action: set-required-reviewers@v1
-        engine: gitstream
         args:
           - reviewers: 2
 ```

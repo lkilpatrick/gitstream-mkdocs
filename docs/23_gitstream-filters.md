@@ -14,7 +14,7 @@ of transformations and that's what ends up in rendered templates.
 - [`includes`](#includes-filter)
 - [`grep`](#grep-filter)
 
-#### allExtensions filter
+#### `allExtensions` filter
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -36,7 +36,7 @@ checks:
       configuration: {{ files | allExtensions(['json', 'toml']) }}
 ```
 
-#### allDocs filter
+#### `allDocs` filter
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -59,7 +59,7 @@ checks:
       docs: {{ files | allDocs }}
 ```
 
-#### allImages filter
+#### `allImages` filter
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -82,7 +82,7 @@ checks:
       images: {{ files | allImages }}
 ```
 
-#### allTests filter
+#### `allTests` filter
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -105,7 +105,7 @@ checks:
       tests: {{ files | allTests }}
 ```
 
-#### extensions filter
+#### `extensions` filter
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -126,7 +126,7 @@ checks:
       single_type: {{ files | extensions | length == 1 }}
 ```
 
-#### estimatedReviewTime filter
+#### `estimatedReviewTime` filter
 
 :octicons-beaker-24: Coming soon
 
@@ -140,7 +140,7 @@ estimatedReviewTime(branch)
 | `branch-context`       | Input    | Object    | gitStream generated [branch context varaible](20_reference#branch-context) |
 | `result`               | Output   | String    | the estimated time for review in minutes |
 
-#### filterRegex filter
+#### `filterRegex` filter
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -162,7 +162,7 @@ checks:
      no_python: {{ files | filterRegex('\.py$') | length == 0 }}
 ```
 
-#### includes filter
+#### `includes` filter
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -176,18 +176,3 @@ includes(string, searchElement)
 | `items`         | Input    | String    | Text string                                     |
 | `searchElement` | Input    | String    | The value to search for                         |
 | `result`        | Output   | Bool      | `true` if the search element is found           |
-
-####  grep filter
-
-:octicons-beaker-24: Coming soon
-
-Syntax: 
-```
-grep(source, searchElement)
-```
-
-| Values          | Usage  | Type   | Description                                     |
-|-----------------|--------|--------|------------------------------------------------ |
-| `source`        | Input  | Object | gitStream generated [source object](20_reference#source-context) |
-| `searchElement` | Input  | String | The value to search for                                   |
-| `result`        | Output | [Map]  | List of file diff maps that includes the `searchElement`   |

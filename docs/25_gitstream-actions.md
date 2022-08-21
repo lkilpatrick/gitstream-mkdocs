@@ -6,7 +6,7 @@
 - [`add-label`](#add-label-action)
 - [`add-comment`](#add-comment-action)
 
-#### approve action
+#### `approve` action
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -33,10 +33,9 @@ automations:
       - {{ checks.filetypes.is.docs }}
     run:
       - action: approve@v1
-        engine: gitstream
 ```
 
-#### set required reviewers action
+#### `set-required-reviewers` action
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -69,12 +68,11 @@ automations:
       - {{ checks.change.is.critical }}
     run:
       - action: set-required-reviewers@v1
-        engine: gitstream
         args:
           - reviewers: 2
 ```
 
-#### set reviewer action
+#### `set-reviewer` action
 
 :octicons-beaker-24: Coming soon
 
@@ -97,7 +95,7 @@ args:
 checks:
   change:
     is:
-      core_service: {{ files | regexFilter('core') | length > 0 }}
+      core_service: {{ files | filterRegex('core') | length > 0 }}
 
 automations:
   senior_review:
@@ -105,12 +103,11 @@ automations:
       - {{ checks.change.is.core_service }}
     run:
       - action: set-reviewer@v1
-        engine: gitstream
         args:
           - reviewer: @team-leader
 ```
 
-#### add label action
+#### `add-label` action
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -133,7 +130,7 @@ args:
 checks:
   change:
     is:
-      core_service: {{ files | regexFilter(‘core’) | length > 0 }}
+      core_service: {{ files | filterRegex(‘core’) | length > 0 }}
 
 automations:
   senior_review:
@@ -141,7 +138,6 @@ automations:
       - {{ checks.change.is.core_service }}
     run:
       - action: add-label@v1
-        engine: gitstream
         args:
           - label: core
 ```
@@ -169,7 +165,7 @@ args:
 checks:
   change:
     is:
-      core_service: {{ files | regexFilter(‘core’) | length > 0 }}
+      core_service: {{ files | filterRegex(‘core’) | length > 0 }}
 
 automations:
   senior_review:
@@ -177,7 +173,6 @@ automations:
       - {{ checks.change.is.core_service }}
     run:
       - action: add-comment@v1
-        engine: gitstream
         args:
           - comment: |
             Core service update

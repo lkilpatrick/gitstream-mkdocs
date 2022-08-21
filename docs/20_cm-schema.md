@@ -4,6 +4,8 @@ This document is a reference for the gitStream 1.x, used in .cm/gitstream.cm fil
 
 ## Schema
 
+The following sections are used in `.cm` file to describe the desired automations:
+
 - [`manifest`](#manifest-section)
     - [`version`](#manifest-section)
 - [`checks`](#checks-section)
@@ -11,7 +13,7 @@ This document is a reference for the gitStream 1.x, used in .cm/gitstream.cm fil
     - [`if`](#automations-section)
     - [`run`](#automations-section)
 
-### Manifest section
+### `manifest` section
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -32,7 +34,7 @@ The only field required is `version`.
 The manifest fields is used a version to parse the `.cm` file, so if breaking chnages are 
 introdcued to the parser - older automation are still supported.
 
-### Checks section
+### `checks` section
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -50,7 +52,7 @@ Each condition includes a logic expresison that eventually results with a boolea
 The logic expression are based on Jinja2 syntax, and includes gitStream context varaibales.
 
 
-### Automations section
+### `automations` section
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -63,9 +65,8 @@ automations:
       - {{ checks.size.is.xsmall }}
     run:
       - action: add-label@v1
-        engine: gitstream
         args:
-          - text: xsmall
+          - label: xsmall
 ```
 
 Each automation includes its name, and few fields: `if` and `run`.
@@ -93,7 +94,7 @@ gitStream supported actions, see [documentation](25_gitstream-actions.md).
 ## Context variables
 
 gitStream includes a collection of variables called contexts, these variables are intended 
-for use with the [`checks`]() condtions.
+for use with the [`checks`](#checks-section) condtions.
 
 gitStream built-in context varaibales are described [here](21_gitstream-context.md).
 
