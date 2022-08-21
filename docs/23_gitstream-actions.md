@@ -106,4 +106,70 @@ automations:
 
 #### add label action
 
+This action, once triggered, adds a label to the PR.
+
+Syntax: 
+
+```yaml
+action: add-label@v1
+engine: gitstream
+args: 
+  - label: String 
+```
+
+| Args       | Type      | Description                                     |
+| -----------|-----------|------------------------------------------------ |
+| `label`    | String    | Sets the label |
+
+```yaml
+checks:
+  change:
+    is:
+      core_service: {{ files | regexFilter(‘core’) | length > 0 }}
+
+automations:
+  senior_review:
+    if:
+      - {{ checks.change.is.core_service }}
+    run:
+      - action: add-label@v1
+        engine: gitstream
+        args:
+          - label: core
+```
+
 #### add comment action
+
+This action, once triggered, adds a comment to the PR.
+
+Syntax: 
+
+```yaml
+action: add-comment@v1
+engine: gitstream
+args: 
+  - comment: String 
+```
+
+| Args       | Type      | Description                                     |
+| -----------|-----------|------------------------------------------------ |
+| `comment`  | String    | Sets the comment, markdown is supported |
+
+```yaml
+checks:
+  change:
+    is:
+      core_service: {{ files | regexFilter(‘core’) | length > 0 }}
+
+automations:
+  senior_review:
+    if:
+      - {{ checks.change.is.core_service }}
+    run:
+      - action: add-comment@v1
+        engine: gitstream
+        args:
+          - comment: |
+            Core service update
+            (Updates API)
+```
