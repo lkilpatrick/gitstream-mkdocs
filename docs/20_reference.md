@@ -13,6 +13,8 @@ This document is a reference for the gitStream 1.x, used in .cm/gitstream.cm fil
 
 ### Manifest section
 
+:octicons-tag-24: Minimal version: 1.0
+
 The first section in a gitstream.cm is `manifest`.
 
 ```yaml
@@ -32,6 +34,8 @@ introdcued to the parser - older automation are still supported.
 
 ### Checks section
 
+:octicons-tag-24: Minimal version: 1.0
+
 The `checks` section defines conditions that are nested under the `checks` section.  
 
 ```yaml
@@ -47,6 +51,8 @@ The logic expression are based on Jinja2 syntax, and includes gitStream context 
 
 
 ### Automations section
+
+:octicons-tag-24: Minimal version: 1.0
 
 The `automations` section defines the automations and their conditions. 
 
@@ -82,65 +88,14 @@ The `run` field includes the automation to execute.
 
 For `gitstream` engine the action is specfied by: `name@version`
 
-gitStream supported actions, see [documentation](23_gitstream-actions.md).
+gitStream supported actions, see [documentation](25_gitstream-actions.md).
 
 ## Context variables
 
-gitStream includes a collection of variables called contexts. These variables are intended 
-for use with the [`checks`](#checks-section) condtions in the 
-[gitStream automation file](#gitstream-automation-file).
+gitStream includes a collection of variables called contexts, these variables are intended 
+for use with the [`checks`]() condtions.
 
-- [`branch`](#branch-context)
-    - [`name`](#name-context)
-    - [`diff`](#branch-context)
-        - [`size`](#branch-context)
-        - [`files`](#branch-context)
-- [`source`](#source-context)
-    - [`diff`](#source-context)
-        - [`files`](#source-context)
-- [`pr`](#pr-context)
-    - [`author`](#pr-context)
-    - [`wip`](#pr-context)
-    - [`name`](#pr-context)
-
-#### branch context
-
-| Values      | Type      | Description                                              |
-| ------------|-----------|--------------------------------------------------------- |
-| `branch`    | Map       | Includes the info related to the current branch          |
-| `name`      | String    | The current branch, `feature-123-branch`                 |
-| `diff`      | Map       | Includes the info compared to the default branch, `main` |
-| `size`      | Integer   | The sum of line changed: addtions, edits and deletions   |
-| `files`     | [String]  | List of changed files including their relative path      |
-
-The branch context dosnt include any source code, but only related metadata.
-
-#### source context
-
-| Values      | Type      | Description                                                     |
-| ------------|-----------|---------------------------------------------------------------- |
-| `source`    | Map       | Includes the info related to source code                        |
-| `diff`      | Map       | Includes the info compared to the default branch, `main`        |
-| `files`     | [Map]     | List of changed files with their respective code changes        |
-
-The source context include all code changes, it is not safe to share it with unknown services.
-
-The files mapping includes a list of the following structure:
-
-| Values          | Type      | Description                                                     |
-| ----------------|-----------|---------------------------------------------------------------- |
-| `original_file` | String    | The name of the file before the changes, including its path     |
-| `new_file`      | String    | The name of the file after the changes, including its path      |
-| `diff`          | String    | The content in diff format `+` for addtions, `-` for deletions  |
-
-#### pr context
-
-| Values      | Type      | Description                                                     |
-| ------------|-----------|---------------------------------------------------------------- |
-| `pr`        | Map       | Includes the PR info
-| `author`    | String    | The git user name of the PR author
-| `wip`       | Bool      | `true` when the PR is marked as draft 
-| `name`      | String    | The PR name
+gitStream built-in context varaibales are described [here](21_gitstream-context.md).
 
 ## Filter functions
 
@@ -149,6 +104,6 @@ operator `|` and can take arguments.
 
 All Nunjucks filters are supported, see [documentation](https://mozilla.github.io/nunjucks/templating.html#builtin-filters).
 
-gitStream adds more filters, see [documentation](21_gitstream-filters.md).
+gitStream built-in filter functions are described [here](23_gitstream-filters.md).
 
-You can also add custom filters, see [documentation](22_custom-filters.md).
+You can also add custom filters, see [instructions](24_custom-filters.md).

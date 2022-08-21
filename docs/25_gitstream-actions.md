@@ -1,4 +1,4 @@
-# gitStream built-in actions
+# gitStream built-in automation actions
 
 - [`approve`](#approve-action)
 - [`set-required-reviewers`](#set-required-reviewers-action)
@@ -7,6 +7,8 @@
 - [`add-comment`](#add-comment-action)
 
 #### approve action
+
+:octicons-tag-24: Minimal version: 1.0
 
 This action, once triggered, approves the PR for merge.
 
@@ -35,6 +37,8 @@ automations:
 ```
 
 #### set required reviewers action
+
+:octicons-tag-24: Minimal version: 1.0
 
 This action, once triggered, blocks PR merge till the desired reviewers approved the PR. The actions fails the check to prevent the PR for merge.
 
@@ -72,6 +76,8 @@ automations:
 
 #### set reviewer action
 
+:octicons-beaker-24: Coming soon
+
 This action, once triggered, sets a specific reviewer.
 
 Syntax: 
@@ -106,6 +112,8 @@ automations:
 
 #### add label action
 
+:octicons-tag-24: Minimal version: 1.0
+
 This action, once triggered, adds a label to the PR.
 
 Syntax: 
@@ -139,6 +147,8 @@ automations:
 ```
 
 #### add comment action
+
+:octicons-tag-24: Minimal version: 1.0
 
 This action, once triggered, adds a comment to the PR.
 

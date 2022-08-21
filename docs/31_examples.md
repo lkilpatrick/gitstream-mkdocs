@@ -2,6 +2,8 @@
 
 ### Add label for x-small PRs
 
+:octicons-tag-24: Minimal version: 1.0
+
 Automatically add a label to PRs that are very small to get faster reviewer response.
 
 Edit your .cm/gitstream.cm to include the following:
@@ -27,6 +29,8 @@ automations:
 
 ### Add Estimated Time for Review in PRs comment 
 
+:octicons-beaker-24: Coming soon
+
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
 Edit your .cm/gitstream.cm to include the following:
@@ -50,6 +54,8 @@ automations:
 
 ### Auto approve low risk PRs 
 
+:octicons-tag-24: Minimal version: 1.0
+
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
 Edit your .cm/gitstream.cm to include the following:
@@ -72,6 +78,8 @@ automations:
 ```
 
 ### Set 2 reviwers for high complexity PRs 
+
+:octicons-tag-24: Minimal version: 1.0
 
 Automatically require 2 reviewers for PRs that changes core functionlity.
 
@@ -97,6 +105,8 @@ automations:
 ```
 
 ### Send Slack message with inline approve button 
+
+:octicons-beaker-24: Coming soon
 
 Automatically send inline approve Slack message using WorkerB service for small PRs.
 

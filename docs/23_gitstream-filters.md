@@ -1,4 +1,4 @@
-# gitStream built-in filters
+# gitStream built-in Filter functions
 
 Filters can change the look and format of the source data, or even generate new data derived 
 from the input values. What's important is that the original data is replaced by the result 
@@ -15,6 +15,8 @@ of transformations and that's what ends up in rendered templates.
 - [`grep`](#grep-filter)
 
 #### allExtensions filter
+
+:octicons-tag-24: Minimal version: 1.0
 
 Syntax: 
 ```
@@ -35,6 +37,8 @@ checks:
 ```
 
 #### allDocs filter
+
+:octicons-tag-24: Minimal version: 1.0
 
 Syntax: 
 ```
@@ -57,6 +61,8 @@ checks:
 
 #### allImages filter
 
+:octicons-tag-24: Minimal version: 1.0
+
 Syntax: 
 ```
 allImages(files)
@@ -77,6 +83,8 @@ checks:
 ```
 
 #### allTests filter
+
+:octicons-tag-24: Minimal version: 1.0
 
 Syntax: 
 ```
@@ -99,6 +107,8 @@ checks:
 
 #### extensions filter
 
+:octicons-tag-24: Minimal version: 1.0
+
 Syntax: 
 ```
 extensions(files)
@@ -118,6 +128,8 @@ checks:
 
 #### estimatedReviewTime filter
 
+:octicons-beaker-24: Coming soon
+
 Syntax: 
 ```
 estimatedReviewTime(branch)
@@ -129,6 +141,8 @@ estimatedReviewTime(branch)
 | `result`               | Output   | String    | the estimated time for review in minutes |
 
 #### filterRegex filter
+
+:octicons-tag-24: Minimal version: 1.0
 
 Syntax: 
 ```
@@ -150,6 +164,8 @@ checks:
 
 #### includes filter
 
+:octicons-tag-24: Minimal version: 1.0
+
 Syntax: 
 ```
 includes(string, searchElement)
@@ -162,6 +178,8 @@ includes(string, searchElement)
 | `result`        | Output   | Bool      | `true` if the search element is found           |
 
 ####  grep filter
+
+:octicons-beaker-24: Coming soon
 
 Syntax: 
 ```
