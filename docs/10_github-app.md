@@ -16,9 +16,9 @@ The permissions are:
 
 | Permissions           | Reason |
 |----------------------|-------------------------------------------------------|
-| Write access to code | Used to add the initial workflow files (github action, .cm rule file) |
-| Read access to commit statuses and metadata | Used for allowing rules and actions based on commit metadata |
-| Read and write access to checks, issues, pages, and pull requests | Used to provide PR related actions |
+| Write access to dedicated gitstream app files | Used to set the gitStream workflow files |
+| Read access to administration, code, issues, and metadata | To read the code on monitored repositories |
+| Read and write access to actions, checks, pull requests, and workflows | Trigger workflows, create and update pull requests and their checks, and modify workflow files |
 | User email | Used to identify user |
 
 Once installation completes, the following files are added to each of the selected repos under their root directory.
