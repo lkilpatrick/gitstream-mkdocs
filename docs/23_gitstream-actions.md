@@ -21,14 +21,14 @@ Example:
 
 ```yaml
 checks:
-  size:
+  filetypes:
     is:
-      xsmall: {{ branch.diff.size < 20 }}
+      docs: {{ files | allDocs }}
 
 automations:
   small_change:
     if:
-      - {{ checks.size.is.xsmall }}
+      - {{ checks.filetypes.is.docs }}
     run:
       - action: approve@v1
         engine: gitstream
