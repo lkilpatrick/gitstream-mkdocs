@@ -1,20 +1,28 @@
 
 .md-header{
-  background-color: #616DC9;
-}
-
-:root > * {
-  --md-primary-fg-color:        #a4e1bd;
-  --md-primary-fg-color--light: #4555d4;
-  --md-primary-fg-color--dark:  #a4e1bd;
+  background-color: #2A2646;
 }
 
 h4 { 
   padding-top: 4%;
-  text-transform: uppercase; 
 } 
 
-th{
-  color: white;
-  background: #23252F;
+[data-md-color-scheme="default"] table th{
+  background: #D8DADE;
+}
+
+[data-md-color-scheme="default"] table tr td{
+  background: white;
+}
+
+[data-md-color-scheme="slate"] table th{
+  background: #2B4252;
+}
+
+[data-md-color-scheme="slate"] table tr td{
+  background: #2E2F3E;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #FFFFFF;
 }
