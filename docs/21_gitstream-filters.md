@@ -10,7 +10,7 @@ of transformations and that's what ends up in rendered templates.
 - [`allTests`](#allTests-filter)
 - [`extensions`](#extensions-filter)
 - [`estimatedReviewTime`](#estimatedReviewTime-filter)
-- [`regexFilter`](#regexFilter-filter)
+- [`filterRegex`](#filterRegex-filter)
 - [`includes`](#includes-filter)
 - [`grep`](#grep-filter)
 
@@ -128,11 +128,11 @@ estimatedReviewTime(branch)
 | `branch-context`       | Input    | Object    | gitStream generated [branch context varaible](20_reference#branch-context) |
 | `result`               | Output   | String    | the estimated time for review in minutes |
 
-#### regexFilter filter
+#### filterRegex filter
 
 Syntax: 
 ```
-regexFilter(items, regexExpression)
+filterRegex(items, regexExpression)
 ```
 
 | Values        | Usage    | Type      | Description                                     |
@@ -145,7 +145,7 @@ regexFilter(items, regexExpression)
 checks:
   filetypes:
     is:
-     no_python: {{ files | regex('\.py$') | length == 0 }}
+     no_python: {{ files | filterRegex('\.py$') | length == 0 }}
 ```
 
 #### includes filter

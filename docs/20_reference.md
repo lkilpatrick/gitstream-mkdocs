@@ -16,7 +16,7 @@ This document is a reference for the gitStream 1.x, used in .cm/gitstream.cm fil
 The first section in a gitstream.cm is `manifest`.
 
 ```yaml
-manifest:
+manifest: 
   version: 1.0
 ```
 
