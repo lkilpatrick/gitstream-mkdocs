@@ -28,8 +28,8 @@ The only field required is `version`.
 
 | Key         | Required | Type    | Description                              |
 | ----------- | ---------|---------|----------------------------------------- |
-| `manifest`  | Y        | Map     |                                          |
-| `version`   | Y        | String  | Specify the `.cm` spec version: 0.1, 1.0 |
+| `manifest`         | Y        | Map     | The manifest section root                |
+| `manifest.version` | Y        | String  | Specify the `.cm` spec version: 0.1, 1.0 |
 
 The manifest fields is used a version to parse the `.cm` file, so if breaking chnages are 
 introdcued to the parser - older automation are still supported.
@@ -69,17 +69,22 @@ automations:
           - label: xsmall
 ```
 
+| Key            | Required | Type    | Description                                     |
+|----------------|----------|---------|------------------------------------------------ |
+| `automations`  | Y        | Map     | The automations section root     |
+
 Each automation includes its name, and few fields: `if` and `run`.
 
-| Key          | Required | Type    | Description                                     |
-|--------------|----------|---------|------------------------------------------------ |
-| _automation_ | Y        | Map     | Name of the automation, can be any string       |
-| `if`         | Y        | Map     | List of condtions                               |
-| `run`        | Y        | Map     | The automation to run if all conditions are met |
+| Key        | Required  | Type    | Description                                     |
+|------------|-----------|---------|------------------------------------------------ |
+| `NAME`     | Y | Map | User defined name of the automation, can be any string       |
+| `NAME.if`  | Y | Map | List of condtions                               |
+| `NAME.run` | Y | Map | The automation to run if all conditions are met |
 
-The `if` field includes the list of conditions. The condtions are checked when a pull request is opened or changed, if all the conditions pass, the automation is executed.
+The `if` field includes the list of conditions. The condtions are checked when a pull request 
+is opened or changed, if all the conditions pass, the automation is executed.
 
-The `run` field includes the automation to execute. 
+The `run` field includes the automation to execute. It includes the following fields:
 
 | Key         | Required | Type    | Description                                     |
 | ----------- | ---------|---------|------------------------------------------------ |
