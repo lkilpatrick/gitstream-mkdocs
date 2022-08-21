@@ -57,7 +57,7 @@ args:
 checks:
   change:
     is:
-      critical: {{ source | grep(‘panic’) | length > 0 }}
+      critical: {{ source | grep('panic') | length > 0 }}
 
 automations:
   double_review:
@@ -67,7 +67,7 @@ automations:
       - action: set-required-reviewers@v1
         engine: gitstream
         args:
-          - reviewer: 2
+          - reviewers: 2
 ```
 
 #### set reviewer action
@@ -91,7 +91,7 @@ args:
 checks:
   change:
     is:
-      core_service: {{ files | regexFilter(‘core’) | length > 0 }}
+      core_service: {{ files | regexFilter('core') | length > 0 }}
 
 automations:
   senior_review:
