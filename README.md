@@ -40,4 +40,7 @@ python3 -m venv .venv
 . ./.venv/bin/activate
 pip install mkdocs-material
 mkdocs gh-deploy
+
+pip install mike
+mike deploy --push --update-aliases 0.1 stable
 ```
