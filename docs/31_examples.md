@@ -21,7 +21,7 @@ automations:
     if:
       - {{ checks.size.is.xsmall }}
     run:
-      - action: add-label@v1
+      - action: add-labels@v1
         args:
           - label: xsmall
 ```

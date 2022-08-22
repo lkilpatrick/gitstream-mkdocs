@@ -3,7 +3,7 @@
 - [`approve`](#approve-action)
 - [`set-required-reviewers`](#set-required-reviewers-action)
 - [`set-reviewer`](#set-reviewer-action)
-- [`add-label`](#add-label-action)
+- [`add-labels`](#add-labels-action)
 - [`add-comment`](#add-comment-action)
 
 #### `approve` action
@@ -107,7 +107,7 @@ automations:
           - reviewer: @team-leader
 ```
 
-#### `add-label` action
+#### `add-labels` action
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -116,7 +116,7 @@ This action, once triggered, adds a label to the PR.
 Syntax: 
 
 ```yaml
-action: add-label@v1
+action: add-labels@v1
 engine: gitstream
 args: 
   - label: String 
@@ -124,7 +124,7 @@ args:
 
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
-| `label`    | String    | Sets the label |
+| `label`    | [String]  | List of labels, any string can work |
 
 ```yaml
 checks:
@@ -137,7 +137,7 @@ automations:
     if:
       - {{ checks.change.is.core_service }}
     run:
-      - action: add-label@v1
+      - action: add-labels@v1
         args:
           - label: core
 ```
