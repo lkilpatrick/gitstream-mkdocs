@@ -14,6 +14,8 @@ gitStream includes a collection of variables called contexts.
     - [`author`](#pr-context)
     - [`wip`](#pr-context)
     - [`name`](#pr-context)
+- [`repo`]
+    - [`codeowners`](#codeowners-context)
 
 #### `branch` context
 
@@ -59,3 +61,12 @@ The files mapping includes a list of the following structure:
 | `pr.author` | String    | The git user name of the PR author
 | `pr.wip`    | Bool      | `true` when the PR is marked as draft 
 | `pr.name`   | String    | The PR name
+
+#### `repo` context
+
+:octicons-beaker-24: Coming soon
+
+| Values             | Type      | Description                                              |
+|--------------------|-----------|--------------------------------------------------------- |
+| `repo`             | Map       | Includes the info related to the current repo            |
+| `repo.codeowners`  | String    | Info extracted from CODEOWNERS file                      |

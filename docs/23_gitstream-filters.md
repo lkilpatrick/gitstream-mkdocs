@@ -12,6 +12,7 @@ of transformations and that's what ends up in rendered templates.
 - [`estimatedReviewTime`](#estimatedReviewTime-filter)
 - [`filterRegex`](#filterRegex-filter)
 - [`includes`](#includes-filter)
+- [`includesRegex`](#includesRegex-filter)
 - [`grep`](#grep-filter)
 
 #### `allExtensions` filter
@@ -153,13 +154,35 @@ filterRegex(items, regexExpression)
 | ------------- | ---------|-----------|------------------------------------------------ |
 | `items`       | Input    | [String]  | List of items                                   |
 | `regexExpression` | Input    | String    | Regex expression, `\.py$`                           |
-| `result`      | Output   | [String]      | All items match that match the regex expression      |
+| `result`      | Output   | [String]      | All items match that did not match the regex expression      |
 
 ```yaml
 checks:
   filetypes:
     is:
      no_python: {{ files | filterRegex('\.py$') | length == 0 }}
+```
+
+#### `includesRegex` filter
+
+:octicons-tag-24: Minimal version: 1.0
+
+Syntax: 
+```
+includesRegex(items, regexExpression)
+```
+
+| Values        | Usage    | Type      | Description                                     |
+| ------------- | ---------|-----------|------------------------------------------------ |
+| `items`       | Input    | [String]  | List of items                                   |
+| `regexExpression` | Input    | String    | Regex expression, `\.py$`                           |
+| `result`      | Output   | [String]      | All items match that match the regex expression      |
+
+```yaml
+checks:
+  filetypes:
+    is:
+     has_python: {{ files | includesRegex('\.py$') | length > 0 }}
 ```
 
 #### `includes` filter
