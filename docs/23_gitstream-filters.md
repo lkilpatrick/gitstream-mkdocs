@@ -154,35 +154,13 @@ filterRegex(items, regexExpression)
 | ------------- | ---------|-----------|------------------------------------------------ |
 | `items`       | Input    | [String]  | List of items                                   |
 | `regexExpression` | Input    | String    | Regex expression, `\.py$`                           |
-| `result`      | Output   | [String]      | All items match that did not match the regex expression      |
+| `result`      | Output   | [String]      | All items match that match the regex expression   |
 
 ```yaml
 checks:
   filetypes:
     is:
      no_python: {{ files | filterRegex('\.py$') | length == 0 }}
-```
-
-#### `includesRegex` filter
-
-:octicons-tag-24: Minimal version: 1.0
-
-Syntax: 
-```
-includesRegex(items, regexExpression)
-```
-
-| Values        | Usage    | Type      | Description                                     |
-| ------------- | ---------|-----------|------------------------------------------------ |
-| `items`       | Input    | [String]  | List of items                                   |
-| `regexExpression` | Input    | String    | Regex expression, `\.py$`                           |
-| `result`      | Output   | [String]      | All items match that match the regex expression      |
-
-```yaml
-checks:
-  filetypes:
-    is:
-     has_python: {{ files | includesRegex('\.py$') | length > 0 }}
 ```
 
 #### `includes` filter
@@ -199,3 +177,26 @@ includes(string, searchElement)
 | `items`         | Input    | String    | Text string                                     |
 | `searchElement` | Input    | String    | The value to search for                         |
 | `result`        | Output   | Bool      | `true` if the search element is found           |
+
+
+#### `includesRegex` filter
+
+:octicons-tag-24: Minimal version: 1.0
+
+Syntax: 
+```
+includesRegex(items, regexExpression)
+```
+
+| Values        | Usage    | Type      | Description                                     |
+| ------------- | ---------|-----------|------------------------------------------------ |
+| `items`       | Input    | [String]  | List of items                                   |
+| `regexExpression` | Input    | String    | Regex expression to search for, `\.py$`                           |
+| `result`        | Output   | Bool      | `true` if a matching element is found           |
+
+```yaml
+checks:
+  filetypes:
+    is:
+     has_python: {{ files | includesRegex('\.py$') }}
+```
