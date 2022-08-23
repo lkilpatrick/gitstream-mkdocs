@@ -17,7 +17,8 @@ The permissions are:
 | Permissions           | Reason |
 |----------------------|-------------------------------------------------------|
 | Write access to dedicated gitstream app files | Used to set the gitStream workflow files |
-| Read access to administration, code, issues, and metadata | To read the code on monitored repositories |
+| Write access to code | To allow gitStream to apporve PRs once all conditaions are met |
+| Read access to administration, issues, and metadata | To read the code on monitored repositories |
 | Read and write access to actions, checks, pull requests, and workflows | Trigger workflows, create and update pull requests and their checks, and modify workflow files |
 | User email | Used to identify user |
 
