@@ -23,7 +23,7 @@ automations:
     run:
       - action: add-labels@v1
         args:
-          - label: xsmall
+          labels: xsmall
 ```
 
 ### Add Estimated Time for Review in PRs comment 
@@ -47,7 +47,7 @@ automations:
     run:
       - action: add-comment@v1
         args:
-          - comment: "Estimated {{ checks.etr }} to review"
+          comment: "Estimated {{ checks.etr }} to review"
 ```
 
 ### Auto approve low risk PRs 
@@ -97,7 +97,7 @@ automations:
     run:
       - action: set-required-reviewers@v1
         args:
-          - reviewers: 2
+          reviewers: 2
 ```
 
 ### Send Slack message with inline approve button 
@@ -124,6 +124,5 @@ automations:
       - action: inline-message@v1
         engine: gitstream
         args:
-          - to: slack
-          - needs_checks: false
+          only_if_checks_pass: true
 ```

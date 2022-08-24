@@ -1,7 +1,7 @@
 # gitStream built-in automation actions
 
 - [`approve`](#approve-action)
-- [`set-required-reviewers`](#set-required-reviewers-action)
+- [`set-required-approvals`](#set-required-approvals-action)
 - [`set-reviewer`](#set-reviewer-action)
 - [`add-labels`](#add-labels-action)
 - [`add-comment`](#add-comment-action)
@@ -35,7 +35,7 @@ automations:
       - action: approve@v1
 ```
 
-#### `set-required-reviewers` action
+#### `set-required-approvals` action
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -46,15 +46,15 @@ Note: you should enable branch protection so GitHub will prevent merging unless 
 Syntax: 
 
 ```yaml
-action: set-required-reviewers@v1
+action: set-required-approvals@v1
 engine: gitstream
 args: 
-  - reviewers: Integer 
+  required_approvals: Integer 
 ```
 
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
-| `reviewers`| Integer   | Sets the number of required reviewer approvals for merge for that PR|
+| `required_approvals`| Integer   | Sets the number of required reviewer approvals for merge for that PR|
 
 ```yaml
 checks:
@@ -67,9 +67,9 @@ automations:
     if:
       - {{ checks.change.is.critical }}
     run:
-      - action: set-required-reviewers@v1
+      - action: set-required-approvals@v1
         args:
-          - reviewers: 2
+          required_approvals: 2
 ```
 
 #### `set-reviewer` action
@@ -84,7 +84,7 @@ Syntax:
 action: set-reviewer@v1
 engine: gitstream
 args: 
-  - reviewer: String 
+  reviewer: String 
 ```
 
 | Args       | Type      | Description                                     |
@@ -104,7 +104,7 @@ automations:
     run:
       - action: set-reviewer@v1
         args:
-          - reviewer: @team-leader
+          reviewer: @team-leader
 ```
 
 #### `add-labels` action
@@ -119,7 +119,7 @@ Syntax:
 action: add-labels@v1
 engine: gitstream
 args: 
-  - label: String 
+  labels: [String] 
 ```
 
 | Args       | Type      | Description                                     |
@@ -130,7 +130,7 @@ args:
 checks:
   change:
     is:
-      core_service: {{ files | filterRegex(‘core’) | length > 0 }}
+      core_service: {{ files | filterRegex('core') | length > 0 }}
 
 automations:
   senior_review:
@@ -139,7 +139,7 @@ automations:
     run:
       - action: add-labels@v1
         args:
-          - label: core
+          labels: [core]
 ```
 
 #### add comment action
@@ -174,7 +174,7 @@ automations:
     run:
       - action: add-comment@v1
         args:
-          - comment: |
-            Core service update
-            (Updates API)
+          comment: |
+          Core service update
+          (Updates API)
 ```

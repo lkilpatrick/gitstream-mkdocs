@@ -66,7 +66,7 @@ automations:
     run:
       - action: add-labels@v1
         args:
-          - label: xsmall
+          label: xsmall
 ```
 
 | Key            | Required | Type    | Description                                     |

@@ -38,7 +38,7 @@ automations:
       - action : approve@v1
       - action : add-labels@v1
         args:
-          - lables: ['docs', 'non-code']
+          lables: ['docs', 'non-code']
   core_changes:
     on: [pull_request]
     rules:
@@ -46,10 +46,10 @@ automations:
     actions: 
       - action : set-required-reviewers@v1
         args:
-          - reviewers: 2
+          reviewers: 2
       - action : add-labels@v1
         args:
-          - labels: ['core-change']
+          labels: ['core-change']
 ```
 
 
