@@ -12,45 +12,39 @@
 ```yaml
 manifest:
   version: 1.0
+
 checks:
   content:
     is:
-      asset_only: {{ files | allExtensions(['png', 'svg', 'jpg', 'gif', 'css']) }}
-      docs_only: {{ files | allExtensions(['md', 'txt']) }}
+      docs_only: {{ files | allExtensions(['md', 'txt', 'rst']) }}
       tests_only: {{ files | allTests }}
-      necessary_only: {{ files | filterRegex(['php']) | allExtensions(['txt']) }}
-      core_service: {{ files | filterRegex('core.*\.js$') | length > 0 }}
   size:
     is:
-      xsmall: {{ branch.diff.size < 20 }}
-      small_or_less: {{ branch.diff.size < 100 }}
-      medium_or_less: {{ branch.diff.size < 200 }}
-      large: {{ branch.diff.size >= 200 }}
-  code_includes:
-    is:
-      analytics: {{ source.diff.content | grep('NotifyAmplitude') }}
-      service: {{ files | allPassRegex('service') }}
+      small: {{ branch.diff.size < 20 }}
+
 automations:
   docs_only:
-    on: [pull_request]
     if:
       - {{ checks.content.is.docs_only }}
     run: 
       - action : approve@v1
       - action : add-labels@v1
         args:
-          lables: ['docs', 'non-code']
-  core_changes:
-    on: [pull_request]
-    rules:
-      - rule: {{ checks.content.is.core_service }}
-    actions: 
-      - action : set-required-reviewers@v1
-        args:
-          reviewers: 2
+          labels: ['non-code']
+  small_pr:
+    if:
+      - {{ checks.size.is.small }}
+    run: 
       - action : add-labels@v1
         args:
-          labels: ['core-change']
+          labels: ['small']
+  add_context:
+    if:
+      - true
+    run: 
+      - action : add-comment@v1
+        args:
+          comment: Estimated {{ branch | estimatedReviewTime }} to review
 ```
 
 
@@ -88,7 +82,7 @@ on:
 jobs:
   continuous-merge-rules:
     runs-on: ubuntu-latest
-    name: CMR
+    name: gitStream automation
     steps:
       - name: Evaluate Rules
         uses: linear-b/gitstream-github-action@v1
