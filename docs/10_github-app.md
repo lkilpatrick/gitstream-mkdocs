@@ -38,6 +38,10 @@ Once installation completes, the following files are added to each of the select
 | .cm/gitstream.cm     | Y            | Used to specify gitStream automations, you can edit this file |
 | .github/workflows/gitstream.yml | N | Used by gitStream to execute auotmation in your repo so source code doesn't get to outside services |
 
+### Post installtiaon 
+
+See [here](11_github-app-onboarding.md).
+
 ## Usage
 
 Everytime a dev opens a new Pull Request or changes a Pull Request, gitStream is triggered. Next, the `.cm` file is used to determine which automatic actions are invoked based on their conditions. The resulting actions use GitHub API to achive the desired outomce.
