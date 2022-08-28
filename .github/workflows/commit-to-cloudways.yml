@@ -19,7 +19,7 @@ jobs:
           # username
           username: master_rjwbgtdkqc
           # your sftp server
-          server: 
+          server: 46.101.35.195
           # your sftp server port, default to 22
           port: 22
           # will put all file under this path
