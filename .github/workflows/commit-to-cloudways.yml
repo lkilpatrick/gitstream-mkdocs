@@ -1,0 +1,23 @@
+name: Deploy to Cloudways
+
+on:
+  push:
+    branches: [ "gh-pages" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Simple SFTP
+        uses: Atyn/simple-sftp-action@0.0.2
+        with:
+          # URL to the SFTP server. Example: sftp://USERNAME:PASSWORD@example.com/remote-directory
+          url: sftp://master_rjwbgtdkqc:PhWDZ8gB@46.101.35.195/applications/ewbccekaaz/public_html/docs/
+          # The directory that should be uploaded
+          localdir: # optional
