@@ -4,12 +4,13 @@
 
 !!! attention
 
-    To start using gitStream, create the following files in each repo's main branch with the following content.
+    To start using gitStream, create the following files in each repo's main branch with the 
+    following content.
 
 
-`.cm/gitstream.cm`
+This file should be updated with new rules and automations. 
 
-```yaml
+```yaml title=".cm/gitstream.cm"
 manifest:
   version: 1.0
 
@@ -17,13 +18,12 @@ checks:
   content:
     is:
       docs_only: {{ files | allExtensions(['md', 'txt', 'rst']) }}
-      tests_only: {{ files | allTests }}
   size:
     is:
       small: {{ branch.diff.size < 20 }}
 
 automations:
-  docs_only:
+  approve_docs_only:
     if:
       - {{ checks.content.is.docs_only }}
     run: 
@@ -48,9 +48,11 @@ automations:
 ```
 
 
-`.github/workflows/gitstream.yml`
+This file is used by gitStream to trigger the automation in GitHub, you should not edit it. Editing 
+it might break the functionlity or might not be compatible with future chnages in gitStream. 
 
-```yaml
+
+```yaml title=".github/workflows/gitstream.yml"
 name: gitstream Workflow
 
 on:
@@ -98,6 +100,10 @@ jobs:
 ```
 
 ## Set GitHub repo settings
+
+!!! attention
+
+    To get the full potnetial using gitStream, you need to set it as required check.
 
 To make sure gitStream can block PRs from merging under certain condtions you should set the following:
 

@@ -2,9 +2,10 @@
 
 - [`approve`](#approve-action)
 - [`set-required-approvals`](#set-required-approvals-action)
-- [`set-reviewer`](#set-reviewer-action)
+- [`set-reviewers`](#set-reviewers-action)
 - [`add-labels`](#add-labels-action)
 - [`add-comment`](#add-comment-action)
+- [`update-check`](#update-check-action)
 
 #### `approve` action
 
@@ -60,19 +61,19 @@ args:
 checks:
   change:
     is:
-      critical: {{ source | grep('panic') | length > 0 }}
+      core_service: {{ files | filterRegex('core') | length > 0 }}
 
 automations:
   double_review:
     if:
-      - {{ checks.change.is.critical }}
+      - {{ checks.change.is.core_service }}
     run:
       - action: set-required-approvals@v1
         args:
           required_approvals: 2
 ```
 
-#### `set-reviewer` action
+#### `set-reviewers` action
 
 :octicons-beaker-24: Coming soon
 
@@ -81,15 +82,15 @@ This action, once triggered, sets a specific reviewer.
 Syntax: 
 
 ```yaml
-action: set-reviewer@v1
+action: set-reviewers@v1
 engine: gitstream
 args: 
-  reviewer: String 
+  reviewers: [String] 
 ```
 
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
-| `reviewer` | String    | Sets reivewer user name |
+| `reviewers` | [String]    | Sets reivewer user name |
 
 ```yaml
 checks:
@@ -102,9 +103,9 @@ automations:
     if:
       - {{ checks.change.is.core_service }}
     run:
-      - action: set-reviewer@v1
+      - action: set-reviewers@v1
         args:
-          reviewer: @team-leader
+          reviewers: [@team-leader]
 ```
 
 #### `add-labels` action
@@ -154,7 +155,7 @@ Syntax:
 action: add-comment@v1
 engine: gitstream
 args: 
-  - comment: String 
+  comment: String 
 ```
 
 | Args       | Type      | Description                                     |
@@ -177,4 +178,45 @@ automations:
           comment: |
           Core service update
           (Updates API)
+```
+
+#### add update-check action
+
+:octicons-tag-24: Minimal version: 1.0
+
+Used to workaound unnecessary checks, this action, update the defined check with the defined 
+status if all conditions pass.
+
+Syntax: 
+
+```yaml
+action: update-check@v1
+engine: gitstream
+args: 
+  checkName: cypress-e2e
+  status: completed
+  conclusion: success
+```
+
+| Args       | Type      | Description                                     |
+| -----------|-----------|------------------------------------------------ |
+| `comment`  | String    | Sets the comment, markdown is supported |
+
+
+```yaml
+checks:
+  content:
+    is:
+      assets_only: {{ files | allPassRegex('.*.png$|.*.jpg$|.*.svg$|.*\.css$') }}
+      
+automations:
+  senior_review:
+    if:
+      - {{ checks.content.is.assets_only }}
+    run:
+      - action : update-check@v1
+        args:
+          checkName: cypress-e2e
+          status: completed
+          conclusion: success
 ```

@@ -8,12 +8,13 @@ of transformations and that's what ends up in rendered templates.
 - [`allDocs`](#allDocs-filter)
 - [`allImages`](#allImages-filter)
 - [`allTests`](#allTests-filter)
+- [`allPassRegex`](#allPassRegex-filter)
 - [`extensions`](#extensions-filter)
 - [`estimatedReviewTime`](#estimatedReviewTime-filter)
 - [`filterRegex`](#filterRegex-filter)
 - [`includes`](#includes-filter)
 - [`includesRegex`](#includesRegex-filter)
-- [`grep`](#grep-filter)
+- [`true`](#true-filter)
 
 #### `allExtensions` filter
 
@@ -106,6 +107,30 @@ checks:
       tests: {{ files | allTests }}
 ```
 
+#### `allPassRegex` filter
+
+:octicons-tag-24: Minimal version: 1.0
+
+Syntax: 
+```
+allPassRegex(files)
+```
+
+| Values                 | Usage    | Type      | Description                                     |
+| ---------------------- | ---------|-----------|------------------------------------------------ |
+| `files`                | Input    | [String]  | The list of changed files with their path       |
+| `result`               | Output   | Bool      | `true` if all file extensions are of images     |
+
+Image file extensions are: `svg`, `png`, `gif`.
+
+```yaml
+checks:
+  filetypes:
+    is:
+      images: {{ files | allPassRegex('\.py$') }}
+```
+
+
 #### `extensions` filter
 
 :octicons-tag-24: Minimal version: 1.0
@@ -154,7 +179,7 @@ filterRegex(items, regexExpression)
 | ------------- | ---------|-----------|------------------------------------------------ |
 | `items`       | Input    | [String]  | List of items                                   |
 | `regexExpression` | Input    | String    | Regex expression, `\.py$`                           |
-| `result`      | Output   | [String]      | All items match that match the regex expression   |
+| `result`      | Output   | [String]      | All items that match the regex expression   |
 
 ```yaml
 checks:
@@ -199,4 +224,25 @@ checks:
   filetypes:
     is:
      has_python: {{ files | includesRegex('\.py$') }}
+```
+
+#### `true` filter
+
+:octicons-tag-24: Minimal version: 1.0
+
+Syntax: 
+```
+true()
+```
+
+Returns `true`
+
+```yaml
+automations:
+  add_ready_comment:
+    if:
+      - {{ true() }}
+    run:
+      - action: add_comment@v1
+        comment: ready
 ```

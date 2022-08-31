@@ -23,7 +23,7 @@ automations:
     run:
       - action: add-labels@v1
         args:
-          labels: xsmall
+          labels: [xsmall]
 ```
 
 ### Add Estimated Time for Review in PRs comment 
@@ -87,7 +87,7 @@ checks:
   ...
   change:
     is:
-      core: {{ branch.diff.files | filterRegex('core\/') | length > 0 }}
+      core: {{ files | filterRegex('core\/') | length > 0 }}
 
 automations:
   ...
@@ -95,7 +95,7 @@ automations:
     if:
       - {{ checks.change.is.core }}
     run:
-      - action: set-required-reviewers@v1
+      - action: set-required-approvals@v1
         args:
           reviewers: 2
 ```
@@ -126,3 +126,110 @@ automations:
         args:
           only_if_checks_pass: true
 ```
+
+### Set 2 reviwers for large PRs 
+
+:octicons-tag-24: Minimal version: 1.0
+
+Automatically require 2 reviewers for PRs that has more than 100 lines of code changed.
+
+Edit your .cm/gitstream.cm to include the following:
+
+```yaml
+checks:
+  ...
+  change:
+    is:
+      core: {{ branch.diff.size > 100 }}
+
+automations:
+  ...
+  double_review:
+    if:
+      - {{ checks.change.is.core }}
+    run:
+      - action: set-required-approvals@v1
+        args:
+          reviewers: 2
+```
+
+### Approve identation changes in JavaScript files 
+
+:octicons-beaker-24: Coming soon
+
+For PRs that include only code format change, approve merge automatically.
+
+Edit your .cm/gitstream.cm to include the following:
+
+
+```yaml
+checks:
+  ...
+  content:
+    is:
+      only_js: {{ files | allExtensions(['js', 'ts']) }}
+      only_formatting: {{ source.diff.files | trimAndCompareLines | allTrue }}
+
+automations:
+  ...
+  allow_formatting:
+    if:
+      - {{ checks.content.is.only_js }}
+      - {{ checks.content.is.only_formatting }}
+    run:
+      - action: approve@v1
+      - action: add-labels
+        args:
+          labels: [code-formatting]
+
+```
+
+### Approve small changes with 100% coverage on changes 
+
+:octicons-beaker-24: Coming soon
+
+Approve small PRs that has 100% code coverage.
+
+Edit your .cm/gitstream.cm to include the following:
+
+```yaml
+checks:
+  ...
+  is:
+    simple: {{ files | length == 1 }}
+    small: {{ branch.diff.size < 10 }}
+  coverage:
+    is:
+      full: {{ inputs.coverage_diff == 100.0 }}
+
+automations:
+  ...
+  small_and_verified:
+    if:
+      - {{ checks.is.simple }}
+      - {{ checks.is.small }}
+      - {{ checks.coverage.is.full }}
+    run:
+      - action: approve@v1
+      - action: add-labels
+        args:
+          labels: [verified]
+
+```
+
+For the abobe to work you need to load the inputs context with the coverage results, see [here](22_custom-context.md).
+
+
+
+
+If there are functions with more than 20 lines 
+add-label: code-smells, 💩
+Approve
+asset only changes 
+Approve
+if the author is relativle new to repo code base (less then 10 PRs merged by that author)
+Require approval of someone who significantly contributed to the repo
+flocast scenario: when PR has no conflicts and already approved between another branch 
+Approve
+only logging changes, e.g in python only lines that change logger.info|debug|error
+Approve
