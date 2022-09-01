@@ -12,7 +12,7 @@ gitStream includes a collection of variables called contexts.
 - [`source`](#source-context)
     - [`diff`](#source-context)
         - [`files`](#source-context)
-- `repo`
+- [`repo`](#repo-context)
     - [`codeowners`](#repo-context)
     - [`contributors`](#repo-context)
 
