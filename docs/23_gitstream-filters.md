@@ -4,18 +4,26 @@ Filters can change the look and format of the source data, or even generate new 
 from the input values. What's important is that the original data is replaced by the result 
 of transformations and that's what ends up in rendered templates.
 
+Filters for lists of strings:
 - [`allExtensions`](#allExtensions-filter)
 - [`allDocs`](#allDocs-filter)
 - [`allImages`](#allImages-filter)
 - [`allTests`](#allTests-filter)
 - [`allPassRegex`](#allPassRegex-filter)
 - [`extensions`](#extensions-filter)
-- [`estimatedReviewTime`](#estimatedReviewTime-filter)
 - [`filter`](#filter-filter)
 - [`filterRegex`](#filterRegex-filter)
 - [`includes`](#includes-filter)
 - [`includesRegex`](#includesRegex-filter)
+
+Specialized filters:
 - [`true`](#true-filter)
+- [`estimatedReviewTime`](#estimatedReviewTime-filter)
+
+Filters for file diffs:
+- [`filterFiles`](#filterFiles-filter)
+- [`allLines`](#allLines-filter)
+
 
 #### `allExtensions` filter
 
@@ -126,9 +134,9 @@ Image file extensions are: `svg`, `png`, `gif`.
 
 ```yaml
 checks:
-  filetypes:
+  content:
     is:
-      images: {{ files | allPassRegex('\.py$') }}
+      assets_only: {{ files | allPassRegex('.*\.png$|.*\.jpg$|.*\.svg$|.*\.css$') }}
 ```
 
 
@@ -173,13 +181,13 @@ estimatedReviewTime(branch)
 
 Syntax: 
 ```
-filter(items, expression)
+filter(items, searchTerm)
 ```
 
 | Values        | Usage    | Type      | Description                                     |
 | ------------- | ---------|-----------|------------------------------------------------ |
 | `items`       | Input    | [String]  | List of items                                   |
-| `expression` | Input    | String    | expression to look for, regex can be used `'r//'`       |
+| `searchTerm` | Input    | String    | Search term to look for       |
 | `result`      | Output   | [String]      | All items that match the regex expression   |
 
 Simple text filter:
@@ -190,16 +198,6 @@ checks:
     is:
      no_python: {{ files | filter('py') | length == 0 }}
 ```
-
-With regex term:
-
-```yaml
-checks:
-  filetypes:
-    is:
-     no_python: {{ files | filter('r/\.py$/') | length == 0 }}
-```
-
 
 #### `filterRegex` filter
 
@@ -229,13 +227,13 @@ checks:
 
 Syntax: 
 ```
-includes(string, expression)
+includes(items, searchTerm)
 ```
 
 | Values          | Usage    | Type      | Description                                     |
 | ----------------| ---------|-----------|------------------------------------------------ |
-| `items`         | Input    | String    | Text string                                     |
-| `expression` | Input    | String    | expression to look for, regex can be used `'r//'`                      |
+| `items`         | Input    | [String]    | Text string                                     |
+| `searchTerm` | Input    | String    | Search term to look for`                      |
 | `result`        | Output   | Bool      | `true` if the search element is found           |
 
 ```yaml
@@ -243,15 +241,6 @@ checks:
   filetypes:
     is:
      has_python: {{ files | includes('py') }}
-```
-
-With regex term:
-
-```yaml
-checks:
-  filetypes:
-    is:
-     has_python: {{ files | includes('r/\.py$/') }}
 ```
 
 #### `includesRegex` filter
@@ -296,3 +285,61 @@ automations:
       - action: add_comment@v1
         comment: ready
 ```
+
+#### `filterFiles` filter
+
+:octicons-beaker-24: Coming soon
+
+Syntax: 
+```
+filterFiles(files, filterRegex)
+```
+
+| Values        | Usage    | Type      | Description                                     |
+| --------------| ---------|-----------|------------------------------------------------ |
+| `files`       | Input    | [Map]    | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context)                                     |
+| `filterRegex` | Input    | String   | Regex filter applied to the `new_file` field of files diffs                  |
+| `result`      | Output   | [Map]    | List of matching file diffs           |
+
+#### `allLines` filter
+
+:octicons-beaker-24: Coming soon
+
+Syntax: 
+```
+allLines(diffs, matchRegex)
+```
+
+| Values       | Usage    | Type   | Description                                     |
+| ------------ | ---------|--------|------------------------------------------------ |
+| `files`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context)                                     |
+| `matchRegex` | Input    | String | Regex filter applied to the `diff` field of files diffs  |
+| `result`     | Output   | Bool   | `true` if the all lines in diffs match the regex |
+
+```yaml
+checks:
+  filetype:
+    all:
+     python: {{ source.diff.files | allExtensions(['.py']) }}
+     javascript: {{ source.diff.files | allExtensions(['js'])}}
+
+  only_logs:
+    in:
+     python: {{ source.diff.files | filterFiles('\.py$') | allLines('logger\.(debug|info|warn|error)') }}
+     javascript: {{ source.diff.files | filterFiles('\.js$') | allLines('console\.log') }}
+
+automations:
+  allow_py_logging_changes:
+    if:
+      - {{ checks.filetype.all.python }}
+      - {{ checks.only_logs.in.python }}
+    run:
+      - action: approve@v1
+  allow_js_logging_changes:
+    if:
+      - {{ checks.filetype.all.javascript }}
+      - {{ checks.only_logs.in.javascript }}
+    run:
+      - action: approve@v1
+```
+
