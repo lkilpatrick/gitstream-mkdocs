@@ -5,6 +5,7 @@ from the input values. What's important is that the original data is replaced by
 of transformations and that's what ends up in rendered templates.
 
 Filters for lists of strings:
+
 - [`allExtensions`](#allExtensions-filter)
 - [`allDocs`](#allDocs-filter)
 - [`allImages`](#allImages-filter)
@@ -17,10 +18,12 @@ Filters for lists of strings:
 - [`includesRegex`](#includesRegex-filter)
 
 Specialized filters:
+
 - [`true`](#true-filter)
 - [`estimatedReviewTime`](#estimatedReviewTime-filter)
 
 Filters for file diffs:
+
 - [`filterFiles`](#filterFiles-filter)
 - [`allLines`](#allLines-filter)
 
