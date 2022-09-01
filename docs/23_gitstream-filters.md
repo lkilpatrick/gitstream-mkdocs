@@ -11,6 +11,7 @@ of transformations and that's what ends up in rendered templates.
 - [`allPassRegex`](#allPassRegex-filter)
 - [`extensions`](#extensions-filter)
 - [`estimatedReviewTime`](#estimatedReviewTime-filter)
+- [`filter`](#filter-filter)
 - [`filterRegex`](#filterRegex-filter)
 - [`includes`](#includes-filter)
 - [`includesRegex`](#includesRegex-filter)
@@ -166,6 +167,40 @@ estimatedReviewTime(branch)
 | `branch-context`       | Input    | Object    | gitStream generated [branch context varaible](20_reference#branch-context) |
 | `result`               | Output   | String    | the estimated time for review in minutes |
 
+#### `filter` filter
+
+:octicons-tag-24: Minimal version: 1.0
+
+Syntax: 
+```
+filter(items, expression)
+```
+
+| Values        | Usage    | Type      | Description                                     |
+| ------------- | ---------|-----------|------------------------------------------------ |
+| `items`       | Input    | [String]  | List of items                                   |
+| `expression` | Input    | String    | expression to look for, regex can be used `'r//'`       |
+| `result`      | Output   | [String]      | All items that match the regex expression   |
+
+Simple text filter:
+
+```yaml
+checks:
+  filetypes:
+    is:
+     no_python: {{ files | filter('py') | length == 0 }}
+```
+
+With regex term:
+
+```yaml
+checks:
+  filetypes:
+    is:
+     no_python: {{ files | filter('r/\.py$/') | length == 0 }}
+```
+
+
 #### `filterRegex` filter
 
 :octicons-tag-24: Minimal version: 1.0
@@ -194,15 +229,30 @@ checks:
 
 Syntax: 
 ```
-includes(string, searchElement)
+includes(string, expression)
 ```
 
 | Values          | Usage    | Type      | Description                                     |
 | ----------------| ---------|-----------|------------------------------------------------ |
 | `items`         | Input    | String    | Text string                                     |
-| `searchElement` | Input    | String    | The value to search for                         |
+| `expression` | Input    | String    | expression to look for, regex can be used `'r//'`                      |
 | `result`        | Output   | Bool      | `true` if the search element is found           |
 
+```yaml
+checks:
+  filetypes:
+    is:
+     has_python: {{ files | includes('py') }}
+```
+
+With regex term:
+
+```yaml
+checks:
+  filetypes:
+    is:
+     has_python: {{ files | includes('r/\.py$/') }}
+```
 
 #### `includesRegex` filter
 

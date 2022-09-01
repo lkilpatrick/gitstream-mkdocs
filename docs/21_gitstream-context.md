@@ -12,9 +12,9 @@ gitStream includes a collection of variables called contexts.
 - [`source`](#source-context)
     - [`diff`](#source-context)
         - [`files`](#source-context)
-- [`repo`]
-    - [`codeowners`](#codeowners-context)
-    - [`contributors`](#contributors-context)
+- `repo`
+    - [`codeowners`](#repo-context)
+    - [`contributors`](#repo-context)
 
 #### `branch` context
 
@@ -59,7 +59,7 @@ The `files_metadata` mapping includes a list of the following structure:
 
 The source context include all code changes, it is not safe to share it with unknown services.
 
-The files mapping includes a list of the following structure:
+The `files` mapping includes a list of the following structure:
 
 | Values          | Type      | Description                                                     |
 | ----------------|-----------|---------------------------------------------------------------- |
@@ -70,14 +70,14 @@ The files mapping includes a list of the following structure:
 
 #### `repo` context
 
-:octicons-beaker-24: Coming soon
+:octicons-tag-24: Minimal version: 1.0
 
 | Values             | Type      | Description                                              |
 |--------------------|-----------|--------------------------------------------------------- |
 | `repo`             | Map       | Includes the info related to the current repo            |
 | `repo.contributors`  | [Map]  | List of changed files including their relative path      |
 
-The `contributors` mapping includes
+The `contributors` mapping includes a list of the following structure:
 
 | Values          | Type      | Description                                                     |
 | ----------------|-----------|---------------------------------------------------------------- |

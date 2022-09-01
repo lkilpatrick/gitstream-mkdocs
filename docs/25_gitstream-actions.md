@@ -2,7 +2,7 @@
 
 - [`approve`](#approve-action)
 - [`set-required-approvals`](#set-required-approvals-action)
-- [`set-reviewers`](#set-reviewers-action)
+- [`add-reviewers`](#add-reviewers-action)
 - [`add-labels`](#add-labels-action)
 - [`add-comment`](#add-comment-action)
 - [`update-check`](#update-check-action)
@@ -50,12 +50,12 @@ Syntax:
 action: set-required-approvals@v1
 engine: gitstream
 args: 
-  required_approvals: Integer 
+  approvals: Integer 
 ```
 
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
-| `required_approvals`| Integer   | Sets the number of required reviewer approvals for merge for that PR|
+| `approvals`| Integer   | Sets the number of required reviewer approvals for merge for that PR|
 
 ```yaml
 checks:
@@ -70,19 +70,19 @@ automations:
     run:
       - action: set-required-approvals@v1
         args:
-          required_approvals: 2
+          approvals: 2
 ```
 
-#### `set-reviewers` action
+#### `add-reviewers` action
 
-:octicons-beaker-24: Coming soon
+:octicons-tag-24: Minimal version: 1.0
 
 This action, once triggered, sets a specific reviewer.
 
 Syntax: 
 
 ```yaml
-action: set-reviewers@v1
+action: add-reviewers@v1
 engine: gitstream
 args: 
   reviewers: [String] 
@@ -103,7 +103,7 @@ automations:
     if:
       - {{ checks.change.is.core_service }}
     run:
-      - action: set-reviewers@v1
+      - action: add-reviewers@v1
         args:
           reviewers: [@team-leader]
 ```
