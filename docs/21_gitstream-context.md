@@ -51,22 +51,23 @@ The `files_metadata` mapping includes a list of the following structure:
 
 :octicons-tag-24: Minimal version: 1.0
 
-| Values               | Type      | Description                                                     |
-|----------------------|-----------|---------------------------------------------------------------- |
-| `source`             | Map       | Includes the info related to source code                        |
-| `source.diff`        | Map       | Includes the info compared to the default branch, `main`        |
-| `source.diff.files`  | [Map]     | List of changed files with their respective code changes        |
+| Values              | Type  | Description                                        |
+|---------------------|-------|--------------------------------------------------- |
+| `source`          | Map   | Info related to source code           |
+| `source.diff`     | [Map] | Includes the info compared to the default branch, `main` |
+| `source.diff.files` | [Map] | List of changed files with their code changes |
 
 The source context include all code changes, it is not safe to share it with unknown services.
 
 The `files` mapping includes a list of the following structure:
 
 | Values          | Type      | Description                                                     |
-| ----------------|-----------|---------------------------------------------------------------- |
+| ----------------|-----------|----------------------------------------------------- |
 | `original_file` | String    | The name of the file before the changes, including its path     |
 | `new_file`      | String    | The name of the file after the changes, including its path      |
-| `diff`          | String    | The content in diff format `+` for addtions, `-` for deletions  |
-
+| `diff`          | String    | The content in diff format `+` for additions, `-` for deletions  |
+| `original_content` | String    | The content as is in the `main` branch     |
+| `new_content`      | String    | The new content in this branch     |
 
 #### `repo` context
 
