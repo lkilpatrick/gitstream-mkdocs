@@ -26,7 +26,7 @@ Filters for file diffs:
 
 - [`filterFiles`](#filterFiles-filter)
 - [`allLines`](#allLines-filter)
-
+- [`allFormattingChange`](#allFormattingChange-filter)
 
 #### `allExtensions` filter
 
@@ -346,3 +346,36 @@ automations:
       - action: approve@v1
 ```
 
+
+#### `allFormattingChange` filter
+
+:octicons-beaker-24: Coming soon
+
+Support source code languages: 
+- JavaScript
+- TypeScript
+- Python 
+
+Syntax: 
+```
+allFormattingChange(diffs)
+```
+
+| Values       | Usage    | Type   | Description                                     |
+| ------------ | ---------|--------|------------------------------------------------ |
+| `files`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
+| `result`     | Output   | Bool   | `true` if the all code changes are non functional |
+
+```yaml
+checks:
+  change:
+    is:
+     reformatting: {{ source.diff.files | allFormattingChange() }}
+
+automations:
+  allow_reformatting:
+    if:
+      - {{ checks.change.in.reformatting }}
+    run:
+      - action: approve@v1
+```
