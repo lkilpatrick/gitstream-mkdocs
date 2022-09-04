@@ -1,6 +1,7 @@
 # gitStream built-in automation actions
 
 - [`approve`](#approve-action)
+- [`merge`](#merge-action)
 - [`set-required-approvals`](#set-required-approvals-action)
 - [`add-reviewers`](#add-reviewers-action)
 - [`add-labels`](#add-labels-action)
@@ -35,6 +36,41 @@ automations:
     run:
       - action: approve@v1
 ```
+
+
+#### `merge` action
+
+:octicons-beaker-24: Coming soon
+
+This action, once triggered, approves the PR for merge.
+
+Syntax: 
+
+```yaml
+action: merge@v1
+engine: gitstream
+args:
+    require_all_checks: Boolean
+```
+
+Example:
+
+```yaml
+checks:
+  filetypes:
+    is:
+      docs: {{ files | allDocs }}
+
+automations:
+  small_change:
+    if:
+      - {{ checks.filetypes.is.docs }}
+    run:
+      - action: merge@v1
+        args:
+          require_all_checks: true
+```
+
 
 #### `set-required-approvals` action
 
