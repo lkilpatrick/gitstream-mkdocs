@@ -50,7 +50,7 @@ Syntax:
 action: merge@v1
 engine: gitstream
 args:
-    require_all_checks: Boolean
+    require_all_checks: Boolean # default: true
 ```
 
 Example:

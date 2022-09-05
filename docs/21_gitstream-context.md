@@ -61,11 +61,11 @@ The source context include all code changes, it is not safe to share it with unk
 
 The `files` mapping includes a list of the following structure:
 
-| Values          | Type      | Description                                                     |
+| Values          | Type      | Description                                          |
 | ----------------|-----------|----------------------------------------------------- |
-| `original_file` | String    | The name of the file before the changes, including its path     |
-| `new_file`      | String    | The name of the file after the changes, including its path      |
-| `diff`          | String    | The content in diff format `+` for additions, `-` for deletions  |
+| `original_file` | String    | The name of the file before the changes, including its path |
+| `new_file`      | String    | The name of the file after the changes, including its path |
+| `diff`          | String    | The content in diff format `+` for additions, `-` for deletions |
 | `original_content` | String    | The content as is in the `main` branch     |
 | `new_content`      | String    | The new content in this branch     |
 
@@ -74,13 +74,13 @@ The `files` mapping includes a list of the following structure:
 :octicons-tag-24: Minimal version: 1.0
 
 | Values             | Type      | Description                                              |
-|--------------------|-----------|--------------------------------------------------------- |
-| `repo`             | Map       | Includes the info related to the current repo            |
-| `repo.contributors`  | [Map]  | List of changed files including their relative path      |
+|--------------------|-----------|-------------------------------------------------|
+| `repo`             | Map       | Includes the info related to the current repo   |
+| `repo.contributors`  | [Map]  | List of changed files including their relative path |
 
 The `contributors` mapping includes a list of the following structure:
 
-| Values          | Type      | Description                                                     |
-| ----------------|-----------|---------------------------------------------------------------- |
+| Values          | Type      | Description                                         |
+| ----------------|-----------|---------------------------------------------------- |
 | `name` | String    | Name of contributor     |
 | `commitsInRepo` | Number   | The number of commit by contributor to repo  |
