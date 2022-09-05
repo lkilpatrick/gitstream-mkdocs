@@ -4,9 +4,7 @@
 
 !!! attention
 
-    To start using gitStream, create the following files in each repo's main branch with the 
-    following content.
-
+    To start using gitStream, create the following files in each repo's main branch with the following content.
 
 This file should be updated with new rules and automations. 
 
@@ -14,18 +12,43 @@ This file should be updated with new rules and automations.
 manifest:
   version: 1.0
 
+# Define condition under the `checks` section, each check consists of
+# an expression. The checks results are evalauated and used as conditions 
+# for the next section `automations`. 
+# Checks expressions are wrapped with double curly braces and includes a
+# context variable like `files` and filter like `length`.
+# Filters are essentially functions that can be applied to variables. They 
+# are called with a pipe operator (|) and can take arguments.
 checks:
   content:
     is:
       docs_only: {{ files | allExtensions(['md', 'txt', 'rst']) }}
+      images_only: {{ files | allExtensions(['png', 'jpg', 'svg']) }}
   size:
     is:
-      small: {{ branch.diff.size < 20 }}
+      small: {{ branch.diff.size <= 10 }}
+      medium: {{ branch.diff.size > 10 and branch.diff.size <= 200 }}
+      large: {{ branch.diff.size > 200 }}
+  review:
+    etr: {{ branch | estimatedReviewTime }}
 
+# The `automations` section include the list of automation that applies 
+# for the repo in which gitStream is installed. 
+# Each autaomtion has `if` key with a list of the necessary condtions and
+# a `run` key with a list of all actions. All the listed condtions need to  
+# pass in order for the following actions to be executed.
 automations:
-  approve_docs_only:
+  approve_docs_changes:
     if:
       - {{ checks.content.is.docs_only }}
+    run: 
+      - action : approve@v1
+      - action : add-labels@v1
+        args:
+          labels: ['non-code']
+  approve_docs_changes:
+    if:
+      - {{ checks.content.is.images_only }}
     run: 
       - action : approve@v1
       - action : add-labels@v1
@@ -44,12 +67,12 @@ automations:
     run: 
       - action : add-comment@v1
         args:
-          comment: Estimated {{ branch | estimatedReviewTime }} to review
+          comment: Estimated {{ checks.review.etr }} minutes to review
 ```
 
 
 This file is used by gitStream to trigger the automation in GitHub, you should not edit it. Editing 
-it might break the functionlity or might not be compatible with future chnages in gitStream. 
+it might break the functionality or might not be compatible with future changes in gitStream. 
 
 
 ```yaml title=".github/workflows/gitstream.yml"
@@ -105,7 +128,7 @@ jobs:
 
     To get the full potnetial using gitStream, you need to set it as required check.
 
-To make sure gitStream can block PRs from merging under certain condtions you should set the following:
+To make sure gitStream can block PRs from merging under certain conditions you should set the following:
 
 1. Go to repo settings
 2. On the left pane select Code and automation > Branches 
