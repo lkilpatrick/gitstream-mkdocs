@@ -4,8 +4,7 @@
 
 In your repo permissions make sure GitHub actions are permitted:
 
-Go to Repo's setttings > Actions > General > Actions permissions
-
+Go to Repo's settings > Actions > General > Actions permissions
 
 Choose which repositories are permitted to use GitHub Actions.
 [x] Allow all actions and reusable workflows

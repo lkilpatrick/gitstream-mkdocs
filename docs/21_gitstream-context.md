@@ -25,10 +25,10 @@ gitStream includes a collection of variables called contexts.
 | `branch`             | Map       | Includes the info related to the current branch          |
 | `branch.name`        | String    | The current branch, `feature-123-branch`                 |
 | `branch.diff`        | Map       | Includes the info compared to the default branch, `main` |
-| `branch.diff.size`   | Integer   | The sum of line changed: addtions, edits and deletions   |
+| `branch.diff.size`   | Integer   | The sum of line changed: additions, edits and deletions   |
 | `branch.diff.files_metadata`  | [Map]  | List of changed files including their relative path      |
 
-The branch context dosnt include any source code, but only related metadata.
+The branch context doesn't include any source code, but only related metadata.
 
 The `files_metadata` mapping includes a list of the following structure:
 
@@ -44,7 +44,7 @@ The `files_metadata` mapping includes a list of the following structure:
 
 | Values               | Type      | Description                                                     |
 |----------------------|-----------|---------------------------------------------------------------- |
-| `files`             | [String]       | List of all chnanged files with their full path                        |
+| `files`             | [String]       | List of all changed files with their full path                        |
 
 
 #### `source` context

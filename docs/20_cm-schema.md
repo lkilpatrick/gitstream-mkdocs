@@ -17,7 +17,7 @@ The following sections are used in `.cm` file to describe the desired automation
 
 :octicons-tag-24: Minimal version: 1.0
 
-The first section in a gitstream.cm is `manifest`.
+The first section in a `gitstream.cm` file is the `manifest`.
 
 ```yaml
 manifest: 
@@ -31,8 +31,8 @@ The only field required is `version`.
 | `manifest`         | Y        | Map     | The manifest section root                |
 | `manifest.version` | Y        | String  | Specify the `.cm` spec version: 0.1, 1.0 |
 
-The manifest fields is used a version to parse the `.cm` file, so if breaking chnages are 
-introdcued to the parser - older automation are still supported.
+The manifest fields is used a version to parse the `.cm` file, so if breaking changes are 
+introduced to the parser - older automation are still supported.
 
 ### `checks` section
 
@@ -47,9 +47,9 @@ checks:
       xsmall: {{ branch.diff.size < 20 }}
 ```
 
-Each condition includes a logic expresison that eventually results with a boolean value: `true` or `false`. 
+Each condition includes a logic expression that eventually results with a boolean value: `true` or `false`. 
 
-The logic expression are based on Jinja2 syntax, and includes gitStream context varaibales.
+The logic expression are based on Jinja2 syntax, and includes gitStream context variables.
 
 
 ### `automations` section
@@ -78,10 +78,10 @@ Each automation includes its name, and few fields: `if` and `run`.
 | Key        | Required  | Type    | Description                                     |
 |------------|-----------|---------|------------------------------------------------ |
 | `NAME`     | Y | Map | User defined name of the automation, can be any string       |
-| `NAME.if`  | Y | Map | List of condtions                               |
+| `NAME.if`  | Y | Map | List of conditions                               |
 | `NAME.run` | Y | Map | The automation to run if all conditions are met |
 
-The `if` field includes the list of conditions. The condtions are checked when a pull request 
+The `if` field includes the list of conditions. The conditions are checked when a pull request 
 is opened or changed, if all the conditions pass, the automation is executed.
 
 The `run` field includes the automation to execute. It includes the following fields:
@@ -92,16 +92,16 @@ The `run` field includes the automation to execute. It includes the following fi
 | `engine`    | N        | String  | The action engine, default is `gitstream`       |
 | `args`      | N        | List    | The action inputs list                          |
 
-For `gitstream` engine the action is specfied by: `name@version`
+For `gitstream` engine the action is specified by: `name@version`
 
 gitStream supported actions, see [documentation](25_gitstream-actions.md).
 
 ## Context variables
 
 gitStream includes a collection of variables called contexts, these variables are intended 
-for use with the [`checks`](#checks-section) condtions.
+for use with the [`checks`](#checks-section) conditions.
 
-gitStream built-in context varaibales are described [here](21_gitstream-context.md).
+gitStream built-in context variables are described [here](21_gitstream-context.md).
 
 ## Filter functions
 

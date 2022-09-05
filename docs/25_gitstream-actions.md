@@ -220,7 +220,7 @@ automations:
 
 :octicons-tag-24: Minimal version: 1.0
 
-Used to workaound unnecessary checks, this action, update the defined check with the defined 
+Used to workaround unnecessary checks, this action, update the defined check with the defined 
 status if all conditions pass.
 
 Syntax: 

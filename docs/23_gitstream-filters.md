@@ -41,7 +41,7 @@ allExtensions(files, qualifingExtensions)
 | ---------------------- | --------|-----------|------------------------------------------------ |
 | `files`                | Input   | [String]  | The list of changed files with their path       |
 | `qualifingExtensions`  | Input   | [String]  | the list of desired extensions, like `py`, `js` |
-| `result`               | Output  | Bool      | `true` if all file extensions are of one the qualifing extensions |
+| `result`               | Output  | Bool      | `true` if all file extensions are of one the qualifying extensions |
 
 ```yaml
 checks:
@@ -188,10 +188,10 @@ filter(items, searchTerm)
 ```
 
 | Values        | Usage    | Type      | Description                                     |
-| ------------- | ---------|-----------|------------------------------------------------ |
-| `items`       | Input    | [String]  | List of items                                   |
+| ------------- | ---------|-----------|--------------------------------------|
+| `items`       | Input    | [String]  | List of items                        |
 | `searchTerm` | Input    | String    | Search term to look for       |
-| `result`      | Output   | [String]      | All items that match the regex expression   |
+| `result`      | Output   | [String] | All items that match the regex expression   |
 
 Simple text filter:
 
@@ -256,10 +256,10 @@ includesRegex(items, regexExpression)
 ```
 
 | Values        | Usage    | Type      | Description                                     |
-| ------------- | ---------|-----------|------------------------------------------------ |
-| `items`       | Input    | [String]  | List of items                                   |
-| `regexExpression` | Input    | String    | Regex expression to search for, `\.py$`                           |
-| `result`        | Output   | Bool      | `true` if a matching element is found           |
+| ------------- | ---------|-----------|-------------------------------------------|
+| `items`       | Input    | [String]  | List of items                             |
+| `regexExpression` | Input    | String    | Regex expression to search for, `\.py$` |
+| `result`        | Output   | Bool      | `true` if a matching element is found   |
 
 ```yaml
 checks:
@@ -298,11 +298,11 @@ Syntax:
 filterFiles(files, filterRegex)
 ```
 
-| Values        | Usage    | Type      | Description                                     |
-| --------------| ---------|-----------|------------------------------------------------ |
-| `files`       | Input    | [Map]    | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context)                                     |
-| `filterRegex` | Input    | String   | Regex filter applied to the `new_file` field of files diffs                  |
-| `result`      | Output   | [Map]    | List of matching file diffs           |
+| Values        | Usage    | Type      | Description                                |
+| --------------| ---------|--------|-----------------------------------------------|
+| `files`       | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
+| `filterRegex` | Input    | String | Regex filter applied to the `new_file` field of files diffs |
+| `result`  | Output | [Map]  | List of matching file diffs           |
 
 #### `allLines` filter
 
@@ -315,7 +315,7 @@ allLines(diffs, matchRegex)
 
 | Values       | Usage    | Type   | Description                                     |
 | ------------ | ---------|--------|------------------------------------------------ |
-| `files`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context)                                     |
+| `files`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
 | `matchRegex` | Input    | String | Regex filter applied to the `diff` field of files diffs  |
 | `result`     | Output   | Bool   | `true` if the all lines in diffs match the regex |
 
