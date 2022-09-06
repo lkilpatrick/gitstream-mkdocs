@@ -123,7 +123,7 @@ automations:
           only_if_checks_pass: true
 ```
 
-### Set 2 reviwers for large PRs 
+### Set 2 reviewers for large PRs 
 
 :octicons-tag-24: Minimal version: 1.0
 
