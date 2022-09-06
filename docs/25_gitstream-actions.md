@@ -42,7 +42,9 @@ automations:
 
 :octicons-beaker-24: Coming soon
 
-This action, once triggered, approves the PR for merge.
+This action, once triggered, approve & merge the PR.
+
+It can set to wait for required checks to pass or ignore checks.
 
 Syntax: 
 
@@ -50,7 +52,7 @@ Syntax:
 action: merge@v1
 engine: gitstream
 args:
-    require_all_checks: Boolean # default: true
+    respect_required_checks: Boolean # default: true
 ```
 
 Example:
@@ -68,7 +70,7 @@ automations:
     run:
       - action: merge@v1
         args:
-          require_all_checks: true
+          respect_required_checks: true
 ```
 
 
