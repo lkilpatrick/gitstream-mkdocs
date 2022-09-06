@@ -1,4 +1,4 @@
-# gitStream built-in Context variables
+# Context variables
 
 gitStream includes a collection of variables called contexts. 
 

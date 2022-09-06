@@ -1,4 +1,4 @@
-# gitStream built-in Filter functions
+# Filter functions
 
 Filters can change the look and format of the source data, or even generate new data derived 
 from the input values. What's important is that the original data is replaced by the result 

@@ -1,4 +1,4 @@
-# Configuring gitStream automation
+# Automation `.cm` file 
 
 This document is a reference for the gitStream 1.x, used in .cm/gitstream.cm file.
 
