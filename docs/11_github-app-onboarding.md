@@ -26,9 +26,11 @@ checks:
       images_only: {{ files | allExtensions(['png', 'jpg', 'svg']) }}
   size:
     is:
-      small: {{ branch.diff.size <= 10 }}
-      medium: {{ branch.diff.size > 10 and branch.diff.size <= 200 }}
-      large: {{ branch.diff.size > 200 }}
+      xsmall: {{ branch.diff.size <= 5 }}
+      small: {{ branch.diff.size > 5 and branch.diff.size <= 20 }}
+      medium: {{ branch.diff.size > 20 and branch.diff.size <= 100 }}
+      large: {{ branch.diff.size > 100 and branch.diff.size <= 200 }}
+      xlarge: {{ branch.diff.size > 200 }}
   review:
     etr: {{ branch | estimatedReviewTime }}
 

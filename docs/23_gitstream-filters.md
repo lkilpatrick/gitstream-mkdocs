@@ -233,11 +233,11 @@ Syntax:
 includes(items, searchTerm)
 ```
 
-| Values          | Usage    | Type      | Description                                     |
-| ----------------| ---------|-----------|------------------------------------------------ |
-| `items`         | Input    | [String]    | Text string                                     |
+| Values       | Usage    | Type      | Description                             |
+| -------------| ---------|-----------|---------------------------------------- |
+| `items`      | Input    | [String]  | Text string      |
 | `searchTerm` | Input    | String    | Search term to look for`                      |
-| `result`        | Output   | Bool      | `true` if the search element is found           |
+| `result`     | Output   | Bool      | `true` if the search element is found   |
 
 ```yaml
 checks:
@@ -370,7 +370,7 @@ allFormattingChange(diffs)
 checks:
   change:
     is:
-     reformatting: {{ source.diff.files | allFormattingChange() }}
+     reformatting: {{ source.diff.files | allFormattingChange }}
 
 automations:
   allow_reformatting:
