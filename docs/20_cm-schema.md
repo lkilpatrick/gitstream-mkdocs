@@ -2,6 +2,24 @@
 
 This document is a reference for the gitStream 1.x, used in .cm/gitstream.cm file.
 
+## Context variables
+
+gitStream includes a collection of variables called contexts, these variables are intended 
+for use with the [`checks`](#checks-section) conditions.
+
+gitStream built-in context variables are described [here](21_gitstream-context.md).
+
+## Filter functions
+
+Filters are essentially functions that can be applied to variables. They are called with a pipe 
+operator `|` and can take arguments. 
+
+All Nunjucks filters are supported, see [documentation](https://mozilla.github.io/nunjucks/templating.html#builtin-filters).
+
+gitStream built-in filter functions are described [here](23_gitstream-filters.md).
+
+You can also add custom filters, see [instructions](24_custom-filters.md).
+
 ## Schema
 
 The following sections are used in `.cm` file to describe the desired automations:
@@ -51,7 +69,6 @@ Each condition includes a logic expression that eventually results with a boolea
 
 The logic expression are based on Jinja2 syntax, and includes gitStream context variables.
 
-
 ### `automations` section
 
 :octicons-tag-24: Minimal version: 1.0
@@ -96,20 +113,18 @@ For `gitstream` engine the action is specified by: `name@version`
 
 gitStream supported actions, see [documentation](25_gitstream-actions.md).
 
-## Context variables
+#### Dynamic actions args
+For actions args values a dynamic value is supported using expressions based on Jinja2 syntax, and includes gitStream context variables. For example:
 
-gitStream includes a collection of variables called contexts, these variables are intended 
-for use with the [`checks`](#checks-section) conditions.
+```yaml
+automations:
+  ...
+  pr_complexity:
+    if:
+      - true
+    run:
+      - action: add-comment@v1
+        args:
+          comment: "Estimated {{ branch | estimatedReviewTime }} minutes to review"
+```
 
-gitStream built-in context variables are described [here](21_gitstream-context.md).
-
-## Filter functions
-
-Filters are essentially functions that can be applied to variables. They are called with a pipe 
-operator `|` and can take arguments. 
-
-All Nunjucks filters are supported, see [documentation](https://mozilla.github.io/nunjucks/templating.html#builtin-filters).
-
-gitStream built-in filter functions are described [here](23_gitstream-filters.md).
-
-You can also add custom filters, see [instructions](24_custom-filters.md).

@@ -35,10 +35,6 @@ Automatically add a comment to all PRs with the estimated time for review to get
 Edit your .cm/gitstream.cm to include the following:
 
 ```yaml
-checks:
-  ...
-  etr: {{ branch | estimatedReviewTime }}
-
 automations:
   ...
   etr_on_all:
@@ -47,10 +43,10 @@ automations:
     run:
       - action: add-comment@v1
         args:
-          comment: "Estimated {{ checks.etr }} to review"
+          comment: "Estimated {{ branch | estimatedReviewTime }} minutes to review"
 ```
 
-### Auto approve low risk PRs 
+### Automated check and approve low risk PRs 
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -78,7 +74,7 @@ automations:
 
 :octicons-tag-24: Minimal version: 1.0
 
-Automatically require 2 reviewers for PRs that changes core functionlity.
+Automatically require 2 reviewers for PRs that changes core functionality.
 
 Edit your .cm/gitstream.cm to include the following:
 
@@ -153,7 +149,7 @@ automations:
           reviewers: 2
 ```
 
-### Approve identation changes in JavaScript files 
+### Approve indentation changes in JavaScript files 
 
 :octicons-beaker-24: Coming soon
 
