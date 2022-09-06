@@ -25,11 +25,8 @@ You can also add custom filters, see [instructions](24_custom-filters.md).
 The following sections are used in `.cm` file to describe the desired automations:
 
 - [`manifest`](#manifest-section)
-    - [`version`](#manifest-section)
 - [`checks`](#checks-section)
 - [`automations`](#automations-section)
-    - [`if`](#automations-section)
-    - [`run`](#automations-section)
 
 ### `manifest` section
 

@@ -3,18 +3,19 @@
 gitStream includes a collection of variables called contexts. 
 
 - [`branch`](#branch-context)
-    - [`name`](#name-context)
-    - [`base`](#base-context)
-    - [`diff`](#branch-context)
-        - [`size`](#branch-context)
-        - [`files_metadata`](#branch-context)
+    - `name`
+    - `base`
+    - `diff`
+        - `size`
+        - `files_metadata`
 - [`files`](#files-context)
 - [`source`](#source-context)
-    - [`diff`](#source-context)
-        - [`files`](#source-context)
+    - `diff`
+        - `files`
 - [`repo`](#repo-context)
-    - [`codeowners`](#repo-context)
-    - [`contributors`](#repo-context)
+    - `contributors`
+- [`pr`](#pr-context)
+    - `author`
 
 #### `branch` context
 
@@ -42,9 +43,9 @@ The `files_metadata` mapping includes a list of the following structure:
 
 :octicons-tag-24: Minimal version: 1.0
 
-| Values               | Type      | Description                                                     |
-|----------------------|-----------|---------------------------------------------------------------- |
-| `files`             | [String]       | List of all changed files with their full path                        |
+| Values  | Type      | Description                                |
+|---------|-----------|------------------------ |
+| `files` | [String]  | List of all changed files with their full path |
 
 
 #### `source` context
@@ -84,3 +85,11 @@ The `contributors` mapping includes a list of the following structure:
 | ----------------|-----------|---------------------------------------------------- |
 | `name` | String    | Name of contributor     |
 | `commitsInRepo` | Number   | The number of commit by contributor to repo  |
+
+#### `pr` context
+
+:octicons-tag-24: Minimal version: 1.0
+
+| Values   | Type      | Description          |
+|----------|-----------|------------------------ |
+| `author` | String   | The PR author name |
