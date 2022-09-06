@@ -52,7 +52,7 @@ Syntax:
 action: merge@v1
 engine: gitstream
 args:
-    respect_required_checks: Boolean # default: true
+    wait_for_all_checks: Boolean # default: false
 ```
 
 Example:
@@ -70,7 +70,7 @@ automations:
     run:
       - action: merge@v1
         args:
-          respect_required_checks: true
+          wait_for_all_checks: true
 ```
 
 

@@ -1,29 +1,42 @@
 # Examples
 
-### Add label for x-small PRs
+### Add label to PR colored by PR size
 
 :octicons-tag-24: Minimal version: 1.0
 
 Automatically add a label to PRs that are very small to get faster reviewer response.
 
-Edit your .cm/gitstream.cm to include the following:
+Edit your `.cm/gitstream.cm` to include the following:
 
 ```yaml
 checks:
   ...
   size:
     is:
-      xsmall: {{ branch.diff.size < 20 }}
+      xsmall: {{ branch.diff.size <= 5 }}
+      small: {{ branch.diff.size > 5 and branch.diff.size <= 20 }}
+      medium: {{ branch.diff.size > 20 and branch.diff.size <= 100 }}
+      large: {{ branch.diff.size > 100 and branch.diff.size <= 200 }}
+      xlarge: {{ branch.diff.size > 200 }}
 
 automations:
   ...
-  mark_small_pr:
+  mark_good_pr:
     if:
-      - {{ checks.size.is.xsmall }}
+      - {{ checks.size.is.xsmall or checks.size.is.small or checks.size.is.medium }}
     run:
       - action: add-labels@v1
         args:
-          labels: [xsmall]
+          labels: [good_size]
+          color: green
+  mark_big_pr:
+    if:
+      - {{ checks.size.is.large or checks.size.is.xlarge }}
+    run:
+      - action: add-labels@v1
+        args:
+          labels: [big_size]
+          color: red
 ```
 
 ### Add Estimated Time for Review in PRs comment 
@@ -52,7 +65,7 @@ automations:
 
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
-Edit your .cm/gitstream.cm to include the following:
+Edit your `.cm/gitstream.cm` to include the following:
 
 ```yaml
 checks:
