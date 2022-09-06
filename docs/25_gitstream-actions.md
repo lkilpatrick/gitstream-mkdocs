@@ -1,4 +1,4 @@
-# gitStream built-in automation actions
+# Automation actions
 
 - [`approve`](#approve-action)
 - [`merge`](#merge-action)
