@@ -70,7 +70,7 @@ automations:
       - action: approve@v1
 ```
 
-### Set 2 reviwers for high complexity PRs 
+### Set 2 reviewers for high complexity PRs 
 
 :octicons-tag-24: Minimal version: 1.0
 
