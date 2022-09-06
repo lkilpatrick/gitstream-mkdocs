@@ -179,7 +179,7 @@ automations:
           labels: [core]
 ```
 
-#### add comment action
+#### `add-comment` action
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -216,7 +216,7 @@ automations:
           (Updates API)
 ```
 
-#### add update-check action
+####  `update-check` action
 
 :octicons-tag-24: Minimal version: 1.0
 
