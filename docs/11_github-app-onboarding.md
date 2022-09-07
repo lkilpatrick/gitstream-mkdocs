@@ -6,6 +6,11 @@
 
     To start using gitStream, create the following files in each repo's main branch with the following content.
 
+Get the following files into each of your repos main branch:
+1. `.cm/gitstream.cm` 
+2. `.github/workflows/gitstream.yml`
+
+#### `.cm/gitstream.cm`
 This file should be updated with new rules and automations. 
 
 ```yaml title=".cm/gitstream.cm"
@@ -72,10 +77,9 @@ automations:
           comment: Estimated {{ checks.review.etr }} minutes to review
 ```
 
-
+#### `.github/workflows/gitstream.yml`
 This file is used by gitStream to trigger the automation in GitHub, you should not edit it. Editing 
 it might break the functionality or might not be compatible with future changes in gitStream. 
-
 
 ```yaml title=".github/workflows/gitstream.yml"
 name: gitstream Workflow
