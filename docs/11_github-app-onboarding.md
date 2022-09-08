@@ -14,6 +14,8 @@ Get the following files into each of your repos main branch:
 This file should be updated with new rules and automations. 
 
 ```yaml title=".cm/gitstream.cm"
+# -*- mode: yaml -*-
+
 manifest:
   version: 1.0
 
