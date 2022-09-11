@@ -128,8 +128,6 @@ jobs:
           installation_id: ${{ github.event.inputs.installation_id }}
           resolver_url: ${{ github.event.inputs.resolver_url }}
           resolver_token: ${{ github.event.inputs.resolver_token }}
-      - name: Update gitstream check on error
-        if: failure() && steps.rules-engine.outcome == 'failure'
 ```
 
 ## Set GitHub repo settings
