@@ -55,7 +55,7 @@ automations:
       - action : add-labels@v1
         args:
           labels: ['non-code']
-  approve_docs_changes:
+  approve_images_changes:
     if:
       - {{ checks.content.is.images_only }}
     run: 
