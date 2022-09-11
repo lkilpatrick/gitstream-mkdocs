@@ -2,11 +2,12 @@
 
 ## Installation
 
-To start using gitStream with GitHub source code hosting, a GitHub app should be installed. The installtion start with installing the app from the GitHub Apps marketplace.
+To start using gitStream with GitHub source code hosting, a GitHub app should be installed. The installation start with installing the app from the GitHub Apps marketplace.
 
-1. Goto GitHub marketplace and install gitStream for free.
-
-2. Install & authorize gitStream
+1. Get gitStream for free from [GitHub marketplace](https://github.com/marketplace/gitstream-by-linearb).
+2. Install & authorize 
+3. Add `.cm/gitstream.cm` and `.github/workflows/gitstream.yml` to your repo
+4. See it action on your next PR
 
 gitStream can be installed for one repo, specific repos or all repos in your organization. 
 
@@ -38,9 +39,13 @@ Once installation completes, the following files are added to each of the select
 | .cm/gitstream.cm     | Y            | Used to specify gitStream automations, you can edit this file |
 | .github/workflows/gitstream.yml | N | Used by gitStream to execute automation in your repo so source code doesn't get to outside services |
 
-### Post installtiaon 
+### Post installation  
 
-See [here](11_github-app-onboarding.md).
+Get the following files into each of your repos main branch:
+1. `.cm/gitstream.cm` 
+2. `.github/workflows/gitstream.yml`
+
+See instructions [here](11_github-app-onboarding.md).
 
 ## Usage
 

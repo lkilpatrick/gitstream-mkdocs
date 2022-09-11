@@ -74,7 +74,7 @@ exec('npm run test | wc -l', (err, stdout, stderr) => {
 
 for example
 
-```
+```yaml
 checks:
   # access coverage results
   coverage:

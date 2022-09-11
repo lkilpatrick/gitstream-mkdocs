@@ -140,10 +140,10 @@ jobs:
 
 To make sure gitStream can block PRs from merging under certain conditions you should set the following:
 
-1. Go to repo settings
-2. On the left pane select Code and automation > Branches 
-3. Set "Branch protection rules" for your desired branch 
-4. Enable "Require status checks to pass before merging"
-5. Enable "Require branches to be up to date before merging"
-6. Search for status checks in the last week for this repository
-7. Select gitStream.cm as required check
+1. Go to repo `settings`
+2. On the left pane select `Code and automation` > `Branches` 
+3. Set `Branch protection rules` for your desired branch 
+4. Enable `Require status checks to pass before merging`
+5. Enable `Require branches to be up to date before merging`
+6. Search for `status checks in the last week for this repository`
+7. Select `gitStream.cm` as required check
