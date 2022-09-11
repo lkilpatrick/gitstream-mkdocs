@@ -1,5 +1,7 @@
 # Automation actions
 
+gitStream executes actions in the order they are listed. If an action result fails, following actions will not be executed.
+
 - [`approve`](#approve-action)
 - [`merge`](#merge-action)
 - [`set-required-approvals`](#set-required-approvals-action)

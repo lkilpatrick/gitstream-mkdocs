@@ -37,11 +37,11 @@ Syntax:
 allExtensions(files, qualifingExtensions)
 ```
 
-| Values                 | Usage   | Type      | Description                                     |
-| ---------------------- | --------|-----------|------------------------------------------------ |
-| `files`                | Input   | [String]  | The list of changed files with their path       |
-| `qualifingExtensions`  | Input   | [String]  | the list of desired extensions, like `py`, `js` |
-| `result`               | Output  | Bool      | `true` if all file extensions are of one the qualifying extensions |
+| Values   | Usage   | Type      | Description                                     |
+| -------- | --------|-----------|------------------------------------------------ |
+| `files`  | Input   | [String]  | The list of changed files with their path       |
+| `qualifingExtensions` | Input | [String] | the list of desired extensions, like `py`, `js` |
+| `result` | Output  | Bool | `true` if all file extensions are of one the qualifying extensions |
 
 ```yaml
 checks:
@@ -59,10 +59,10 @@ Syntax:
 allDocs(files)
 ```
 
-| Values                 | Usage    | Type      | Description                                     |
-| ---------------------- | ---------|-----------|------------------------------------------------ |
-| `files`                | Input    | [String]  | The list of changed files with their path       |
-| `result`               | Output   | Bool      | `true` if all file extensions are of docs       |
+| Values   | Usage    | Type      | Description                         |
+| -------- | ---------|-----------|------------------------------------------------ |
+| `files`  | Input    | [String]  | The list of changed files with their path       |
+| `result` | Output   | Bool      | `true` if all file extensions are of docs       |
 
 Doc files extensions are: `md`, `mkdown`, `txt`, `rst`.
 
@@ -82,10 +82,10 @@ Syntax:
 allImages(files)
 ```
 
-| Values                 | Usage    | Type      | Description                                     |
-| ---------------------- | ---------|-----------|------------------------------------------------ |
-| `files`                | Input    | [String]  | The list of changed files with their path       |
-| `result`               | Output   | Bool      | `true` if all file extensions are of images     |
+| Values   | Usage    | Type      | Description                                     |
+| -------- | ---------|-----------|------------------------------------------------ |
+| `files`  | Input    | [String]  | The list of changed files with their path       |
+| `result` | Output   | Bool      | `true` if all file extensions are of images     |
 
 Image file extensions are: `svg`, `png`, `gif`.
 
@@ -105,10 +105,10 @@ Syntax:
 allTests(files)
 ```
 
-| Values                 | Usage    | Type      | Description                                     |
-| ---------------------- | ---------|-----------|------------------------------------------------ |
-| `files`                | Input    | [String]  | The list of changed files with their path       |
-| `result`               | Output   | Bool      | `true` if all file tests based on name and path |
+| Values | Usage    | Type      | Description                                     |
+| ------ | ---------|-----------|------------------------------------------------ |
+| `files` | Input   | [String]  | The list of changed files with their path       |
+| `result` | Output | Bool      | `true` if all file tests based on name and path |
 
 Test files must include the substring `test` or `spec` in its name or path.
 
@@ -128,10 +128,10 @@ Syntax:
 allPassRegex(files)
 ```
 
-| Values                 | Usage    | Type      | Description                                     |
-| ---------------------- | ---------|-----------|------------------------------------------------ |
-| `files`                | Input    | [String]  | The list of changed files with their path       |
-| `result`               | Output   | Bool      | `true` if all file extensions are of images     |
+| Values   | Usage    | Type      | Description   |
+| -------- | ---------|-----------|------------------------ |
+| `files`  | Input    | [String]  | The list of changed files with their path      |
+| `result` | Output   | Bool      | `true` if all file extensions are of images    |
 
 Image file extensions are: `svg`, `png`, `gif`.
 
@@ -152,10 +152,10 @@ Syntax:
 extensions(files)
 ```
 
-| Values                 | Usage    | Type      | Description                                     |
-| ---------------------- | ---------|-----------|------------------------------------------------ |
-| `files`                | Input    | [String]  | The list of changed files with their path       |
-| `result`               | Output   | [String]  | list of all unique file extensions              |
+| Values | Usage    | Type      | Description                                     |
+| ------ | ---------|-----------|------------------------------------------------ |
+| `files`  | Input    | [String]  | The list of changed files with their path       |
+| `result` | Output   | [String]  | list of all unique file extensions              |
 
 ```yaml
 checks:
@@ -173,10 +173,10 @@ Syntax:
 estimatedReviewTime(branch)
 ```
 
-| Values                 | Usage    | Type      | Description                                     |
-| ---------------------- | ---------|-----------|------------------------------------------------ |
-| `branch-context`       | Input    | Object    | gitStream generated [branch context varaible](20_reference#branch-context) |
-| `result`               | Output   | String    | the estimated time for review in minutes |
+| Values   | Usage    | Type      | Description                                     |
+| -------- | ---------|-----------|------------------------------------------------ |
+| `branch-context` | Input  | Object    | gitStream generated [branch context variable](20_reference#branch-context) |
+| `result`  | Output  | String    | the estimated time for review in minutes |
 
 #### `filter` filter
 
@@ -211,11 +211,11 @@ Syntax:
 filterRegex(items, regexExpression)
 ```
 
-| Values        | Usage    | Type      | Description                                     |
-| ------------- | ---------|-----------|------------------------------------------------ |
-| `items`       | Input    | [String]  | List of items                                   |
-| `regexExpression` | Input    | String    | Regex expression, `\.py$`                           |
-| `result`      | Output   | [String]      | All items that match the regex expression   |
+| Values        | Usage    | Type    | Description                                |
+| ------------- | ---------|---------|------------------------------------------- |
+| `items`       | Input  | [String]  | List of items                              |
+| `regexExpression` | Input | String | Regex expression, `\.py$`              |
+| `result`      | Output | [String]  | All items that match the regex expression   |
 
 ```yaml
 checks:
@@ -236,7 +236,7 @@ includes(items, searchTerm)
 | Values       | Usage    | Type      | Description                             |
 | -------------| ---------|-----------|---------------------------------------- |
 | `items`      | Input    | [String]  | Text string      |
-| `searchTerm` | Input    | String    | Search term to look for`                      |
+| `searchTerm` | Input    | String    | Search term to look for`                |
 | `result`     | Output   | Bool      | `true` if the search element is found   |
 
 ```yaml
