@@ -7,6 +7,7 @@ of transformations and that's what ends up in rendered templates.
 Filters for lists of strings:
 
 List filters:
+
 - [`extensions`](#extensions-filter) - List of all unique file extensions from a list of file names.
 - [`filter`](#filter-filter) - List of items that match the search term from the input list.
 - [`filterRegex`](#filterRegex-filter) - List of items that match the regex from the input list.
@@ -14,21 +15,25 @@ List filters:
 - [`includesRegex`](#includesRegex-filter) -  Return `true` if any of items in a list match the regex term.
 
 File names checks:
+
 - [`allExtensions`](#allExtensions-filter)- Return `true` if the input list includes only any of the specified extensions.
 - [`allDocs`](#allDocs-filter) - Return `true` if the input list includes only documents based on file extensions.
 - [`allImages`](#allImages-filter) - Return `true` if the input list includes only images based on file extensions.
 - [`allTests`](#allTests-filter) - Return `true` if the input list includes only tests based on file's path and name.
 - [`allPassRegex`](#allPassRegex-filter) - Return `true` if the all the items in the input list matches the regex term.
 
-File diff filters, expects [`source.diff.files`](21_gitstream-context.md#source-context).
+File diff filters, expects [`source.diff.files`](21_gitstream-context.md#source-context):
+
 - [`filterFiles`](#filterFiles-filter) - List of file diffs that match the search term from the input file diff list.
 - [`allLines`](#allLines-filter)
 - [`allFormattingChange`](#allFormattingChange-filter) - Return `true` if all file diffs are validated as formatting changes.
 
 Other:
+
 - [`true`](#true-filter) - Return `true`
 
 PR evaluation: 
+
 - [`estimatedReviewTime`](#estimatedReviewTime-filter)
 
 
