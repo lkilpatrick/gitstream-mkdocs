@@ -4,7 +4,7 @@
 
 To start using gitStream with GitHub source code hosting, a GitHub app should be installed. The installation start with installing the app from the GitHub Apps marketplace.
 
-1. Get gitStream for free from [GitHub marketplace](https://github.com/marketplace/gitstream-by-linearb).
+1. Get gitStream for free from [GitHub marketplace](https://github.com/marketplace/gitstream-by-linearb)
 2. Install & authorize 
 3. Add `.cm/gitstream.cm` and `.github/workflows/gitstream.yml` to your repo
 4. See it action on your next PR
