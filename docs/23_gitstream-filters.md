@@ -8,11 +8,13 @@ Filters for lists of strings:
 
 List filters:
 
-- [`extensions`](#extensions-filter) - List of all unique file extensions from a list of file names.
-- [`filter`](#filter-filter) - List of items that match the search term from the input list.
-- [`filterRegex`](#filterRegex-filter) - List of items that match the regex from the input list.
-- [`includes`](#includes-filter) -  Return `true` if any of items in a list match the search term.
-- [`includesRegex`](#includesRegex-filter) -  Return `true` if any of items in a list match the regex term.
+- [`extractExtensions`](#extensions-filter) - List of all unique file extensions from a list of file names.
+- [`filterList`](#filter-filter) - List of items that match the search term from the input list.
+- [`filterListRegex`](#filterRegex-filter) - List of items that match the regex from the input list.
+- [`listIncludes`](#includes-filter) -  Return `true` if any of items in a list match the search term.
+- [`listIncludesRegex`](#includesRegex-filter) -  Return `true` if any of items in a list match the regex term.
+- [`stringIncludes`](#includesRegex-filter) -  Return `true` if any of items in a list match the regex term.
+- [`stringIncludesRegex`](#includesRegex-filter) -  Return `true` if any of items in a list match the regex term.
 
 File names checks:
 
@@ -20,7 +22,7 @@ File names checks:
 - [`allDocs`](#allDocs-filter) - Return `true` if the input list includes only documents based on file extensions.
 - [`allImages`](#allImages-filter) - Return `true` if the input list includes only images based on file extensions.
 - [`allTests`](#allTests-filter) - Return `true` if the input list includes only tests based on file's path and name.
-- [`allPassRegex`](#allPassRegex-filter) - Return `true` if the all the items in the input list matches the regex term.
+- [`allFilesMatchRegex`](#allPassRegex-filter) - Return `true` if the all the items in the input list matches the regex term.
 
 File diff filters, expects [`source.diff.files`](21_gitstream-context.md#source-context):
 
