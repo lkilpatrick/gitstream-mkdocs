@@ -103,48 +103,6 @@ checks:
       images: {{ files | allImages }}
 ```
 
-#### `isEveryLineChangeRegex` filter
-
-:octicons-beaker-24: Coming soon
-
-Syntax: 
-```
-isEveryLineChangeRegex(diffs, matchRegex)
-```
-
-| Values       | Usage    | Type   | Description                                     |
-| ------------ | ---------|--------|------------------------------------------------ |
-| `files`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
-| `matchRegex` | Input    | String | Regex filter applied to the `diff` field of files diffs  |
-| `result`     | Output   | Bool   | `true` if the all lines in diffs match the regex |
-
-```yaml
-checks:
-  filetype:
-    all:
-     python: {{ source.diff.files | isEveryExtensionRegex(['.py']) }}
-     javascript: {{ source.diff.files | isEveryExtensionRegex(['js'])}}
-
-  only_logs:
-    in:
-     python: {{ source.diff.files | filterFilesRegex('\.py$') | isEveryLineChangeRegex('logger\.(debug|info|warn|error)') }}
-     javascript: {{ source.diff.files | filterFilesRegex('\.js$') | isEveryLineChangeRegex('console\.log') }}
-
-automations:
-  allow_py_logging_changes:
-    if:
-      - {{ checks.filetype.all.python }}
-      - {{ checks.only_logs.in.python }}
-    run:
-      - action: approve@v1
-  allow_js_logging_changes:
-    if:
-      - {{ checks.filetype.all.javascript }}
-      - {{ checks.only_logs.in.javascript }}
-    run:
-      - action: approve@v1
-```
-
 #### `allTests` filter
 
 :octicons-tag-24: Minimal version: 1.0
@@ -238,8 +196,8 @@ filterList(items, searchTerms)
 | Values        | Usage    | Type      | Description                                     |
 | ------------- | ---------|-----------|--------------------------------------|
 | `items`       | Input    | [String]  | List of items                        |
-| `searchTerms` | Input    | String    | Search term to look for       |
-| `result`      | Output   | [String] | All items that match   |
+| `searchTerms` | Input    | [String]    | Search terms list to look for       |
+| `result`      | Output   | [String] | All items that match any of the search terms  |
 
 Simple text filter:
 
@@ -247,7 +205,7 @@ Simple text filter:
 checks:
   filetypes:
     is:
-     no_python: {{ files | filterList('py') | length == 0 }}
+     no_python: {{ files | filterList(['py']) | length == 0 }}
 ```
 
 #### `filterListRegex` filter
@@ -298,6 +256,101 @@ checks:
       configuration: {{ files | isEveryExtensionRegex(['json', 'toml']) }}
 ```
 
+
+#### `isEveryInList` filter
+
+:octicons-tag-24: Minimal version: 1.0
+
+Return `true` if the all the items in the input list matches the regex term.
+
+Syntax: 
+```
+isEveryInList(files, searchTerms)
+```
+
+| Values   | Usage    | Type      | Description   |
+| -------- | ---------|-----------|------------------------ |
+| `files`  | Input    | [String]  | The list of changed files with their path      |
+| `searchTerms`  | Input    | [String]  | List of search terms to match      |
+| `result` | Output   | Bool      | `true` if all files in list match any of the search terms   |
+
+
+```yaml
+checks:
+  content:
+    is:
+      assets_only: {{ files | isEveryInList(['png', 'jpg', 'svg']) }}
+```
+
+
+#### `isEveryInListRegex` filter
+
+:octicons-tag-24: Minimal version: 1.0
+
+Return `true` if the all the items in the input list matches the regex term.
+
+Syntax: 
+```
+isEveryInListRegex(files, regexTerms)
+```
+
+| Values   | Usage    | Type      | Description   |
+| -------- | ---------|-----------|------------------------ |
+| `files`  | Input    | [String]  | The list of changed files with their path      |
+| `regexTerm`  | Input    | [String]  | Regex search term to match      |
+| `result` | Output   | Bool      | `true` if all files in list match regex terms   |
+
+```yaml
+checks:
+  content:
+    is:
+      assets_only: {{ files | isEveryInListRegex('.*\.png$|.*\.jpg$|.*\.svg$') }}
+```
+
+
+#### `isEveryLineChangeRegex` filter
+
+:octicons-beaker-24: Coming soon
+
+Syntax: 
+```
+isEveryLineChangeRegex(diffs, matchRegex)
+```
+
+| Values       | Usage    | Type   | Description                                     |
+| ------------ | ---------|--------|------------------------------------------------ |
+| `files`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
+| `matchRegex` | Input    | String | Regex filter applied to the `diff` field of files diffs  |
+| `result`     | Output   | Bool   | `true` if the all lines in diffs match the regex |
+
+```yaml
+checks:
+  filetype:
+    all:
+     python: {{ source.diff.files | isEveryExtensionRegex(['.py']) }}
+     javascript: {{ source.diff.files | isEveryExtensionRegex(['js'])}}
+
+  only_logs:
+    in:
+     python: {{ source.diff.files | filterFilesRegex('\.py$') | isEveryLineChangeRegex('logger\.(debug|info|warn|error)') }}
+     javascript: {{ source.diff.files | filterFilesRegex('\.js$') | isEveryLineChangeRegex('console\.log') }}
+
+automations:
+  allow_py_logging_changes:
+    if:
+      - {{ checks.filetype.all.python }}
+      - {{ checks.only_logs.in.python }}
+    run:
+      - action: approve@v1
+  allow_js_logging_changes:
+    if:
+      - {{ checks.filetype.all.javascript }}
+      - {{ checks.only_logs.in.javascript }}
+    run:
+      - action: approve@v1
+```
+
+
 #### `isFormattingChange` filter
 
 :octicons-tag-24: Minimal version: 1.0
@@ -337,31 +390,6 @@ automations:
       - action: approve@v1
 ```
 
-#### `isEveryInListRegex` filter
-
-:octicons-tag-24: Minimal version: 1.0
-
-Return `true` if the all the items in the input list matches the regex term.
-
-Syntax: 
-```
-allItemsMatchRegex(files)
-```
-
-| Values   | Usage    | Type      | Description   |
-| -------- | ---------|-----------|------------------------ |
-| `files`  | Input    | [String]  | The list of changed files with their path      |
-| `result` | Output   | Bool      | `true` if all file extensions are of images    |
-
-Image file extensions are: `svg`, `png`, `gif`.
-
-```yaml
-checks:
-  content:
-    is:
-      assets_only: {{ files | isEveryInListRegex('.*\.png$|.*\.jpg$|.*\.svg$|.*\.css$') }}
-```
-
 #### `isSomeInList` filter
 
 :octicons-tag-24: Minimal version: 1.0
@@ -370,20 +398,20 @@ Expects a list and return `true` if any of items match search term.
 
 Syntax: 
 ```
-isSomeInList(items, searchTerm)
+isSomeInList(items, searchTerms)
 ```
 
 | Values       | Usage    | Type      | Description                             |
 | -------------| ---------|-----------|---------------------------------------- |
 | `items`      | Input    | [String]  | Text string      |
-| `searchTerm` | Input    | String    | Search term to look for`                |
-| `result`     | Output   | Bool      | `true` if the search element is found   |
+| `searchTerms` | Input   | [String]    | Search terms list to look for`                |
+| `result`     | Output   | Bool      | `true` if the any of the search terms are found   |
 
 ```yaml
 checks:
   filetypes:
     is:
-     has_python: {{ files | isSomeInList('py') }}
+     has_python: {{ files | isSomeInList(['py']) }}
 ```
 
 #### `isSomeInListRegex` filter
@@ -409,6 +437,56 @@ checks:
     is:
      has_python: {{ files | isSomeInListRegex('\.py$') }}
 ```
+
+
+#### `isStringIncludes` filter
+
+:octicons-tag-24: Minimal version: 1.0
+
+Expects a list and provide a new list with the items that match the search term.
+
+Syntax: 
+```
+isStringIncludes(item, searchTerms)
+```
+
+| Values        | Usage    | Type      | Description                                     |
+| ------------- | ---------|-----------|--------------------------------------|
+| `items`       | Input    | String  | Items                        |
+| `searchTerms` | Input    | [String]    | Search terms to look for       |
+| `result`      | Output   | Bool | `true` if any of the search terms matches   |
+
+Simple text filter:
+
+```yaml
+checks:
+  thing: {{ "something" | isStringIncludes(["thing"]) }}
+```
+
+#### `isStringIncludesRegex` filter
+
+:octicons-tag-24: Minimal version: 1.0
+
+Expects a list and provide a new list with the items that match the search term.
+
+Syntax: 
+```
+isStringIncludesRegex(item, searchTerms)
+```
+
+| Values        | Usage    | Type      | Description                                     |
+| ------------- | ---------|-----------|--------------------------------------|
+| `items`       | Input    | String  | Items                        |
+| `searchTerms` | Input    | [String]    | Regex term to look for       |
+| `result`      | Output   | Bool | `true` if the regex term match   |
+
+Simple text filter:
+
+```yaml
+checks:
+  thing: {{ "something" | isStringIncludesRegex(".*ing") }}
+```
+
 
 #### `true` filter
 
