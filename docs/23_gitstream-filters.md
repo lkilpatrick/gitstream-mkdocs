@@ -28,7 +28,8 @@ File names checks:
 - [`allDocs`](#allDocs-filter) - Return `true` if the input list includes only documents based on file extensions.
 - [`allImages`](#allImages-filter) - Return `true` if the input list includes only images based on file extensions.
 - [`allTests`](#allTests-filter) - Return `true` if the input list includes only tests based on file's path and name.
-- [`isEveryExtensionRegex`](#isEveryExtensionRegex-filter)- Return `true` if the input list includes only any of the specified extensions.
+- [`isEveryExtension`](#isEveryExtension-filter) - Return `true` if the input list includes only any of the specified extensions.
+- [`isEveryExtensionRegex`](#isEveryExtensionRegex-filter)- Return `true` if the input list includes only the matching regex.
 
 File names operators:
 
@@ -232,6 +233,33 @@ checks:
      no_python: {{ files | filterListRegex('\.py$') | length == 0 }}
 ```
 
+
+#### `isEveryExtension` filter
+
+:octicons-tag-24: Minimal version: 1.0
+
+Return `true` if the input list includes only any of the specified extensions.
+
+Syntax: 
+```
+isEveryExtension(files, qualifingExtensions)
+```
+
+| Values   | Usage   | Type      | Description                                     |
+| -------- | --------|-----------|------------------------------------------------ |
+| `files`  | Input   | [String]  | The list of changed files with their path       |
+| `qualifingExtensions` | Input | [String] | the list of desired extensions, like `py`, `js` |
+| `result` | Output  | Bool | `true` if all file extensions are of one the qualifying extensions |
+
+```yaml
+checks:
+  filetypes:
+    is:
+      configuration: {{ files | isEveryExtension(['json', 'toml']) }}
+```
+
+
+
 #### `isEveryExtensionRegex` filter
 
 :octicons-tag-24: Minimal version: 1.0
@@ -246,14 +274,14 @@ isEveryExtensionRegex(files, qualifingExtensions)
 | Values   | Usage   | Type      | Description                                     |
 | -------- | --------|-----------|------------------------------------------------ |
 | `files`  | Input   | [String]  | The list of changed files with their path       |
-| `qualifingExtensions` | Input | [String] | the list of desired extensions, like `py`, `js` |
+| `qualifingExtensions` | Input | String | Regex extensions, like `\.py$` |
 | `result` | Output  | Bool | `true` if all file extensions are of one the qualifying extensions |
 
 ```yaml
 checks:
   filetypes:
     is:
-      configuration: {{ files | isEveryExtensionRegex(['json', 'toml']) }}
+      configuration: {{ files | isEveryExtensionRegex('json|toml') }}
 ```
 
 
