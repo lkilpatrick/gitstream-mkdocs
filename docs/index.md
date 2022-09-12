@@ -7,7 +7,7 @@ This site will contain all the information you need to get started with gitStrea
 
 # Getting Started 
 
-To get started with gitStream CM automation just install it from GitHub: https://github.com/marketplace/gitstream-by-linearb
+To get started with gitStream CM automation just install it from GitHub: [https://github.com/marketplace/gitstream-by-linearb](https://github.com/marketplace/gitstream-by-linearb)
 
 The installations process involves:
 
