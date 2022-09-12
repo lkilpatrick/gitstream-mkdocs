@@ -8,18 +8,19 @@ Filters for lists of strings:
 
 Item checks:
 
-- [`isStringIncludes`](#isStringIncludes-filter) -  Return `true` if any of items in a list match the regex term.
+- [`isStringIncludes`](#isStringIncludes-filter) -  Return `true` if any of items in a list match either of the search terms.
 - [`isStringIncludesRegex`](#isStringIncludesRegex-filter) -  Return `true` if any of items in a list match the regex term.
 
 List checks:
 
+- [`isEveryInList`](#isEveryInList-filter) - Return `true` if the all the items in the input list matches either of the search terms.
 - [`isEveryInListRegex`](#isEveryInListRegex-filter) - Return `true` if the all the items in the input list matches the regex term.
-- [`isSomeInList`](#isSomeInList-filter) -  Return `true` if any of items in a list match the search term.
+- [`isSomeInList`](#isSomeInList-filter) -  Return `true` if any of items in a list match either of the search terms.
 - [`isSomeInListRegex`](#isSomeInListRegex-filter) -  Return `true` if any of items in a list match the regex term.
 
 List operations:
 
-- [`filterList`](#filterList-filter) - List of items that match the search term from the input list.
+- [`filterList`](#filterList-filter) - List of items that match either of the search terms from the input list.
 - [`filterListRegex`](#filterListRegex-filter) - List of items that match the regex from the input list.
 
 File names checks:
@@ -36,11 +37,11 @@ File names operators:
 File diff ([`source.diff.files`](21_gitstream-context.md#source-context)) checks:
 
 - [`isFormattingChange`](#isFormattingChange-filter) - Return `true` if all file diffs are validated as formatting changes.
-- [`isEveryLineChangeRegex`](#allLinesInFiles-filter)
+- [`isEveryLineChangeRegex`](#isEveryLineChangeRegex-filter) - Return `true` if every changed line matchs the regex.
 
 File diff ([`source.diff.files`](21_gitstream-context.md#source-context)) operators:
 
-- [`filterFilesDiffRegex`](#filterFiles-filter) - List of file diffs that match the search term from the input file diff list.
+- [`filterFilesDiffRegex`](#filterFiles-filter) - List of file diffs that match the regex from the input file diff list.
 
 PR checks: 
 
@@ -77,69 +78,6 @@ checks:
       docs: {{ files | allDocs }}
 ```
 
-#### `isEveryExtensionRegex` filter
-
-:octicons-tag-24: Minimal version: 1.0
-
-Return `true` if the input list includes only any of the specified extensions.
-
-Syntax: 
-```
-isEveryExtensionRegex(files, qualifingExtensions)
-```
-
-| Values   | Usage   | Type      | Description                                     |
-| -------- | --------|-----------|------------------------------------------------ |
-| `files`  | Input   | [String]  | The list of changed files with their path       |
-| `qualifingExtensions` | Input | [String] | the list of desired extensions, like `py`, `js` |
-| `result` | Output  | Bool | `true` if all file extensions are of one the qualifying extensions |
-
-```yaml
-checks:
-  filetypes:
-    is:
-      configuration: {{ files | isEveryExtensionRegex(['json', 'toml']) }}
-```
-
-#### `isFormattingChange` filter
-
-:octicons-tag-24: Minimal version: 1.0
-
-Return `true` if all file diffs are validated as formatting changes.
-
-Support source code languages: 
-- JavaScript
-- TypeScript
-- Python 
-- JSON
-- YAML
-
-If changes in other formats detected the filter will return `false`.
-
-Syntax: 
-```
-isFormattingChange(diffs)
-```
-
-| Values       | Usage    | Type   | Description                                     |
-| ------------ | ---------|--------|------------------------------------------------ |
-| `files`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
-| `result`     | Output   | Bool   | `true` if the all code changes are non functional |
-
-```yaml
-checks:
-  change:
-    is:
-     reformatting: {{ source.diff.files | isFormattingChange }}
-
-automations:
-  allow_reformatting:
-    if:
-      - {{ checks.change.in.reformatting }}
-    run:
-      - action: approve@v1
-```
-
 #### `allImages` filter
 
 :octicons-tag-24: Minimal version: 1.0
@@ -165,13 +103,13 @@ checks:
       images: {{ files | allImages }}
 ```
 
-#### `allLinesInFiles` filter
+#### `isEveryLineChangeRegex` filter
 
 :octicons-beaker-24: Coming soon
 
 Syntax: 
 ```
-allLinesInFiles(diffs, matchRegex)
+isEveryLineChangeRegex(diffs, matchRegex)
 ```
 
 | Values       | Usage    | Type   | Description                                     |
@@ -189,8 +127,8 @@ checks:
 
   only_logs:
     in:
-     python: {{ source.diff.files | filterFilesRegex('\.py$') | allLinesInFiles('logger\.(debug|info|warn|error)') }}
-     javascript: {{ source.diff.files | filterFilesRegex('\.js$') | allLinesInFiles('console\.log') }}
+     python: {{ source.diff.files | filterFilesRegex('\.py$') | isEveryLineChangeRegex('logger\.(debug|info|warn|error)') }}
+     javascript: {{ source.diff.files | filterFilesRegex('\.js$') | isEveryLineChangeRegex('console\.log') }}
 
 automations:
   allow_py_logging_changes:
@@ -205,31 +143,6 @@ automations:
       - {{ checks.only_logs.in.javascript }}
     run:
       - action: approve@v1
-```
-
-#### `isEveryInListRegex` filter
-
-:octicons-tag-24: Minimal version: 1.0
-
-Return `true` if the all the items in the input list matches the regex term.
-
-Syntax: 
-```
-allItemsMatchRegex(files)
-```
-
-| Values   | Usage    | Type      | Description   |
-| -------- | ---------|-----------|------------------------ |
-| `files`  | Input    | [String]  | The list of changed files with their path      |
-| `result` | Output   | Bool      | `true` if all file extensions are of images    |
-
-Image file extensions are: `svg`, `png`, `gif`.
-
-```yaml
-checks:
-  content:
-    is:
-      assets_only: {{ files | isEveryInListRegex('.*\.png$|.*\.jpg$|.*\.svg$|.*\.css$') }}
 ```
 
 #### `allTests` filter
@@ -359,6 +272,94 @@ checks:
   filetypes:
     is:
      no_python: {{ files | filterListRegex('\.py$') | length == 0 }}
+```
+
+#### `isEveryExtensionRegex` filter
+
+:octicons-tag-24: Minimal version: 1.0
+
+Return `true` if the input list includes only any of the specified extensions.
+
+Syntax: 
+```
+isEveryExtensionRegex(files, qualifingExtensions)
+```
+
+| Values   | Usage   | Type      | Description                                     |
+| -------- | --------|-----------|------------------------------------------------ |
+| `files`  | Input   | [String]  | The list of changed files with their path       |
+| `qualifingExtensions` | Input | [String] | the list of desired extensions, like `py`, `js` |
+| `result` | Output  | Bool | `true` if all file extensions are of one the qualifying extensions |
+
+```yaml
+checks:
+  filetypes:
+    is:
+      configuration: {{ files | isEveryExtensionRegex(['json', 'toml']) }}
+```
+
+#### `isFormattingChange` filter
+
+:octicons-tag-24: Minimal version: 1.0
+
+Return `true` if all file diffs are validated as formatting changes.
+
+Support source code languages: 
+- JavaScript
+- TypeScript
+- Python 
+- JSON
+- YAML
+
+If changes in other formats detected the filter will return `false`.
+
+Syntax: 
+```
+isFormattingChange(diffs)
+```
+
+| Values       | Usage    | Type   | Description                                     |
+| ------------ | ---------|--------|------------------------------------------------ |
+| `files`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
+| `result`     | Output   | Bool   | `true` if the all code changes are non functional |
+
+```yaml
+checks:
+  change:
+    is:
+     reformatting: {{ source.diff.files | isFormattingChange }}
+
+automations:
+  allow_reformatting:
+    if:
+      - {{ checks.change.in.reformatting }}
+    run:
+      - action: approve@v1
+```
+
+#### `isEveryInListRegex` filter
+
+:octicons-tag-24: Minimal version: 1.0
+
+Return `true` if the all the items in the input list matches the regex term.
+
+Syntax: 
+```
+allItemsMatchRegex(files)
+```
+
+| Values   | Usage    | Type      | Description   |
+| -------- | ---------|-----------|------------------------ |
+| `files`  | Input    | [String]  | The list of changed files with their path      |
+| `result` | Output   | Bool      | `true` if all file extensions are of images    |
+
+Image file extensions are: `svg`, `png`, `gif`.
+
+```yaml
+checks:
+  content:
+    is:
+      assets_only: {{ files | isEveryInListRegex('.*\.png$|.*\.jpg$|.*\.svg$|.*\.css$') }}
 ```
 
 #### `isSomeInList` filter
