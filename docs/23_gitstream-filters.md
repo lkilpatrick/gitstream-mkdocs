@@ -8,14 +8,14 @@ Filters for lists of strings:
 
 List checks:
 
-- [`allListMatchRegex`](#allPassRegex-filter) - Return `true` if the all the items in the input list matches the regex term.
-- [`extractExtensions`](#extensions-filter) - List of all unique file extensions from a list of file names.
-- [`filterList`](#filter-filter) - List of items that match the search term from the input list.
-- [`filterListRegex`](#filterRegex-filter) - List of items that match the regex from the input list.
-- [`listIncludes`](#includes-filter) -  Return `true` if any of items in a list match the search term.
-- [`listIncludesRegex`](#includesRegex-filter) -  Return `true` if any of items in a list match the regex term.
-- [`stringIncludes`](#includesRegex-filter) -  Return `true` if any of items in a list match the regex term.
-- [`stringIncludesRegex`](#includesRegex-filter) -  Return `true` if any of items in a list match the regex term.
+- [`allListMatchRegex`](#allListMatchRegex-filter) - Return `true` if the all the items in the input list matches the regex term.
+- [`extractExtensions`](#extractExtensions-filter) - List of all unique file extensions from a list of file names.
+- [`filterList`](#filterList-filter) - List of items that match the search term from the input list.
+- [`filterListRegex`](#filterListRegex-filter) - List of items that match the regex from the input list.
+- [`listIncludes`](#listIncludes-filter) -  Return `true` if any of items in a list match the search term.
+- [`listIncludesRegex`](#listIncludesRegex-filter) -  Return `true` if any of items in a list match the regex term.
+- [`stringIncludes`](#stringIncludes-filter) -  Return `true` if any of items in a list match the regex term.
+- [`stringIncludesRegex`](#stringIncludesRegex-filter) -  Return `true` if any of items in a list match the regex term.
 
 File names checks:
 
@@ -27,8 +27,8 @@ File names checks:
 File diff filters, expects [`source.diff.files`](21_gitstream-context.md#source-context):
 
 - [`allFormattingChange`](#allFormattingChange-filter) - Return `true` if all file diffs are validated as formatting changes.
-- [`allLinesInFiles`](#allLines-filter)
-- [`filterFilesRegex`](#filterFiles-filter) - List of file diffs that match the search term from the input file diff list.
+- [`allLinesInFiles`](#allLinesInFiles-filter)
+- [`filterFilesRegex`](#filterFilesRegex-filter) - List of file diffs that match the search term from the input file diff list.
 
 PR evaluation: 
 
