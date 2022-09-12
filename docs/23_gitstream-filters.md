@@ -6,31 +6,43 @@ of transformations and that's what ends up in rendered templates.
 
 Filters for lists of strings:
 
+Item checks:
+
+- [`isStringIncludes`](#isStringIncludes-filter) -  Return `true` if any of items in a list match the regex term.
+- [`isStringIncludesRegex`](#isStringIncludesRegex-filter) -  Return `true` if any of items in a list match the regex term.
+
 List checks:
 
-- [`allListMatchRegex`](#allListMatchRegex-filter) - Return `true` if the all the items in the input list matches the regex term.
-- [`extractExtensions`](#extractExtensions-filter) - List of all unique file extensions from a list of file names.
+- [`isEveryInListRegex`](#isEveryInListRegex-filter) - Return `true` if the all the items in the input list matches the regex term.
+- [`isSomeInList`](#isSomeInList-filter) -  Return `true` if any of items in a list match the search term.
+- [`isSomeInListRegex`](#isSomeInListRegex-filter) -  Return `true` if any of items in a list match the regex term.
+
+List operations:
+
 - [`filterList`](#filterList-filter) - List of items that match the search term from the input list.
 - [`filterListRegex`](#filterListRegex-filter) - List of items that match the regex from the input list.
-- [`listIncludes`](#listIncludes-filter) -  Return `true` if any of items in a list match the search term.
-- [`listIncludesRegex`](#listIncludesRegex-filter) -  Return `true` if any of items in a list match the regex term.
-- [`stringIncludes`](#stringIncludes-filter) -  Return `true` if any of items in a list match the regex term.
-- [`stringIncludesRegex`](#stringIncludesRegex-filter) -  Return `true` if any of items in a list match the regex term.
 
 File names checks:
 
 - [`allDocs`](#allDocs-filter) - Return `true` if the input list includes only documents based on file extensions.
-- [`allExtensions`](#allExtensions-filter)- Return `true` if the input list includes only any of the specified extensions.
 - [`allImages`](#allImages-filter) - Return `true` if the input list includes only images based on file extensions.
 - [`allTests`](#allTests-filter) - Return `true` if the input list includes only tests based on file's path and name.
+- [`isEveryExtensionRegex`](#isEveryExtensionRegex-filter)- Return `true` if the input list includes only any of the specified extensions.
 
-File diff filters, expects [`source.diff.files`](21_gitstream-context.md#source-context):
+File names operators:
 
-- [`allFormattingChange`](#allFormattingChange-filter) - Return `true` if all file diffs are validated as formatting changes.
-- [`allLinesInFiles`](#allLinesInFiles-filter)
-- [`filterFilesRegex`](#filterFilesRegex-filter) - List of file diffs that match the search term from the input file diff list.
+- [`extractExtensions`](#extractExtensions-filter) - List of all unique file extensions from a list of file names.
 
-PR evaluation: 
+File diff ([`source.diff.files`](21_gitstream-context.md#source-context)) checks:
+
+- [`isFormattingChange`](#isFormattingChange-filter) - Return `true` if all file diffs are validated as formatting changes.
+- [`isEveryLineChangeRegex`](#allLinesInFiles-filter)
+
+File diff ([`source.diff.files`](21_gitstream-context.md#source-context)) operators:
+
+- [`filterFilesDiffRegex`](#filterFiles-filter) - List of file diffs that match the search term from the input file diff list.
+
+PR checks: 
 
 - [`estimatedReviewTime`](#estimatedReviewTime-filter)
 
@@ -65,7 +77,7 @@ checks:
       docs: {{ files | allDocs }}
 ```
 
-#### `allExtensions` filter
+#### `isEveryExtensionRegex` filter
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -73,7 +85,7 @@ Return `true` if the input list includes only any of the specified extensions.
 
 Syntax: 
 ```
-allExtensions(files, qualifingExtensions)
+isEveryExtensionRegex(files, qualifingExtensions)
 ```
 
 | Values   | Usage   | Type      | Description                                     |
@@ -86,10 +98,10 @@ allExtensions(files, qualifingExtensions)
 checks:
   filetypes:
     is:
-      configuration: {{ files | allExtensions(['json', 'toml']) }}
+      configuration: {{ files | isEveryExtensionRegex(['json', 'toml']) }}
 ```
 
-#### `allFormattingChange` filter
+#### `isFormattingChange` filter
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -106,7 +118,7 @@ If changes in other formats detected the filter will return `false`.
 
 Syntax: 
 ```
-allFormattingChange(diffs)
+isFormattingChange(diffs)
 ```
 
 | Values       | Usage    | Type   | Description                                     |
@@ -118,7 +130,7 @@ allFormattingChange(diffs)
 checks:
   change:
     is:
-     reformatting: {{ source.diff.files | allFormattingChange }}
+     reformatting: {{ source.diff.files | isFormattingChange }}
 
 automations:
   allow_reformatting:
@@ -172,8 +184,8 @@ allLinesInFiles(diffs, matchRegex)
 checks:
   filetype:
     all:
-     python: {{ source.diff.files | allExtensions(['.py']) }}
-     javascript: {{ source.diff.files | allExtensions(['js'])}}
+     python: {{ source.diff.files | isEveryExtensionRegex(['.py']) }}
+     javascript: {{ source.diff.files | isEveryExtensionRegex(['js'])}}
 
   only_logs:
     in:
@@ -195,7 +207,7 @@ automations:
       - action: approve@v1
 ```
 
-#### `allListMatchRegex` filter
+#### `isEveryInListRegex` filter
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -217,7 +229,7 @@ Image file extensions are: `svg`, `png`, `gif`.
 checks:
   content:
     is:
-      assets_only: {{ files | allListMatchRegex('.*\.png$|.*\.jpg$|.*\.svg$|.*\.css$') }}
+      assets_only: {{ files | isEveryInListRegex('.*\.png$|.*\.jpg$|.*\.svg$|.*\.css$') }}
 ```
 
 #### `allTests` filter
@@ -282,7 +294,7 @@ checks:
       single_type: {{ files | extractExtensions | length == 1 }}
 ```
 
-#### `filterFilesRegex` filter
+#### `filterFilesDiffRegex` filter
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -290,7 +302,7 @@ List of file diffs that match the search term from the input file diff list.
 
 Syntax: 
 ```
-filterFiles(files, filterRegex)
+filterFilesDiffRegex(files, filterRegex)
 ```
 
 | Values        | Usage    | Type      | Description                                |
@@ -307,13 +319,13 @@ Expects a list and provide a new list with the items that match the search term.
 
 Syntax: 
 ```
-filterList(items, searchTerm)
+filterList(items, searchTerms)
 ```
 
 | Values        | Usage    | Type      | Description                                     |
 | ------------- | ---------|-----------|--------------------------------------|
 | `items`       | Input    | [String]  | List of items                        |
-| `searchTerm` | Input    | String    | Search term to look for       |
+| `searchTerms` | Input    | String    | Search term to look for       |
 | `result`      | Output   | [String] | All items that match   |
 
 Simple text filter:
@@ -349,7 +361,7 @@ checks:
      no_python: {{ files | filterListRegex('\.py$') | length == 0 }}
 ```
 
-#### `listIncludes` filter
+#### `isSomeInList` filter
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -357,7 +369,7 @@ Expects a list and return `true` if any of items match search term.
 
 Syntax: 
 ```
-listIncludes(items, searchTerm)
+isSomeInList(items, searchTerm)
 ```
 
 | Values       | Usage    | Type      | Description                             |
@@ -370,10 +382,10 @@ listIncludes(items, searchTerm)
 checks:
   filetypes:
     is:
-     has_python: {{ files | listIncludes('py') }}
+     has_python: {{ files | isSomeInList('py') }}
 ```
 
-#### `listIncludesRegex` filter
+#### `isSomeInListRegex` filter
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -381,7 +393,7 @@ Expects a list and return `true` if any of items match the regex term.
 
 Syntax: 
 ```
-listIncludesRegex(items, regexExpression)
+isSomeInListRegex(items, regexExpression)
 ```
 
 | Values        | Usage    | Type      | Description                                     |
@@ -394,7 +406,7 @@ listIncludesRegex(items, regexExpression)
 checks:
   filetypes:
     is:
-     has_python: {{ files | listIncludesRegex('\.py$') }}
+     has_python: {{ files | isSomeInListRegex('\.py$') }}
 ```
 
 #### `true` filter
