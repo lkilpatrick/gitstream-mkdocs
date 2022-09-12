@@ -6,31 +6,38 @@ of transformations and that's what ends up in rendered templates.
 
 Filters for lists of strings:
 
-- [`allExtensions`](#allExtensions-filter)
-- [`allDocs`](#allDocs-filter)
-- [`allImages`](#allImages-filter)
-- [`allTests`](#allTests-filter)
-- [`allPassRegex`](#allPassRegex-filter)
-- [`extensions`](#extensions-filter)
-- [`filter`](#filter-filter)
-- [`filterRegex`](#filterRegex-filter)
-- [`includes`](#includes-filter)
-- [`includesRegex`](#includesRegex-filter)
+List filters:
+- [`extensions`](#extensions-filter) - List of all unique file extensions from a list of file names.
+- [`filter`](#filter-filter) - List of items that match the search term from the input list.
+- [`filterRegex`](#filterRegex-filter) - List of items that match the regex from the input list.
+- [`includes`](#includes-filter) -  Return `true` if any of items in a list match the search term.
+- [`includesRegex`](#includesRegex-filter) -  Return `true` if any of items in a list match the regex term.
 
-Specialized filters:
+File names checks:
+- [`allExtensions`](#allExtensions-filter)- Return `true` if the input list includes only any of the specified extensions.
+- [`allDocs`](#allDocs-filter) - Return `true` if the input list includes only documents based on file extensions.
+- [`allImages`](#allImages-filter) - Return `true` if the input list includes only images based on file extensions.
+- [`allTests`](#allTests-filter) - Return `true` if the input list includes only tests based on file's path and name.
+- [`allPassRegex`](#allPassRegex-filter) - Return `true` if the all the items in the input list matches the regex term.
 
-- [`true`](#true-filter)
+File diff filters, expects [`source.diff.files`](21_gitstream-context.md#source-context).
+- [`filterFiles`](#filterFiles-filter) - List of file diffs that match the search term from the input file diff list.
+- [`allLines`](#allLines-filter)
+- [`allFormattingChange`](#allFormattingChange-filter) - Return `true` if all file diffs are validated as formatting changes.
+
+Other:
+- [`true`](#true-filter) - Return `true`
+
+PR evaluation: 
 - [`estimatedReviewTime`](#estimatedReviewTime-filter)
 
-Filters for file diffs:
 
-- [`filterFiles`](#filterFiles-filter)
-- [`allLines`](#allLines-filter)
-- [`allFormattingChange`](#allFormattingChange-filter)
 
 #### `allExtensions` filter
 
 :octicons-tag-24: Minimal version: 1.0
+
+Return `true` if the input list includes only any of the specified extensions.
 
 Syntax: 
 ```
@@ -53,6 +60,8 @@ checks:
 #### `allDocs` filter
 
 :octicons-tag-24: Minimal version: 1.0
+
+Return `true` if the input list includes only documents based on file extensions.
 
 Syntax: 
 ```
@@ -77,6 +86,8 @@ checks:
 
 :octicons-tag-24: Minimal version: 1.0
 
+Return `true` if the input list includes only images based on file extensions.
+
 Syntax: 
 ```
 allImages(files)
@@ -100,6 +111,8 @@ checks:
 
 :octicons-tag-24: Minimal version: 1.0
 
+Return `true` if the input list includes only tests based on file's path and name.
+
 Syntax: 
 ```
 allTests(files)
@@ -122,6 +135,8 @@ checks:
 #### `allPassRegex` filter
 
 :octicons-tag-24: Minimal version: 1.0
+
+Return `true` if the all the items in the input list matches the regex term.
 
 Syntax: 
 ```
@@ -147,6 +162,8 @@ checks:
 
 :octicons-tag-24: Minimal version: 1.0
 
+Expects `files` and provide a list of all unique file extensions.
+
 Syntax: 
 ```
 extensions(files)
@@ -155,7 +172,7 @@ extensions(files)
 | Values | Usage    | Type      | Description                                     |
 | ------ | ---------|-----------|------------------------------------------------ |
 | `files`  | Input    | [String]  | The list of changed files with their path       |
-| `result` | Output   | [String]  | list of all unique file extensions              |
+| `result` | Output   | [String]  | List of all unique file extensions              |
 
 ```yaml
 checks:
@@ -182,6 +199,8 @@ estimatedReviewTime(branch)
 
 :octicons-tag-24: Minimal version: 1.0
 
+Expects a list and provide a new list with the items that match the search term.
+
 Syntax: 
 ```
 filter(items, searchTerm)
@@ -191,7 +210,7 @@ filter(items, searchTerm)
 | ------------- | ---------|-----------|--------------------------------------|
 | `items`       | Input    | [String]  | List of items                        |
 | `searchTerm` | Input    | String    | Search term to look for       |
-| `result`      | Output   | [String] | All items that match the regex expression   |
+| `result`      | Output   | [String] | All items that match   |
 
 Simple text filter:
 
@@ -206,6 +225,8 @@ checks:
 
 :octicons-tag-24: Minimal version: 1.0
 
+Expects a list and provide a new list with the items that match the regex term.
+
 Syntax: 
 ```
 filterRegex(items, regexExpression)
@@ -215,7 +236,7 @@ filterRegex(items, regexExpression)
 | ------------- | ---------|---------|------------------------------------------- |
 | `items`       | Input  | [String]  | List of items                              |
 | `regexExpression` | Input | String | Regex expression, `\.py$`              |
-| `result`      | Output | [String]  | All items that match the regex expression   |
+| `result`      | Output | [String]  | All items that match the regular expression   |
 
 ```yaml
 checks:
@@ -227,6 +248,8 @@ checks:
 #### `includes` filter
 
 :octicons-tag-24: Minimal version: 1.0
+
+Expects a list and return `true` if any of items match search term.
 
 Syntax: 
 ```
@@ -249,6 +272,8 @@ checks:
 #### `includesRegex` filter
 
 :octicons-tag-24: Minimal version: 1.0
+
+Expects a list and return `true` if any of items match the regex term.
 
 Syntax: 
 ```
@@ -291,7 +316,9 @@ automations:
 
 #### `filterFiles` filter
 
-:octicons-beaker-24: Coming soon
+:octicons-tag-24: Minimal version: 1.0
+
+List of file diffs that match the search term from the input file diff list.
 
 Syntax: 
 ```
@@ -349,12 +376,18 @@ automations:
 
 #### `allFormattingChange` filter
 
-:octicons-beaker-24: Coming soon
+:octicons-tag-24: Minimal version: 1.0
+
+Return `true` if all file diffs are validated as formatting changes.
 
 Support source code languages: 
 - JavaScript
 - TypeScript
 - Python 
+- JSON
+- YAML
+
+If changes in other formats detected the filter will return `false`.
 
 Syntax: 
 ```
