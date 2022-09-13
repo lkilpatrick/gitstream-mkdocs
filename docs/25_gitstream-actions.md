@@ -55,6 +55,7 @@ action: merge@v1
 engine: gitstream
 args:
     wait_for_all_checks: Boolean # default: false
+    squash_on_merge: Boolean # default: false
 ```
 
 Example:
