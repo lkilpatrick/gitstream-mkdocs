@@ -27,56 +27,50 @@ manifest:
 # Filters are essentially functions that can be applied to variables. They 
 # are called with a pipe operator (|) and can take arguments.
 checks:
-  content:
+  complexity:
+    by:
+      many_files: {{ files | length >= 10 }}
+      review_time: {{ branch | estimatedReviewTime >= 20 }}
+  change:
     is:
-      docs_only: {{ files | allExtensions(['md', 'txt', 'rst']) }}
-      images_only: {{ files | allExtensions(['png', 'jpg', 'svg']) }}
-  size:
-    is:
-      xsmall: {{ branch.diff.size <= 5 }}
-      small: {{ branch.diff.size > 5 and branch.diff.size <= 20 }}
-      medium: {{ branch.diff.size > 20 and branch.diff.size <= 100 }}
-      large: {{ branch.diff.size > 100 and branch.diff.size <= 200 }}
-      xlarge: {{ branch.diff.size > 200 }}
-  review:
-    etr: {{ branch | estimatedReviewTime }}
-
+      formatting_only: {{ source.diff.files | allFormattingChange }}
+      docs_only: {{ files | allDocs }}
+      tests_only: {{ files | allTests }}
+  
 # The `automations` section include the list of automation that applies 
 # for the repo in which gitStream is installed. 
 # Each autaomtion has `if` key with a list of the necessary condtions and
 # a `run` key with a list of all actions. All the listed condtions need to  
 # pass in order for the following actions to be executed.
 automations:
-  approve_docs_changes:
+  mark_formatting:
     if:
-      - {{ checks.content.is.docs_only }}
-    run: 
-      - action : approve@v1
-      - action : add-labels@v1
-        args:
-          labels: ['non-code']
-  approve_images_changes:
-    if:
-      - {{ checks.content.is.images_only }}
-    run: 
-      - action : approve@v1
-      - action : add-labels@v1
-        args:
-          labels: ['non-code']
-  small_pr:
-    if:
-      - {{ checks.size.is.small }}
+      - {{ checks.change.is.formatting_only }}
     run: 
       - action : add-labels@v1
         args:
-          labels: ['small']
-  add_context:
+          labels: ['formatting']
+  mark_docs:
     if:
-      - true
+      - {{ checks.change.is.formatting_only }}
     run: 
-      - action : add-comment@v1
+      - action : add-labels@v1
         args:
-          comment: Estimated {{ checks.review.etr }} minutes to review
+          labels: ['docs']
+  mark_tests:
+    if:
+      - {{ checks.change.is.formatting_only }}
+    run: 
+      - action : add-labels@v1
+        args:
+          labels: ['tests']          
+  mark_complex_pr:
+    if:
+      - {{ checks.complexity.by.many_files or checks.complexity.by.review_time }}
+    run:
+      - action : add-labels@v1
+        args:
+          labels: ['complex-pr']
 ```
 
 #### `.github/workflows/gitstream.yml`
