@@ -59,8 +59,16 @@ The `checks` section defines conditions that are nested under the `checks` secti
 checks:
   size:
     is:
-      xsmall: {{ branch.diff.size < 20 }}
+      small: {{ branch.diff.size < 20 }}
+      medium: {{ branch.diff.size >= 20 and branch.diff.size < 100 }}
+      large: {{ branch.diff.size >= 100 }}
 ```
+
+| Key            | Required | Type    | Description                                     |
+|----------------|----------|---------|------------------------------------------------ |
+| `checks`  | Y        | Map     | The checks section root     |
+
+Each automation includes its name, and few fields: `if` and `run`.
 
 Each condition includes a logic expression that eventually results with a boolean value: `true` or `false`. 
 

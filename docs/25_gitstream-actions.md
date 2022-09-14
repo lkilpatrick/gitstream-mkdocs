@@ -102,7 +102,7 @@ args:
 checks:
   change:
     is:
-      core_service: {{ files | filterRegex('core') | length > 0 }}
+      core_service: {{ files | isSomeInListRegex('core\/') }}
 
 automations:
   double_review:
@@ -137,7 +137,7 @@ args:
 checks:
   change:
     is:
-      core_service: {{ files | filterRegex('core') | length > 0 }}
+      core_service: {{ files | isSomeInListRegex('core\/') }}
 
 automations:
   senior_review:
@@ -146,7 +146,7 @@ automations:
     run:
       - action: add-reviewers@v1
         args:
-          reviewers: [@team-leader]
+          reviewers: [john_rambo]
 ```
 
 #### `add-labels` action
@@ -172,7 +172,7 @@ args:
 checks:
   change:
     is:
-      core_service: {{ files | filterRegex('core') | length > 0 }}
+      core_service: {{ files | isSomeInListRegex('core\/') }}
 
 automations:
   senior_review:
@@ -207,7 +207,7 @@ args:
 checks:
   change:
     is:
-      core_service: {{ files | filterRegex(‘core’) | length > 0 }}
+      core_service: {{ files | isSomeInListRegex('core\/') }}
 
 automations:
   senior_review:
@@ -248,7 +248,7 @@ args:
 checks:
   content:
     is:
-      assets_only: {{ files | allPassRegex('.*.png$|.*.jpg$|.*.svg$|.*\.css$') }}
+      assets_only: {{ files | isEveryInListRegex('.*.png$|.*.jpg$|.*.svg$|.*\.css$') }}
       
 automations:
   senior_review:

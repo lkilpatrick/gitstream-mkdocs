@@ -3,19 +3,15 @@
 gitStream includes a collection of variables called contexts. 
 
 - [`branch`](#branch-context)
-    - `name`
-    - `base`
-    - `diff`
-        - `size`
-        - `files_metadata`
+- `branch.name`
+- `branch.base`
+- `branch.diff.size`
+- `branch.diff.files_metadata`
 - [`files`](#files-context)
 - [`source`](#source-context)
-    - `diff`
-        - `files`
+- `source.diff.files`
 - [`repo`](#repo-context)
-    - `contributors`
-- [`pr`](#pr-context)
-    - `author`
+- `repo.contributors`
 
 #### `branch` context
 
@@ -28,11 +24,11 @@ gitStream includes a collection of variables called contexts.
 | `branch.base`        | String    | The main branch, `main`                 |
 | `branch.diff`        | Map       | Includes the info compared to the default branch, `main` |
 | `branch.diff.size`   | Integer   | The sum of line changed: additions, edits and deletions   |
-| `branch.diff.files_metadata`  | [Map]  | List of changed files including their relative path      |
+| `branch.diff.files_metadata`  | [`FileMetadata`]  | List of changed files including their relative path      |
 
 The branch context doesn't include any source code, but only related metadata.
 
-The `files_metadata` mapping includes a list of the following structure:
+The `branch.diff.files_metadata` mapping includes a list of `FileMetadata`:
 
 | Values          | Type      | Description                                                     |
 | ----------------|-----------|---------------------------------------------------------------- |
@@ -57,11 +53,11 @@ The `files_metadata` mapping includes a list of the following structure:
 |---------------------|-------|--------------------------------------------------- |
 | `source`          | Map   | Info related to source code           |
 | `source.diff`     | [Map] | Includes the info compared to the default branch, `main` |
-| `source.diff.files` | [Map] | List of changed files with their code changes |
+| `source.diff.files` | [`File`] | List of changed files with their code changes |
 
 The source context include all code changes, it is not safe to share it with unknown services.
 
-The `files` mapping includes a list of the following structure:
+The `source.diff.files` mapping includes a list of `File`:
 
 | Values          | Type      | Description                                          |
 | ----------------|-----------|----------------------------------------------------- |
@@ -78,19 +74,12 @@ The `files` mapping includes a list of the following structure:
 | Values             | Type      | Description                                              |
 |--------------------|-----------|-------------------------------------------------|
 | `repo`             | Map       | Includes the info related to the current repo   |
-| `repo.contributors`  | [Map]  | List of changed files including their relative path |
+| `repo.contributors`  | [`Contributor`]  | List of changed files including their relative path |
 
-The `contributors` mapping includes a list of the following structure:
+The `repo.contributors` mapping includes a list of `Contributor`:
 
 | Values          | Type      | Description                                         |
 | ----------------|-----------|---------------------------------------------------- |
 | `name` | String    | Name of contributor     |
 | `commitsInRepo` | Number   | The number of commit by contributor to repo  |
 
-#### `pr` context
-
-:octicons-tag-24: Minimal version: 1.0
-
-| Values   | Type      | Description          |
-|----------|-----------|------------------------ |
-| `author` | String   | The PR author name |

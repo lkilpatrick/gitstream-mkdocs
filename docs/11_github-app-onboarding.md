@@ -74,6 +74,7 @@ automations:
 ```
 
 #### `.github/workflows/gitstream.yml`
+
 This file is used by gitStream to trigger the automation in GitHub, you should not edit it. Editing 
 it might break the functionality or might not be compatible with future changes in gitStream. 
 

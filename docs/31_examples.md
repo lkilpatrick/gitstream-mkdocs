@@ -10,7 +10,6 @@ Edit your `.cm/gitstream.cm` to include the following:
 
 ```yaml
 checks:
-  ...
   size:
     is:
       xsmall: {{ branch.diff.size <= 5 }}
@@ -45,11 +44,10 @@ automations:
 
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
-Edit your .cm/gitstream.cm to include the following:
+Edit your `.cm/gitstream.cm` to include the following:
 
 ```yaml
 automations:
-  ...
   etr_on_all:
     if:
       - true
@@ -89,17 +87,15 @@ automations:
 
 Automatically require 2 reviewers for PRs that changes core functionality.
 
-Edit your .cm/gitstream.cm to include the following:
+Edit your `.cm/gitstream.cm` to include the following:
 
 ```yaml
 checks:
-  ...
   change:
     is:
-      core: {{ files | filterRegex('core\/') | length > 0 }}
+      core: {{ files | isSomeInListRegex('core\/') }}
 
 automations:
-  ...
   double_review:
     if:
       - {{ checks.change.is.core }}
@@ -109,40 +105,13 @@ automations:
           reviewers: 2
 ```
 
-### Send Slack message with inline approve button 
-
-:octicons-beaker-24: Coming soon
-
-Automatically send inline approve Slack message using WorkerB service for small PRs.
-
-Edit your .cm/gitstream.cm to include the following:
-
-```yaml
-checks:
-  ...
-  change:
-    is:
-      xsmall: {{ branch.diff.size <= 8 }}
-
-automations:
-  ...
-  slack_inline:
-    if:
-      - {{ checks.change.is.xsmall }}
-    run:
-      - action: inline-message@v1
-        engine: gitstream
-        args:
-          only_if_checks_pass: true
-```
-
 ### Set 2 reviewers for large PRs 
 
 :octicons-tag-24: Minimal version: 1.0
 
 Automatically require 2 reviewers for PRs that has more than 100 lines of code changed.
 
-Edit your .cm/gitstream.cm to include the following:
+Edit your `.cm/gitstream.cm` to include the following:
 
 ```yaml
 checks:
@@ -168,8 +137,7 @@ automations:
 
 For PRs that include only code format change, approve merge automatically.
 
-Edit your .cm/gitstream.cm to include the following:
-
+Edit your `.cm/gitstream.cm` to include the following:
 
 ```yaml
 checks:
@@ -177,7 +145,7 @@ checks:
   content:
     is:
       only_js: {{ files | allExtensions(['js', 'ts']) }}
-      only_formatting: {{ source.diff.files | trimAndCompareLines | allTrue }}
+      only_formatting: {{ source.diff.files | isFormattingChange }}
 
 automations:
   ...
@@ -207,9 +175,6 @@ checks:
   is:
     simple: {{ files | length == 1 }}
     small: {{ branch.diff.size < 10 }}
-  coverage:
-    is:
-      full: {{ inputs.coverage_diff == 100.0 }}
 
 automations:
   ...
@@ -217,7 +182,6 @@ automations:
     if:
       - {{ checks.is.simple }}
       - {{ checks.is.small }}
-      - {{ checks.coverage.is.full }}
     run:
       - action: approve@v1
       - action: add-labels
