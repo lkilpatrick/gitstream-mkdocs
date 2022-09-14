@@ -13,8 +13,8 @@ manifest:
 checks:
   content:
     is:
-      docs_only: {{ files | allExtensions(['md', 'txt', 'rst']) }}
-      images_only: {{ files | allExtensions(['png', 'jpg', 'svg']) }}
+      docs_only: {{ files | isEveryExtension(['md', 'txt', 'rst']) }}
+      images_only: {{ files | isEveryExtension(['png', 'jpg', 'svg']) }}
   size:
     is:
       xsmall: {{ branch.diff.size <= 5 }}

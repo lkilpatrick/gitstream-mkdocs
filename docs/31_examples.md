@@ -144,7 +144,7 @@ checks:
   ...
   content:
     is:
-      only_js: {{ files | allExtensions(['js', 'ts']) }}
+      only_js: {{ files | isEveryExtension(['js', 'ts']) }}
       only_formatting: {{ source.diff.files | isFormattingChange }}
 
 automations:
