@@ -7,6 +7,7 @@
     To start using gitStream, create the following files in each repo's main branch with the following content.
 
 Get the following files into each of your repos main branch:
+
 1. `.cm/gitstream.cm` 
 2. `.github/workflows/gitstream.yml`
 
