@@ -35,14 +35,15 @@ File names operators:
 
 - [`extractExtensions`](#extractExtensions-filter) - List of all unique file extensions from a list of file names.
 
-File diff ([`source.diff.files`](21_gitstream-context.md#source-context)) checks:
+[`FileDiff` ](21_gitstream-context.md#file-diff-structure) checks:
 
 - [`isFormattingChange`](#isFormattingChange-filter) - Return `true` if all file diffs are validated as formatting changes.
-- [`isEveryLineChangeRegex`](#isEveryLineChangeRegex-filter) - Return `true` if every changed line matchs the regex.
+- [`isEveryLineInFileDiffRegex`](#isEveryLineInFileDiffRegex-filter) - Return `true` if every changed line matchs the regex.
+- [`isSomeLineInFileDiffRegex`](#isSomeLineInFileDiffRegex-filter) - Return `true` if any changed line matchs the regex.
 
-File diff ([`source.diff.files`](21_gitstream-context.md#source-context)) operators:
+[`FileDiff` ](21_gitstream-context.md#file-diff-structure) operators:
 
-- [`filterFilesDiffRegex`](#filterFiles-filter) - List of file diffs that match the regex from the input file diff list.
+- [`filterFileDiffRegex`](#filter-filterFileDiffRegex-filter) - List of file diffs that match the regex from the input file diff list.
 
 PR checks: 
 
@@ -50,7 +51,7 @@ PR checks:
 
 Other:
 
-- [`true`](#true-filter) - Return `true`
+- [`true`](#true-filter) - Returns `true` always
 
 
 
@@ -166,7 +167,7 @@ checks:
       single_type: {{ files | extractExtensions | length == 1 }}
 ```
 
-#### `filterFilesDiffRegex` filter
+#### `filterFileDiffRegex` filter
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -174,7 +175,7 @@ List of file diffs that match the search term from the input file diff list.
 
 Syntax: 
 ```
-filterFilesDiffRegex(files, filterRegex)
+filterFileDiffRegex(files, filterRegex)
 ```
 
 | Values        | Usage    | Type      | Description                                |
@@ -336,18 +337,18 @@ checks:
 ```
 
 
-#### `isEveryLineChangeRegex` filter
+#### `isEveryLineInFileDiffRegex` filter
 
 :octicons-beaker-24: Coming soon
 
 Syntax: 
 ```
-isEveryLineChangeRegex(diffs, matchRegex)
+isEveryLineInFileDiffRegex(filediffs, matchRegex)
 ```
 
 | Values       | Usage    | Type   | Description                                     |
 | ------------ | ---------|--------|------------------------------------------------ |
-| `files`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
+| `filediffs`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
 | `matchRegex` | Input    | String | Regex filter applied to the `diff` field of files diffs  |
 | `result`     | Output   | Bool   | `true` if the all lines in diffs match the regex |
 
@@ -360,8 +361,8 @@ checks:
 
   only_logs:
     in:
-     python: {{ source.diff.files | filterFilesRegex('\.py$') | isEveryLineChangeRegex('logger\.(debug|info|warn|error)') }}
-     javascript: {{ source.diff.files | filterFilesRegex('\.js$') | isEveryLineChangeRegex('console\.log') }}
+     python: {{ source.diff.files | filterFileDiffRegex('\.py$') | isEveryLineInFileDiffRegex('logger\.(debug|info|warn|error)') }}
+     javascript: {{ source.diff.files | filterFileDiffRegex('\.js$') | isEveryLineInFileDiffRegex('console\.log') }}
 
 automations:
   allow_py_logging_changes:
@@ -396,12 +397,12 @@ If changes in other formats detected the filter will return `false`.
 
 Syntax: 
 ```
-isFormattingChange(diffs)
+isFormattingChange(filediffs)
 ```
 
 | Values       | Usage    | Type   | Description                                     |
 | ------------ | ---------|--------|------------------------------------------------ |
-| `files`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
+| `filediffs`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
 | `result`     | Output   | Bool   | `true` if the all code changes are non functional |
 
 ```yaml
@@ -464,6 +465,38 @@ checks:
   filetypes:
     is:
      has_python: {{ files | isSomeInListRegex('\.py$') }}
+```
+
+
+
+#### `isSomeLineInFileDiffRegex` filter
+
+:octicons-beaker-24: Coming soon
+
+Syntax: 
+```
+isSomeLineInFileDiffRegex(filediffs, matchRegex)
+```
+
+| Values       | Usage    | Type   | Description                                     |
+| ------------ | ---------|--------|------------------------------------------------ |
+| `filediffs`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
+| `matchRegex` | Input    | String | Regex filter applied to the `diff` field of files diffs  |
+| `result`     | Output   | Bool   | `true` if the any of the lines in diffs match the regex |
+
+```yaml
+checks:
+  using:
+     fetch: {{ source.diff.files| isSomeLineInFileDiffRegex('fetch\(') }}
+
+automations:
+  mark_api_calls:
+    if:
+      - {{ checks.using.fetch }}
+    run:
+      - action: add-label@v1
+        args:
+          label: fetch
 ```
 
 
