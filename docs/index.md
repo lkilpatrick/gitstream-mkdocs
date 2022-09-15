@@ -2,7 +2,9 @@
 
 Welcome to gitStream. 
 
-This site will contain all the information you need to get started with gitStream and Continuous Merge!
+Create a clear set of rules and policies that automates how code gets merged in your repo. With a .cm file developers will understand how their PR can be optimized and how to follow the repo policy.
+
+⁠Continuous Merge (CM) is the practice of improving merge efficiency by classifying pull requests based on change size and complexity. Automating the merge path based on the unique merge conditions allows work to flow more efficiently.
 
 
 # Getting Started 
