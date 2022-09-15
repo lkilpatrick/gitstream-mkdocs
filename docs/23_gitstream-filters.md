@@ -564,9 +564,9 @@ Returns `true`
 automations:
   add_ready_comment:
     if:
-      - {{ true() }}
+      - {{ true }}
     run:
-      - action: add_comment@v1
+      - action: add-comment@v1
         comment: ready
 ```
 
