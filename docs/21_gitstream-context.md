@@ -3,15 +3,15 @@
 gitStream includes a collection of variables called contexts. 
 
 - [`branch`](#branch-context)
-- `branch.name`
-- `branch.base`
-- `branch.diff.size`
-- `branch.diff.files_metadata`
 - [`files`](#files-context)
 - [`source`](#source-context)
-- `source.diff.files`
 - [`repo`](#repo-context)
-- `repo.contributors`
+
+The following structures definitions:
+
+- [`FileMetadata`](#file-metadata-structure)
+- [`FileDiff`](#file-diff-structure)
+- [`Contributor`](#contributor-structure)
 
 #### `branch` context
 
@@ -27,6 +27,8 @@ gitStream includes a collection of variables called contexts.
 | `branch.diff.files_metadata`  | [`FileMetadata`]  | List of changed files including their relative path      |
 
 The branch context doesn't include any source code, but only related metadata.
+
+#### `FileMetadata` structure
 
 The `branch.diff.files_metadata` mapping includes a list of `FileMetadata`:
 
@@ -53,11 +55,13 @@ The `branch.diff.files_metadata` mapping includes a list of `FileMetadata`:
 |---------------------|-------|--------------------------------------------------- |
 | `source`          | Map   | Info related to source code           |
 | `source.diff`     | [Map] | Includes the info compared to the default branch, `main` |
-| `source.diff.files` | [`File`] | List of changed files with their code changes |
+| `source.diff.files` | [`FileDiff`] | List of changed files with their code changes |
 
 The source context include all code changes, it is not safe to share it with unknown services.
 
-The `source.diff.files` mapping includes a list of `File`:
+#### `FileDiff` structure
+
+The `source.diff.files` mapping includes a list of `FileDiff`:
 
 | Values          | Type      | Description                                          |
 | ----------------|-----------|----------------------------------------------------- |
@@ -75,6 +79,8 @@ The `source.diff.files` mapping includes a list of `File`:
 |--------------------|-----------|-------------------------------------------------|
 | `repo`             | Map       | Includes the info related to the current repo   |
 | `repo.contributors`  | [`Contributor`]  | List of changed files including their relative path |
+
+#### `Contributor` structure
 
 The `repo.contributors` mapping includes a list of `Contributor`:
 
