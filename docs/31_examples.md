@@ -1,6 +1,6 @@
 # Examples
 
-### Add label to PR colored by PR size
+### Add label to PR by PR size
 
 :octicons-tag-24: Minimal version: 1.0
 
@@ -27,7 +27,6 @@ automations:
       - action: add-labels@v1
         args:
           labels: [good_size]
-          color: green
   mark_big_pr:
     if:
       - {{ checks.size.is.large or checks.size.is.xlarge }}
@@ -35,7 +34,6 @@ automations:
       - action: add-labels@v1
         args:
           labels: [big_size]
-          color: red
 ```
 
 ### Add Estimated Time for Review in PRs comment 
