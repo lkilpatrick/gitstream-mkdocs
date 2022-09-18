@@ -74,6 +74,10 @@ automations:
           labels: ['complex-pr']
 ```
 
+!!! note
+
+    You can edit later the `.cm/gitstream.cm` and add your own checks and automations.
+
 #### `.github/workflows/gitstream.yml`
 
 This file is used by gitStream to trigger the automation in GitHub, you should not edit it. Editing 
