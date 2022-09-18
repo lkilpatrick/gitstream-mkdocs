@@ -60,7 +60,7 @@ Every time a dev opens a new Pull Request or changes a Pull Request, gitStream i
 6. gitStream GitHub app calls the installed action in `.github/workflows/gitstream.yml`
 7. The installed action pulls and runs gitStream action in the repo and uses 
     1. The provided PR context
-    2. The repos automations from `cm/gitstream.cm`
+    2. The repos automations from `.cm/gitstream.cm`
 8. The gitStream action gets sends the qualified automations to the gitStream GitHub app
 9. gitStream GitHub app iterates over the automations and invokes each action using GitHub APIs
 10. The PR gets updated according to the desired automations
