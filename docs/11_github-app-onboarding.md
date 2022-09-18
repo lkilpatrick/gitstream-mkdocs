@@ -48,21 +48,21 @@ automations:
     if:
       - {{ checks.change.is.formatting_only }}
     run: 
-      - action : add-labels@v1
+      - action: add-labels@v1
         args:
           labels: ['formatting']
   mark_docs:
     if:
       - {{ checks.change.is.docs_only }}
     run: 
-      - action : add-labels@v1
+      - action: add-labels@v1
         args:
           labels: ['docs']
   mark_tests:
     if:
       - {{ checks.change.is.tests_only }}
     run: 
-      - action : add-labels@v1
+      - action: add-labels@v1
         args:
           labels: ['tests']          
   mark_complex_pr:
