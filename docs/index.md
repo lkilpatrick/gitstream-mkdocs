@@ -26,5 +26,6 @@ Take these 3 steps to see how gitStream works, later on you can learn about the 
 
     Continuous Merge (CM) is the practice of automating the merge path by classifying pull requests based on change type, size, and complexity to allow work to flow more efficiently.
 
-![Continuous Merge](assets/ContinuousMerge3w.png)
+![Continuous Merge](assets/ContinuousMerge3l.png#only-light)
+![Continuous Merge](assets/ContinuousMerge3d.png#only-dark)
 
