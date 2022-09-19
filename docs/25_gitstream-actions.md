@@ -14,15 +14,7 @@ gitStream executes actions in the order they are listed. If an action result fai
 
 This action, once triggered, approves the PR for merge.
 
-Syntax: 
-
-```yaml
-action: approve@v1
-```
-
-Example:
-
-```yaml
+```yaml title="example"
 automations:
   small_change:
     if:
@@ -34,22 +26,19 @@ automations:
 
 #### `merge` action
 
-This action, once triggered, approve & merge the PR.
-
-It can set to wait for required checks to pass or ignore checks.
+This action, once triggered, approve & merge the PR. It can set to wait for required checks to pass or ignore checks.
 
 Syntax: 
 
-```yaml
-action: merge@v1
-args:
-    wait_for_all_checks: Boolean # default: false
-    squash_on_merge: Boolean # default: false
-```
+| Args       | Type      | Description                                     |
+| -----------|-----------|------------------------------------------------ |
+| `wait_for_all_checks`| Boolean | By default `false`, so only Required checks can block merge, when `true` the action won't merrge even if non-Required check fail  |
+| `squash_on_merge`| Boolean   | When merging use squash mode |
+
 
 Example:
 
-```yaml
+```yaml title="example"
 automations:
   small_change:
     if:
@@ -63,21 +52,15 @@ automations:
 
 This action, once triggered, blocks PR merge till the desired reviewers approved the PR. The actions fail the check to prevent the PR for merge.
 
-Note: you should enable branch protection, so GitHub will prevent merging unless the gitStream action check pass successfully. 
+!!! note
 
-Syntax: 
-
-```yaml
-action: set-required-approvals@v1
-args: 
-  approvals: Integer 
-```
+    You should enable branch protection, so GitHub will prevent merging unless the gitStream action check pass successfully. 
 
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
 | `approvals`| Integer   | Sets the number of required reviewer approvals for merge for that PR|
 
-```yaml
+```yaml title="example"
 automations:
   double_review:
     if:
@@ -92,19 +75,11 @@ automations:
 
 This action, once triggered, sets a specific reviewer.
 
-Syntax: 
-
-```yaml
-action: add-reviewers@v1
-args: 
-  reviewers: [String] 
-```
-
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
 | `reviewers` | [String]    | Sets reviewers user name |
 
-```yaml
+```yaml title="example"
 automations:
   senior_review:
     if:
@@ -119,19 +94,11 @@ automations:
 
 This action, once triggered, adds a label to the PR.
 
-Syntax: 
-
-```yaml
-action: add-labels@v1
-args: 
-  labels: [String] 
-```
-
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
-| `label`    | [String]  | List of labels, any string can work |
+| `labels`    | [String]  | List of labels, any string can work |
 
-```yaml
+```yaml title="example"
 automations:
   senior_review:
     if:
@@ -146,19 +113,11 @@ automations:
 
 This action, once triggered, adds a comment to the PR.
 
-Syntax: 
-
-```yaml
-action: add-comment@v1
-args: 
-  comment: String 
-```
-
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
 | `comment`  | String    | Sets the comment, markdown is supported |
 
-```yaml
+```yaml title="example"
 automations:
   senior_review:
     if:
@@ -175,22 +134,14 @@ automations:
 
 Used to workaround unnecessary checks, this action, update the defined check with the defined status if all conditions pass.
 
-Syntax: 
-
-```yaml
-action: update-check@v1
-args: 
-  checkName: cypress-e2e
-  status: completed
-  conclusion: success
-```
-
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
-| `comment`  | String    | Sets the comment, markdown is supported |
+| `checkName`  | String    | The name of the check |
+| `status`  | String    | The status of the check |
+| `conclusion`  | String    | The conclusion of the check |
 
 
-```yaml
+```yaml title="example"
 automations:
   senior_review:
     if:

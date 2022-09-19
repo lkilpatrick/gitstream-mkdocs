@@ -2,8 +2,6 @@
 
 ### Add label to PR by PR size
 
-:octicons-tag-24: Minimal version: 1.0
-
 Automatically add a label to PRs that are very small to get faster reviewer response.
 
 Edit your `.cm/gitstream.cm` to include the following:
@@ -38,8 +36,6 @@ automations:
 
 ### Add Estimated Time for Review in PRs comment 
 
-:octicons-beaker-24: Coming soon
-
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
 Edit your `.cm/gitstream.cm` to include the following:
@@ -57,72 +53,32 @@ automations:
 
 ### Automated check and approve low risk PRs 
 
-:octicons-tag-24: Minimal version: 1.0
-
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
 Edit your `.cm/gitstream.cm` to include the following:
 
 ```yaml
-checks:
-  ...
-  filetypes:
-    is:
-      docs: {{ files | allDocs }}
-
 automations:
   ...
   approve_docs:
     if:
-      - {{ checks.filetypes.is.docs }}
+      - {{ files | allDocs }}
     run:
       - action: approve@v1
 ```
 
-### Set 2 reviewers for high complexity PRs 
-
-:octicons-tag-24: Minimal version: 1.0
-
-Automatically require 2 reviewers for PRs that changes core functionality.
-
-Edit your `.cm/gitstream.cm` to include the following:
-
-```yaml
-checks:
-  change:
-    is:
-      core: {{ files | isSomeInListRegex('core\/') }}
-
-automations:
-  double_review:
-    if:
-      - {{ checks.change.is.core }}
-    run:
-      - action: set-required-approvals@v1
-        args:
-          reviewers: 2
-```
 
 ### Set 2 reviewers for large PRs 
-
-:octicons-tag-24: Minimal version: 1.0
 
 Automatically require 2 reviewers for PRs that has more than 100 lines of code changed.
 
 Edit your `.cm/gitstream.cm` to include the following:
 
 ```yaml
-checks:
-  ...
-  change:
-    is:
-      core: {{ branch.diff.size > 100 }}
-
 automations:
-  ...
   double_review:
     if:
-      - {{ checks.change.is.core }}
+      - {{ branch.diff.size > 100 }}
     run:
       - action: set-required-approvals@v1
         args:
@@ -131,26 +87,16 @@ automations:
 
 ### Approve indentation changes in JavaScript files 
 
-:octicons-beaker-24: Coming soon
-
 For PRs that include only code format change, approve merge automatically.
 
 Edit your `.cm/gitstream.cm` to include the following:
 
 ```yaml
-checks:
-  ...
-  content:
-    is:
-      only_js: {{ files | isEveryExtension(['js', 'ts']) }}
-      only_formatting: {{ source.diff.files | isFormattingChange }}
-
 automations:
-  ...
   allow_formatting:
     if:
-      - {{ checks.content.is.only_js }}
-      - {{ checks.content.is.only_formatting }}
+      - {{ files | isEveryExtension(['js', 'ts']) }}
+      - {{ source.diff.files | isFormattingChange }}
     run:
       - action: approve@v1
       - action: add-labels
@@ -158,34 +104,3 @@ automations:
           labels: [code-formatting]
 
 ```
-
-### Approve small changes with 100% coverage on changes 
-
-:octicons-beaker-24: Coming soon
-
-Approve small PRs that has 100% code coverage.
-
-Edit your .cm/gitstream.cm to include the following:
-
-```yaml
-checks:
-  ...
-  is:
-    simple: {{ files | length == 1 }}
-    small: {{ branch.diff.size < 10 }}
-
-automations:
-  ...
-  small_and_verified:
-    if:
-      - {{ checks.is.simple }}
-      - {{ checks.is.small }}
-    run:
-      - action: approve@v1
-      - action: add-labels
-        args:
-          labels: [verified]
-
-```
-
-For the above to work you need to load the inputs context with the coverage results, see [here](22_custom-context.md).
