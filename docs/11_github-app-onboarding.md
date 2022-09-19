@@ -71,7 +71,7 @@ automations:
     run:
       - action : add-labels@v1
         args:
-          labels: ['complex-pr']
+          labels: ['long-review']
 ```
 
 !!! note
@@ -110,7 +110,7 @@ on:
           description: the resolver url to pass results to
           required: true
       resolver_token:
-          description: Optional resolver token for resulver service
+          description: Optional resolver token for resolver service
           required: false
           default: ''
 
