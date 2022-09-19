@@ -47,11 +47,9 @@ Get the following files into each of your repos main branch:
 
 See instructions [here](11_github-app-onboarding.md).
 
-## Usage
+## How it works
 
 Every time a dev opens a new Pull Request or changes a Pull Request, gitStream is triggered. Next, the `.cm` file is used to determine which automatic actions are invoked based on their conditions. The resulting actions use GitHub API to achieve the desired outcome.
-
-### How it works
 
 Next steps are common practice of changing code in repo:
 
