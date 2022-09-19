@@ -137,7 +137,7 @@ jobs:
 
 !!! attention
 
-    To get the full potnetial using gitStream, you need to set it as required check.
+    To get the full potential using gitStream, you need to set it as a required check.
 
 To make sure gitStream can block PRs from merging under certain conditions, you should set the following:
 

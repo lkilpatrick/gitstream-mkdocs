@@ -131,7 +131,7 @@ args:
 
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
-| `reviewers` | [String]    | Sets reivewer user name |
+| `reviewers` | [String]    | Sets reviewers user name |
 
 ```yaml
 checks:
