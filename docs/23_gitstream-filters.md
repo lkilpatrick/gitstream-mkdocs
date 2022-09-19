@@ -57,8 +57,6 @@ Other:
 
 #### `allDocs` filter
 
-:octicons-tag-24: Minimal version: 1.0
-
 Return `true` if the input list includes only documents based on file extensions.
 
 Syntax: 
@@ -81,8 +79,6 @@ checks:
 ```
 
 #### `allImages` filter
-
-:octicons-tag-24: Minimal version: 1.0
 
 Return `true` if the input list includes only images based on file extensions.
 
@@ -107,8 +103,6 @@ checks:
 
 #### `allTests` filter
 
-:octicons-tag-24: Minimal version: 1.0
-
 Return `true` if the input list includes only tests based on file's path and name.
 
 Syntax: 
@@ -132,8 +126,6 @@ checks:
 
 #### `estimatedReviewTime` filter
 
-:octicons-beaker-24: Coming soon
-
 Syntax: 
 ```
 estimatedReviewTime(branch)
@@ -145,8 +137,6 @@ estimatedReviewTime(branch)
 | `result`  | Output  | String    | the estimated time for review in minutes |
 
 #### `extractExtensions` filter
-
-:octicons-tag-24: Minimal version: 1.0
 
 Expects `files` and provide a list of all unique file extensions.
 
@@ -169,8 +159,6 @@ checks:
 
 #### `filterFileDiffRegex` filter
 
-:octicons-tag-24: Minimal version: 1.0
-
 List of file diffs that match the search term from the input file diff list.
 
 Syntax: 
@@ -185,8 +173,6 @@ filterFileDiffRegex(files, filterRegex)
 | `result`  | Output | [Map]  | List of matching file diffs           |
 
 #### `filterList` filter
-
-:octicons-tag-24: Minimal version: 1.0
 
 Expects a list and provide a new list with the items that match the search term.
 
@@ -212,8 +198,6 @@ checks:
 
 #### `filterListRegex` filter
 
-:octicons-tag-24: Minimal version: 1.0
-
 Expects a list and provide a new list with the items that match the regex term.
 
 Syntax: 
@@ -236,8 +220,6 @@ checks:
 
 
 #### `isEveryExtension` filter
-
-:octicons-tag-24: Minimal version: 1.0
 
 Return `true` if the input list includes only any of the specified extensions.
 
@@ -263,8 +245,6 @@ checks:
 
 #### `isEveryExtensionRegex` filter
 
-:octicons-tag-24: Minimal version: 1.0
-
 Return `true` if the input list includes only any of the specified extensions.
 
 Syntax: 
@@ -287,8 +267,6 @@ checks:
 
 
 #### `isEveryInList` filter
-
-:octicons-tag-24: Minimal version: 1.0
 
 Return `true` if the all the items in the input list matches the regex term.
 
@@ -313,8 +291,6 @@ checks:
 
 
 #### `isEveryInListRegex` filter
-
-:octicons-tag-24: Minimal version: 1.0
 
 Return `true` if the all the items in the input list matches the regex term.
 
@@ -421,8 +397,6 @@ automations:
 
 #### `isSomeInList` filter
 
-:octicons-tag-24: Minimal version: 1.0
-
 Expects a list and return `true` if any of items match search term.
 
 Syntax: 
@@ -444,8 +418,6 @@ checks:
 ```
 
 #### `isSomeInListRegex` filter
-
-:octicons-tag-24: Minimal version: 1.0
 
 Expects a list and return `true` if any of items match the regex term.
 
@@ -502,8 +474,6 @@ automations:
 
 #### `isStringIncludes` filter
 
-:octicons-tag-24: Minimal version: 1.0
-
 Expects a list and provide a new list with the items that match the search term.
 
 Syntax: 
@@ -525,8 +495,6 @@ checks:
 ```
 
 #### `isStringIncludesRegex` filter
-
-:octicons-tag-24: Minimal version: 1.0
 
 Expects a list and provide a new list with the items that match the search term.
 
@@ -550,8 +518,6 @@ checks:
 
 
 #### `true` filter
-
-:octicons-tag-24: Minimal version: 1.0
 
 Syntax: 
 ```

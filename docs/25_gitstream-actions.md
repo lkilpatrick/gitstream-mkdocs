@@ -12,37 +12,27 @@ gitStream executes actions in the order they are listed. If an action result fai
 
 #### `approve` action
 
-:octicons-tag-24: Minimal version: 1.0
-
 This action, once triggered, approves the PR for merge.
 
 Syntax: 
 
 ```yaml
 action: approve@v1
-engine: gitstream
 ```
 
 Example:
 
 ```yaml
-checks:
-  filetypes:
-    is:
-      docs: {{ files | allDocs }}
-
 automations:
   small_change:
     if:
-      - {{ checks.filetypes.is.docs }}
+      - {{ source.diff.files | isFormattingChange }}
     run:
       - action: approve@v1
 ```
 
 
 #### `merge` action
-
-:octicons-tag-24: Minimal version: 1.0
 
 This action, once triggered, approve & merge the PR.
 
@@ -52,7 +42,6 @@ Syntax:
 
 ```yaml
 action: merge@v1
-engine: gitstream
 args:
     wait_for_all_checks: Boolean # default: false
     squash_on_merge: Boolean # default: false
@@ -61,25 +50,16 @@ args:
 Example:
 
 ```yaml
-checks:
-  filetypes:
-    is:
-      docs: {{ files | allDocs }}
-
 automations:
   small_change:
     if:
-      - {{ checks.filetypes.is.docs }}
+      - {{ files | allDocs }}
     run:
       - action: merge@v1
-        args:
-          wait_for_all_checks: true
 ```
 
 
 #### `set-required-approvals` action
-
-:octicons-tag-24: Minimal version: 1.0
 
 This action, once triggered, blocks PR merge till the desired reviewers approved the PR. The actions fail the check to prevent the PR for merge.
 
@@ -89,7 +69,6 @@ Syntax:
 
 ```yaml
 action: set-required-approvals@v1
-engine: gitstream
 args: 
   approvals: Integer 
 ```
@@ -99,15 +78,10 @@ args:
 | `approvals`| Integer   | Sets the number of required reviewer approvals for merge for that PR|
 
 ```yaml
-checks:
-  change:
-    is:
-      core_service: {{ files | isSomeInListRegex('core\/') }}
-
 automations:
   double_review:
     if:
-      - {{ checks.change.is.core_service }}
+      - {{ files | isSomeInListRegex('core\/') }}
     run:
       - action: set-required-approvals@v1
         args:
@@ -116,15 +90,12 @@ automations:
 
 #### `add-reviewers` action
 
-:octicons-tag-24: Minimal version: 1.0
-
 This action, once triggered, sets a specific reviewer.
 
 Syntax: 
 
 ```yaml
 action: add-reviewers@v1
-engine: gitstream
 args: 
   reviewers: [String] 
 ```
@@ -134,24 +105,17 @@ args:
 | `reviewers` | [String]    | Sets reviewers user name |
 
 ```yaml
-checks:
-  change:
-    is:
-      core_service: {{ files | isSomeInListRegex('core\/') }}
-
 automations:
   senior_review:
     if:
-      - {{ checks.change.is.core_service }}
+      - {{ files | isSomeInListRegex('src\/ui\/') }}
     run:
       - action: add-reviewers@v1
         args:
-          reviewers: [john_rambo]
+          reviewers: [popeye, olive]
 ```
 
 #### `add-labels` action
-
-:octicons-tag-24: Minimal version: 1.0
 
 This action, once triggered, adds a label to the PR.
 
@@ -159,7 +123,6 @@ Syntax:
 
 ```yaml
 action: add-labels@v1
-engine: gitstream
 args: 
   labels: [String] 
 ```
@@ -169,24 +132,17 @@ args:
 | `label`    | [String]  | List of labels, any string can work |
 
 ```yaml
-checks:
-  change:
-    is:
-      core_service: {{ files | isSomeInListRegex('core\/') }}
-
 automations:
   senior_review:
     if:
-      - {{ checks.change.is.core_service }}
+      - {{ files | isSomeInListRegex('api\/') }}
     run:
       - action: add-labels@v1
         args:
-          labels: [core]
+          labels: [api-change]
 ```
 
 #### `add-comment` action
-
-:octicons-tag-24: Minimal version: 1.0
 
 This action, once triggered, adds a comment to the PR.
 
@@ -194,7 +150,6 @@ Syntax:
 
 ```yaml
 action: add-comment@v1
-engine: gitstream
 args: 
   comment: String 
 ```
@@ -204,15 +159,10 @@ args:
 | `comment`  | String    | Sets the comment, markdown is supported |
 
 ```yaml
-checks:
-  change:
-    is:
-      core_service: {{ files | isSomeInListRegex('core\/') }}
-
 automations:
   senior_review:
     if:
-      - {{ checks.change.is.core_service }}
+      - {{ files | isSomeInListRegex('core\/') }}
     run:
       - action: add-comment@v1
         args:
@@ -223,15 +173,12 @@ automations:
 
 ####  `update-check` action
 
-:octicons-tag-24: Minimal version: 1.0
-
 Used to workaround unnecessary checks, this action, update the defined check with the defined status if all conditions pass.
 
 Syntax: 
 
 ```yaml
 action: update-check@v1
-engine: gitstream
 args: 
   checkName: cypress-e2e
   status: completed
@@ -244,15 +191,10 @@ args:
 
 
 ```yaml
-checks:
-  content:
-    is:
-      assets_only: {{ files | isEveryInListRegex('.*.png$|.*.jpg$|.*.svg$|.*\.css$') }}
-      
 automations:
   senior_review:
     if:
-      - {{ checks.content.is.assets_only }}
+      - {{ files | isEveryInListRegex('.*.png$|.*.jpg$|.*.svg$|.*\.css$') }}
     run:
       - action : update-check@v1
         args:

@@ -15,7 +15,7 @@ The following structures definitions:
 
 #### `branch` context
 
-:octicons-tag-24: Minimal version: 1.0
+The `branch` context contains info regarding the branch changes, but compared to the `source` context does not include actual source code.
 
 | Values               | Type      | Description                                              |
 |----------------------|-----------|--------------------------------------------------------- |
@@ -40,16 +40,15 @@ The `branch.diff.files_metadata` mapping includes a list of `FileMetadata`:
 
 #### `files` context
 
-:octicons-tag-24: Minimal version: 1.0
+The `files` context includes the list of changed files in the branch compared to the main branch.
 
 | Values  | Type      | Description                                |
 |---------|-----------|------------------------ |
 | `files` | [String]  | List of all changed files with their full path |
 
-
 #### `source` context
 
-:octicons-tag-24: Minimal version: 1.0
+The `source` context includes a list of `FileDiff` objects that can be used to get insights based on code changes.
 
 | Values              | Type  | Description                                        |
 |---------------------|-------|--------------------------------------------------- |
@@ -73,7 +72,7 @@ The `source.diff.files` mapping includes a list of `FileDiff`:
 
 #### `repo` context
 
-:octicons-tag-24: Minimal version: 1.0
+The `repo` context includes metadata related to the repo.
 
 | Values             | Type      | Description                                              |
 |--------------------|-----------|-------------------------------------------------|
