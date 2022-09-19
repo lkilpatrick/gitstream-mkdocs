@@ -41,6 +41,7 @@ Once installation completes, the following files are added to each of the select
 ### Post installation  
 
 Get the following files into each of your repos main branch:
+
 1. `.cm/gitstream.cm` 
 2. `.github/workflows/gitstream.yml`
 
