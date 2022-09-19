@@ -3,9 +3,13 @@
   background-color: #2A2646;
 }
 
-h4 { 
+h4 {
   padding-top: 4%;
 } 
+
+th:nth-child(1){
+     width: 20%;
+}
 
 [data-md-color-scheme="default"] table th{
   background: #D8DADE;

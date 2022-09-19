@@ -36,8 +36,6 @@ Syntax:
 | `squash_on_merge`| Boolean   | When merging use squash mode |
 
 
-Example:
-
 ```yaml title="example"
 automations:
   small_change:
