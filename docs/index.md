@@ -16,8 +16,11 @@ Take these 3 steps to see how gitStream works, later on you can learn about the 
 2. Add these 2 files `.cm/gitstream.cm` and `.github/workflows/gitstream.yml` to your repo
 3. Open a new PR to see gitStream in action (You don’t have to merge it)
 
+
 [learn more about the .cm file](20_cm-schema.md)
+
 [automation examples](31_examples.md)
+
 
 !!! info
 
