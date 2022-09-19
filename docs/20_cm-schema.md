@@ -18,7 +18,7 @@ All Nunjucks filters are supported, see [documentation](https://mozilla.github.i
 
 gitStream built-in filter functions are described [here](23_gitstream-filters.md).
 
-You can also add custom filters, see [instructions](24_custom-filters.md).
+You can also add custom filters, see [instructions](28_custom-filters.md).
 
 ## Schema
 
@@ -46,8 +46,8 @@ The only field required is `version`.
 | `manifest`         | Y        | Map     | The manifest section root                |
 | `manifest.version` | Y        | String  | Specify the `.cm` spec version: 0.1, 1.0 |
 
-The manifest fields is used a version to parse the `.cm` file, so if breaking changes are 
-introduced to the parser - older automation are still supported.
+The manifest version field is used to parse the `.cm` file, in the future if breaking changes are 
+introduced to the parser then older automation will be still supported.
 
 ### `checks` section
 
@@ -114,7 +114,7 @@ The `run` field includes the automation to execute. It includes the following fi
 | `engine`    | N        | String  | The action engine, default is `gitstream`       |
 | `args`      | N        | List    | The action inputs list                          |
 
-For `gitstream` engine the action is specified by: `name@version`
+For `gitstream` engine, the action is specified by: `name@version`
 
 gitStream supported actions, see [documentation](25_gitstream-actions.md).
 

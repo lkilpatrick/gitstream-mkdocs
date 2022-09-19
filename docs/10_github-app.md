@@ -8,9 +8,9 @@ To start using gitStream with GitHub source code hosting, a GitHub app should be
 2. Add `.cm/gitstream.cm` and `.github/workflows/gitstream.yml` to your repo
 3. Get your automation for your next PR!
 
-gitStream can be installed for one repo, specific repos or all repos in your organization. 
+gitStream can be installed for one repo, specific repos, or all repos in your organization. 
 
-Note: we recommend installing for all repositories as it will also cover new repos you add in the future. You can change this setting at any time if you change your mind.
+Note: we recommend installing for all repositories, as it will also cover new repos you add in the future. You can change this setting at any time if you change your mind.
 
 The permissions are: 
 
@@ -68,6 +68,6 @@ Every time a dev opens a new Pull Request or changes a Pull Request, gitStream i
 
 ### Automation results
 
-Eventually the gitStream app shows the following statuses:  
+Eventually, the gitStream app shows the following statuses:  
 
-If any if the actions that triggered purpose is to prevent merging PRs based on its conditions it will show as Failed. Otherwise gitStream shall show Success once all action were completed successfully.
+If any of the actions that triggered purpose is to prevent merging PRs based on its conditions, it will show as failed. Otherwise, gitStream shall show Success once all action were completed successfully.

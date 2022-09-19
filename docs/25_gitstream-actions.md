@@ -42,7 +42,7 @@ automations:
 
 #### `merge` action
 
-:octicons-beaker-24: Coming soon
+:octicons-tag-24: Minimal version: 1.0
 
 This action, once triggered, approve & merge the PR.
 
@@ -81,9 +81,9 @@ automations:
 
 :octicons-tag-24: Minimal version: 1.0
 
-This action, once triggered, blocks PR merge till the desired reviewers approved the PR. The actions fails the check to prevent the PR for merge.
+This action, once triggered, blocks PR merge till the desired reviewers approved the PR. The actions fail the check to prevent the PR for merge.
 
-Note: you should enable branch protection so GitHub will prevent merging unless the gitStream action check pass successfully. 
+Note: you should enable branch protection, so GitHub will prevent merging unless the gitStream action check pass successfully. 
 
 Syntax: 
 
@@ -225,8 +225,7 @@ automations:
 
 :octicons-tag-24: Minimal version: 1.0
 
-Used to workaround unnecessary checks, this action, update the defined check with the defined 
-status if all conditions pass.
+Used to workaround unnecessary checks, this action, update the defined check with the defined status if all conditions pass.
 
 Syntax: 
 

@@ -21,7 +21,7 @@ manifest:
   version: 1.0
 
 # Define condition under the `checks` section, each check consists of
-# an expression. The checks results are evalauated and used as conditions 
+# an expression. The checks results are evaluated and used as conditions 
 # for the next section `automations`. 
 # Checks expressions are wrapped with double curly braces and includes a
 # context variable like `files` and filter like `length`.
@@ -40,8 +40,8 @@ checks:
   
 # The `automations` section include the list of automation that applies 
 # for the repo in which gitStream is installed. 
-# Each autaomtion has `if` key with a list of the necessary condtions and
-# a `run` key with a list of all actions. All the listed condtions need to  
+# Each automation has `if` key with a list of the necessary conditions and
+# a `run` key with a list of all actions. All the listed conditions need to  
 # pass in order for the following actions to be executed.
 automations:
   mark_formatting:
@@ -115,7 +115,7 @@ on:
           default: ''
 
 jobs:
-  continuous-merge-rules:
+  gitStream:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     name: gitStream workflow automation
@@ -139,7 +139,7 @@ jobs:
 
     To get the full potnetial using gitStream, you need to set it as required check.
 
-To make sure gitStream can block PRs from merging under certain conditions you should set the following:
+To make sure gitStream can block PRs from merging under certain conditions, you should set the following:
 
 1. Go to repo `settings`
 2. On the left pane select `Code and automation` > `Branches` 

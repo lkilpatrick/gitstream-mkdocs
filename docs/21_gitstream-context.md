@@ -87,5 +87,5 @@ The `repo.contributors` mapping includes a list of `Contributor`:
 | Values          | Type      | Description                                         |
 | ----------------|-----------|---------------------------------------------------- |
 | `name` | String    | Name of contributor     |
-| `commitsInRepo` | Number   | The number of commit by contributor to repo  |
+| `commits_in_repo` | Number   | The number of commit by contributor to repo  |
 

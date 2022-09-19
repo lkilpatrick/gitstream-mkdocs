@@ -4,7 +4,7 @@
 
     :octicons-beaker-24: Coming soon
 
-Custom filters are implemented in javascript.
+Custom filters are implemented in JavaScript.
 
 You can add custom filters by editing the `.cm/filters.js` file in your repo.
 
@@ -16,7 +16,7 @@ You can add custom filters by editing the `.cm/filters.js` file in your repo.
 ```
 
 ####  Adding filters
-Filters can have input arguments and return a result which can be any valid javascript type.
+Filters can have input arguments and return a result which can be any valid JavaScript type.
 
 An example for a `.cm/filters.js`:
 ```js
@@ -85,9 +85,4 @@ checks:
       # global ignore
 ```
 
-#### Calling external APIs from filters
-
-Access tokens
-ENV -> for CI
-$HOME/$.env file for local
 

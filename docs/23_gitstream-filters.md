@@ -38,8 +38,8 @@ File names operators:
 [`FileDiff` ](21_gitstream-context.md#file-diff-structure) checks:
 
 - [`isFormattingChange`](#isFormattingChange-filter) - Return `true` if all file diffs are validated as formatting changes.
-- [`isEveryLineInFileDiffRegex`](#isEveryLineInFileDiffRegex-filter) - Return `true` if every changed line matchs the regex.
-- [`isSomeLineInFileDiffRegex`](#isSomeLineInFileDiffRegex-filter) - Return `true` if any changed line matchs the regex.
+- [`isEveryLineInFileDiffRegex`](#isEveryLineInFileDiffRegex-filter) - Return `true` if every changed line matches the regex.
+- [`isSomeLineInFileDiffRegex`](#isSomeLineInFileDiffRegex-filter) - Return `true` if any changed line matches the regex.
 
 [`FileDiff` ](21_gitstream-context.md#file-diff-structure) operators:
 
@@ -393,7 +393,7 @@ Support source code languages:
 - JSON
 - YAML
 
-If changes in other formats detected the filter will return `false`.
+If changes in other formats detected, the filter will return `false`.
 
 Syntax: 
 ```
