@@ -1,19 +1,24 @@
-# Introduction
+# Getting Started
 
-Welcome to gitStream. 
+### Automate your reviews, focus human effort on what matters most
 
-Create a clear set of rules and policies that automates how code gets merged in your repo. With a .cm file, developers will understand how their PR can be optimized and how to follow the repo policy.
+Not all code changes are equal.  
+Some pull requests can be automated, like changes using a specific API (deprecated, sensitive), changes that are non-functional, like docs or tests, or even reformatting code.  
+  
+Automate these reviews to reduce context switch by assigning specific people to review, approving, or even merging simple changes that passed all checks and more
 
-⁠Continuous Merge (CM) is the practice of improving merge efficiency by classifying pull requests based on change size and complexity. Automating the merge path based on the unique merge conditions allows work to flow more efficiently.
 
+### Quick Start
 
-# Getting Started 
-
-To get started with gitStream CM automation, just install it from GitHub: [https://github.com/marketplace/gitstream-by-linearb](https://github.com/marketplace/gitstream-by-linearb)
-
-The installations process involves:
+Take these 3 steps to see how gitStream works, later on you can learn about the .cm file, see some automation examples and learn how to create and edit your automations.
 
 1. Get gitStream for free from [GitHub marketplace](https://github.com/marketplace/gitstream-by-linearb)
-2. Add `.cm/gitstream.cm` and `.github/workflows/gitstream.yml` to your repo
-3. Get your automation for your next PR!
+2. Add these 2 files `.cm/gitstream.cm` and `.github/workflows/gitstream.yml` to your repo
+3. Open a new PR to see gitStream in action (You don’t have to merge it)
 
+[learn more about the .cm file](20_cm-schema.md)
+[automation examples](31_examples.md)
+
+!!! info inline
+
+    Continuous Merge (CM) is the practice of automating the merge path by classifying pull requests based on change type, size, and complexity to allow work to flow more efficiently.
