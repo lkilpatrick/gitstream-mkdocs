@@ -53,12 +53,14 @@ Every time a dev opens a new Pull Request or changes a Pull Request, gitStream i
 ### How it works
 
 Next steps are common practice of changing code in repo:
+
 1. Create a branch 
 2. Commit changes  
 3. Push branch to remote repo 
 4. Open Pull Request 
 
 When a new PR is opened, gitStream GitHub app gets triggered:
+
 5. gitStream gets event for new PR and calls the installed action in `.github/workflows/gitstream.yml`
 8. The installed action pulls and runs gitStream action `linear-b/gitstream-github-action@v1`. This action runs locally in the repo and relies on 
     1. The provided PR context
