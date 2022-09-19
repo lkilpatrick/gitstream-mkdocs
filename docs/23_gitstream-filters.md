@@ -391,6 +391,7 @@ Support source code languages:
 - TypeScript
 - JSON
 - YAML
+- HTML
 
 If changes in other formats detected, the filter will return `false`.
 

@@ -20,54 +20,65 @@ This file should be updated with new rules and automations.
 manifest:
   version: 1.0
 
-# Define condition under the `checks` section, each check consists of
-# an expression. The checks results are evaluated and used as conditions 
-# for the next section `automations`. 
-# Checks expressions are wrapped with double curly braces and includes a
-# context variable like `files` and filter like `length`.
-# Filters are essentially functions that can be applied to variables. They 
-# are called with a pipe operator (|) and can take arguments.
-checks:
-  complexity:
-    by:
-      many_files: {{ files | length >= 10 }}
-      review_time: {{ branch | estimatedReviewTime >= 20 }}
-  change:
-    is:
-      formatting_only: {{ source.diff.files | allFormattingChange }}
-      docs_only: {{ files | allDocs }}
-      tests_only: {{ files | allTests }}
-  
-# The `automations` section include the list of automation that applies 
-# for the repo in which gitStream is installed. 
-# Each automation has `if` key with a list of the necessary conditions and
-# a `run` key with a list of all actions. All the listed conditions need to  
-# pass in order for the following actions to be executed.
+# The `automations` section includes a list of automation that applies 
+# to the repo in which gitStream is installed. Each automation has an 
+# `if` key with a list of the necessary assertions, as well as a `run` key with a
+# list of all actions. All the listed assertions need to pass in order 
+# for the following actions to be executed (there is AND relation between conditions).
+
+# Each automation under the `automations` section is independent of the others. 
+# Every time a PR is opened or changed, the automation's conditions are evaluated (the `if`). 
+# The actions under `run` are executed one by one if all the conditions pass. 
+
+# Conditions consists of an expression, which are wrapped with double curly braces, and 
+# includes a context variable like `files` and filter functions like `length`. Filters 
+# functions are essentially functions that can be applied to context variables. They are 
+# called with a pipe operator (|) and can take arguments. Read more on 
+# [Filter functions page](https://linear-b.github.io/gitstream-mkdocs/23_gitstream-filters/).
+
 automations:
+  # This is the name of the automation, the name should meaningful
   mark_formatting:
+    # the `if` key has a list of conditions
     if:
-      - {{ checks.change.is.formatting_only }}
+      # Check for every changed file if only formatting changes were made 
+      # Read more on [isformattingchange](https://linear-b.github.io/gitstream-mkdocs/23_gitstream-filters/#isformattingchange-filter)
+      - {{ source.diff.files | allFormattingChange }}
+    # the `run` key has a list of actions
     run: 
+      # Apply the label 'formatting' once the conditions are met 
       - action: add-labels@v1
         args:
           labels: ['formatting']
   mark_docs:
     if:
-      - {{ checks.change.is.docs_only }}
+      # Check for every changed file if is a document file. The allDocs filter checks for 
+      # common file extensions used for documents.
+      # Read more on [isformattingchange](https://linear-b.github.io/gitstream-mkdocs/23_gitstream-filters/#alldocs-filter)
+      - {{ files | allDocs }}
     run: 
       - action: add-labels@v1
         args:
           labels: ['docs']
   mark_tests:
     if:
-      - {{ checks.change.is.tests_only }}
+      # Check for every changed file if is a test file. The allTests filter checks for 
+      # the substring `test` or `spec` in the file path or file name.
+      # Read more on [isformattingchange](https://linear-b.github.io/gitstream-mkdocs/23_gitstream-filters/#alltests-filter)
+      - {{ files | allTests }}
     run: 
       - action: add-labels@v1
         args:
-          labels: ['tests']          
+          labels: ['tests']
   mark_complex_pr:
     if:
-      - {{ checks.complexity.by.many_files or checks.complexity.by.review_time }}
+      # It's possible to check if either a one of few conditions pass (OR relation) by using
+      # the `or` expression. Here the PR complexity is checked, one condition for complex PRs  
+      # is the number of files, checked using the [`length` filter function](https://mozilla.github.io/nunjucks/templating.html#length)
+      # OR
+      # use the dedictaed filter that calcualtes the estimated review time filter function
+      # based on a statstical model, read more on [estimatedReviewTime](https://linear-b.github.io/gitstream-mkdocs/23_gitstream-filters/#estimatedreviewtime-filter)
+      - {{ (files | length >= 10) or (branch | estimatedReviewTime >= 20) }}
     run:
       - action : add-labels@v1
         args:
