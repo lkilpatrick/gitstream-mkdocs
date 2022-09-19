@@ -2,7 +2,7 @@ site_name: Documentation
 
 theme:
   name: material
-  logo: assets/gistream-w.webp
+  logo: assets/gitstream-w.webp
   # When the user first visits your site, the media queries are evaluated in the order 
   # of their definition. The first media query that matches selects the default color palette.
   palette: 
