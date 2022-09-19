@@ -61,13 +61,13 @@ Next steps are common practice of changing code in repo:
 When a new PR is opened, gitStream GitHub app gets triggered:
 
 5. gitStream gets event for new PR and calls the installed action in `.github/workflows/gitstream.yml`
-8. The installed action pulls and runs gitStream action `linear-b/gitstream-github-action@v1`. This action runs locally in the repo and relies on 
+6. The installed action pulls and runs gitStream action `linear-b/gitstream-github-action@v1`. This action runs locally in the repo and relies on 
     1. The provided PR context
     2. The repos automations as defined in `.cm/gitstream.cm`
-9. It sends the list of applicable automations to the gitStream GitHub app
-10. gitStream GitHub app iterates over the automations and invokes each action using GitHub APIs
-11. The PR gets updated according to the desired automations
-12. The PR is ready for further review or merge
+7. It sends the list of applicable automations to the gitStream GitHub app
+8. gitStream GitHub app iterates over the automations and invokes each action using GitHub APIs
+9. The PR gets updated according to the desired automations
+10. The PR is ready for further review or merge
 
 ### Automation results
 
