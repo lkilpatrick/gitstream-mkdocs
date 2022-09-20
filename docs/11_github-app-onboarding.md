@@ -1,4 +1,4 @@
-# Post installation instructions
+# Post installation
 
 ## Insert workflow automation files to your repo
 
