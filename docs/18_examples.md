@@ -4,9 +4,7 @@
 
 Automatically add a label to PRs that are very small to get faster reviewer response.
 
-Edit your `.cm/gitstream.cm` to include the following:
-
-```yaml
+```yaml title=".cm/gitstream.cm"
 automations:
   mark_good_pr:
     if:
@@ -28,9 +26,7 @@ automations:
 
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
-Edit your `.cm/gitstream.cm` to include the following:
-
-```yaml
+```yaml title=".cm/gitstream.cm"
 automations:
   etr_on_all:
     if:
@@ -45,9 +41,7 @@ automations:
 
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
-Edit your `.cm/gitstream.cm` to include the following:
-
-```yaml
+```yaml title=".cm/gitstream.cm"
 automations:
   approve_docs:
     if:
@@ -61,9 +55,7 @@ automations:
 
 Automatically require 2 reviewers for PRs that has more than 100 lines of code changed.
 
-Edit your `.cm/gitstream.cm` to include the following:
-
-```yaml
+```yaml title=".cm/gitstream.cm"
 automations:
   double_review:
     if:
@@ -78,9 +70,7 @@ automations:
 
 For PRs that include only code format change, approve merge automatically.
 
-Edit your `.cm/gitstream.cm` to include the following:
-
-```yaml
+```yaml title=".cm/gitstream.cm"
 automations:
   allow_formatting:
     if:

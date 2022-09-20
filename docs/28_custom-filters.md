@@ -48,10 +48,6 @@ The file is loaded by a node.js runtime, the following packages are pre installe
 
 - `child_process`
 
-#### Accessing local filesystem
-
-TBD
-
 #### Using external tools results
 
 Tip: cache result to local file system and reuse in CI/CD

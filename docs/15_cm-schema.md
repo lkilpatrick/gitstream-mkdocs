@@ -1,10 +1,10 @@
-# Automation `.cm` file 
+# Overview gitstream.cm
 
 This document is a reference for the gitStream 1.x, used in .cm/gitstream.cm file.
 
-!!! note
+!!! note 
 
-    You can edit later the `.cm/gitstream.cm` and add your own checks and automations.
+    You can edit the `.cm/gitstream.cm` and add your own checks and automations. Check out the [examples](18_examples.md) 
 
 ## Context variables
 

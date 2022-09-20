@@ -1,5 +1,6 @@
 
 .md-header{
+  background-color: #5F41D9;
 }
 
 h4 {
@@ -38,6 +39,7 @@ th:nth-child(1){
   --md-primary-fg-color: #40A0B5;
 }
 
-div.tabbed-block code {
+/*div.tabbed-block code {
   max-height: 250px;
 }
+*/

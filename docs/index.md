@@ -14,14 +14,14 @@ Automate these reviews to reduce context switch by assigning specific people to 
 Take these 3 steps to see how gitStream works, later on you can learn about the .cm file, see some automation examples and learn how to create and edit your automations.
 
 1. Get gitStream for free from [GitHub marketplace](https://github.com/marketplace/gitstream-by-linearb)
-2. Add these 2 files `.cm/gitstream.cm` and `.github/workflows/gitstream.yml` to your repo
+2. Add these 2 files [`.cm/gitstream.cm`](docs/assets/gitstream.cm) and [`.github/workflows/gitstream.yml`](docs/assets/gitstream.yml) to your repo
 3. Open a new PR to see gitStream in action (You don’t have to merge it)
 
 ### Continuous Merge
 
 **Continuous Merge (CM)** is the practice of automating the merge path by classifying pull requests based on change type, size, and complexity to allow work to flow more efficiently.
 
-[learn more about the .cm file](20_cm-schema.md)
+[learn more about the .cm file](15_cm-schema.md)
 
 [automation examples](18_examples.md)
 
