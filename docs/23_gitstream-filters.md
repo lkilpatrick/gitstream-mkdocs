@@ -363,6 +363,7 @@ automations:
 Return `true` if all file diffs are validated as formatting changes.
 
 Support source code languages: 
+
 - JavaScript
 - TypeScript
 - JSON
