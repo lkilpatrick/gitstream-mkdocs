@@ -24,6 +24,10 @@ gitStream built-in filter functions are described [here](23_gitstream-filters.md
 
 You can also add custom filters, see [instructions](28_custom-filters.md).
 
+## Automation actions
+
+Actions the desired automations that are triggered when all conditions are met, read more [here](25_gitstream-actions.md).
+
 ## Schema
 
 The following sections are used in `.cm` file to describe the desired automations:
