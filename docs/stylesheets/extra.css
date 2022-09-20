@@ -1,16 +1,17 @@
 
 .md-header{
-  background-color: #1F212C;
 }
 
 h4 {
   padding-top: 4%;
 } 
 
+/* make the first column wider as usually this is a variable name that cant wrap normally */
 th:nth-child(1){
      width: 30%;
 }
 
+/* change the table colors for light mode */
 [data-md-color-scheme="default"] table th{
   background: #D8DADE;
 }
@@ -19,6 +20,7 @@ th:nth-child(1){
   background: white;
 }
 
+/* change the table colors for dark mode */
 [data-md-color-scheme="slate"] table th{
   background: #2B4252;
 }
@@ -29,4 +31,13 @@ th:nth-child(1){
 
 [data-md-color-scheme="slate"] {
   --md-primary-fg-color: #FFFFFF;
+}
+
+/* change links colors for dark mode */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #40A0B5;
+}
+
+div.tabbed-block code {
+  max-height: 250px;
 }

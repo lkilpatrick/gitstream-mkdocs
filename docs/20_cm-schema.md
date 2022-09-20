@@ -2,6 +2,10 @@
 
 This document is a reference for the gitStream 1.x, used in .cm/gitstream.cm file.
 
+!!! note
+
+    You can edit later the `.cm/gitstream.cm` and add your own checks and automations.
+
 ## Context variables
 
 gitStream includes a collection of variables called contexts, these variables are intended 

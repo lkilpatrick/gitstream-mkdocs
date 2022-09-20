@@ -76,3 +76,18 @@ Eventually, the gitStream app shows the following statuses:
 - Success - when the applicable automation finished and PR is good to go 
 - Neutral - when there aren't any applicable automations for the PR
 - Failed - when the applicable automation finished without completion
+
+## Set GitHub repo settings
+
+!!! attention
+
+    To get the full potential using gitStream, you need to set it as a required check.
+
+To make sure gitStream can block PRs from merging under certain conditions, you should set the following:
+
+1. Go to repo `settings`
+2. On the left pane select `Code and automation` > `Branches` 
+3. Set `Branch protection rules` for your desired branch 
+4. Enable `Require status checks to pass before merging`
+5. Search for `status checks in the last week for this repository`
+6. Select `gitStream.cm` as required check
