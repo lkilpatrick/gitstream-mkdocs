@@ -23,7 +23,7 @@ Take these 3 steps to see how gitStream works, later on you can learn about the 
 
 [learn more about the .cm file](20_cm-schema.md)
 
-[automation examples](31_examples.md)
+[automation examples](18_examples.md)
 
 ![Continuous Merge](assets/ContinuousMerge3l.png#only-light)
 ![Continuous Merge](assets/ContinuousMerge3d.png#only-dark)
