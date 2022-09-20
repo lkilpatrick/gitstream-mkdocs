@@ -1,10 +1,8 @@
-# Post installation
+# Welcome to gitStream
 
 ## Insert workflow automation files to your repo
 
-!!! attention
-
-    To start using gitStream, create the following files in each repo's main branch with the following content.
+To start using gitStream, create the following files in each repo's main branch with the following content.
 
 Add the following files into each of your repos main branch:
 
