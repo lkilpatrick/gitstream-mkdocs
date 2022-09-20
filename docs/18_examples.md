@@ -7,27 +7,17 @@ Automatically add a label to PRs that are very small to get faster reviewer resp
 Edit your `.cm/gitstream.cm` to include the following:
 
 ```yaml
-checks:
-  size:
-    is:
-      xsmall: {{ branch.diff.size <= 5 }}
-      small: {{ branch.diff.size > 5 and branch.diff.size <= 20 }}
-      medium: {{ branch.diff.size > 20 and branch.diff.size <= 100 }}
-      large: {{ branch.diff.size > 100 and branch.diff.size <= 200 }}
-      xlarge: {{ branch.diff.size > 200 }}
-
 automations:
-  ...
   mark_good_pr:
     if:
-      - {{ checks.size.is.xsmall or checks.size.is.small or checks.size.is.medium }}
+      - {{ branch.diff.size <= 100 }}
     run:
       - action: add-labels@v1
         args:
           labels: [good_size]
   mark_big_pr:
     if:
-      - {{ checks.size.is.large or checks.size.is.xlarge }}
+      - {{ branch.diff.size > 100 }}
     run:
       - action: add-labels@v1
         args:
@@ -59,7 +49,6 @@ Edit your `.cm/gitstream.cm` to include the following:
 
 ```yaml
 automations:
-  ...
   approve_docs:
     if:
       - {{ files | allDocs }}

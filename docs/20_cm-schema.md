@@ -16,7 +16,7 @@ gitStream built-in context variables are described [here](21_gitstream-context.m
 ## Filter functions
 
 Filters are essentially functions that can be applied to variables. They are called with a pipe 
-operator `|` and can take arguments. 
+operator `|` and can take arguments. The logic expressions are based on Jinja2 syntax, supported by Nunjucks lib.
 
 All Nunjucks filters are supported, see [documentation](https://mozilla.github.io/nunjucks/templating.html#builtin-filters).
 
@@ -29,12 +29,9 @@ You can also add custom filters, see [instructions](28_custom-filters.md).
 The following sections are used in `.cm` file to describe the desired automations:
 
 - [`manifest`](#manifest-section)
-- [`checks`](#checks-section)
 - [`automations`](#automations-section)
 
 ### `manifest` section
-
-:octicons-tag-24: Minimal version: 1.0
 
 The first section in a `gitstream.cm` file is the `manifest`.
 
@@ -53,34 +50,7 @@ The only field required is `version`.
 The manifest version field is used to parse the `.cm` file, in the future if breaking changes are 
 introduced to the parser then older automation will be still supported.
 
-### `checks` section
-
-:octicons-tag-24: Minimal version: 1.0
-
-The `checks` section defines conditions that are nested under the `checks` section.  
-
-```yaml
-checks:
-  size:
-    is:
-      small: {{ branch.diff.size < 20 }}
-      medium: {{ branch.diff.size >= 20 and branch.diff.size < 100 }}
-      large: {{ branch.diff.size >= 100 }}
-```
-
-| Key            | Required | Type    | Description                                     |
-|----------------|----------|---------|------------------------------------------------ |
-| `checks`  | Y        | Map     | The checks section root     |
-
-Each automation includes its name, and few fields: `if` and `run`.
-
-Each condition includes a logic expression that eventually results with a boolean value: `true` or `false`. 
-
-The logic expression are based on Jinja2 syntax, and includes gitStream context variables.
-
 ### `automations` section
-
-:octicons-tag-24: Minimal version: 1.0
 
 The `automations` section defines the automations and their conditions. 
 
@@ -95,17 +65,14 @@ automations:
           label: xsmall
 ```
 
-| Key            | Required | Type    | Description                                     |
-|----------------|----------|---------|------------------------------------------------ |
-| `automations`  | Y        | Map     | The automations section root     |
-
 Each automation includes its name, and few fields: `if` and `run`.
 
 | Key        | Required  | Type    | Description                                     |
 |------------|-----------|---------|------------------------------------------------ |
-| `NAME`     | Y | Map | User defined name of the automation, can be any string       |
-| `NAME.if`  | Y | Map | List of conditions                               |
-| `NAME.run` | Y | Map | The automation to run if all conditions are met |
+| `automations`  | Y        | Map     | The automations section root     |
+| `automations.NAME`     | Y | Map | User defined name of the automation, can be any string       |
+| `automations.NAME.if`  | Y | Map | List of conditions                               |
+| `automations.NAME.run` | Y | Map | The automation to run if all conditions are met |
 
 The `if` field includes the list of conditions. The conditions are checked when a pull request 
 is opened or changed, if all the conditions pass, the automation is executed.
@@ -122,12 +89,11 @@ For `gitstream` engine, the action is specified by: `name@version`
 
 gitStream supported actions, see [documentation](25_gitstream-actions.md).
 
-#### Dynamic actions args
-For actions args values a dynamic value is supported using expressions based on Jinja2 syntax, and includes gitStream context variables. For example:
+#### Dynamic actions arguments
+For actions arguments values a dynamic value is supported using expressions based on Jinja2 syntax, and includes gitStream context variables. For example:
 
 ```yaml
 automations:
-  ...
   pr_complexity:
     if:
       - true
@@ -137,3 +103,29 @@ automations:
           comment: "Estimated {{ branch | estimatedReviewTime }} minutes to review"
 ```
 
+### Reusing checks
+
+You can define an accessory section, e.g. `checks`, that defines common conditions, and resue.  
+
+```yaml
+checks:
+  size:
+    is:
+      small: {{ branch.diff.size < 20 }}
+      medium: {{ branch.diff.size >= 20 and branch.diff.size < 100 }}
+      large: {{ branch.diff.size >= 100 }}
+automations:
+  approve_small:
+    if:
+      - {{ checks.size.is.small }}
+    run:
+      - action: approve@v1
+  mark_small_medium:
+    if:
+      - {{ checks.size.is.small or checks.size.is.medium }}
+    run:
+      - action: add-labels@v1
+        args:
+          labels: ['good-size']
+
+```
