@@ -37,13 +37,7 @@ File names operators:
 
 [`FileDiff` ](21_gitstream-context.md#file-diff-structure) checks:
 
-- [`isFormattingChange`](#isFormattingChange-filter) - Return `true` if all file diffs are validated as formatting changes.
-- [`isEveryLineInFileDiffRegex`](#isEveryLineInFileDiffRegex-filter) - Return `true` if every changed line matches the regex.
-- [`isSomeLineInFileDiffRegex`](#isSomeLineInFileDiffRegex-filter) - Return `true` if any changed line matches the regex.
-
-[`FileDiff` ](21_gitstream-context.md#file-diff-structure) operators:
-
-- [`filterFileDiffRegex`](#filter-filterFileDiffRegex-filter) - List of file diffs that match the regex from the input file diff list.
+- [`isFormattingChange`](#isFormattingChange-filter) - Return `true` if all file diffs are validated as formatting changes. 
 
 PR checks: 
 
@@ -157,20 +151,6 @@ checks:
       single_type: {{ files | extractExtensions | length == 1 }}
 ```
 
-#### `filterFileDiffRegex` filter
-
-List of file diffs that match the search term from the input file diff list.
-
-Syntax: 
-```
-filterFileDiffRegex(files, filterRegex)
-```
-
-| Values        | Usage    | Type      | Description                                |
-| --------------| ---------|--------|-----------------------------------------------|
-| `files`       | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
-| `filterRegex` | Input    | String | Regex filter applied to the `new_file` field of files diffs |
-| `result`  | Output | [Map]  | List of matching file diffs           |
 
 #### `filterList` filter
 
@@ -313,49 +293,6 @@ checks:
 ```
 
 
-#### `isEveryLineInFileDiffRegex` filter
-
-:octicons-beaker-24: Coming soon
-
-Syntax: 
-```
-isEveryLineInFileDiffRegex(filediffs, matchRegex)
-```
-
-| Values       | Usage    | Type   | Description                                     |
-| ------------ | ---------|--------|------------------------------------------------ |
-| `filediffs`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
-| `matchRegex` | Input    | String | Regex filter applied to the `diff` field of files diffs  |
-| `result`     | Output   | Bool   | `true` if the all lines in diffs match the regex |
-
-```yaml
-checks:
-  filetype:
-    all:
-     python: {{ source.diff.files | isEveryExtensionRegex(['.py']) }}
-     javascript: {{ source.diff.files | isEveryExtensionRegex(['js'])}}
-
-  only_logs:
-    in:
-     python: {{ source.diff.files | filterFileDiffRegex('\.py$') | isEveryLineInFileDiffRegex('logger\.(debug|info|warn|error)') }}
-     javascript: {{ source.diff.files | filterFileDiffRegex('\.js$') | isEveryLineInFileDiffRegex('console\.log') }}
-
-automations:
-  allow_py_logging_changes:
-    if:
-      - {{ checks.filetype.all.python }}
-      - {{ checks.only_logs.in.python }}
-    run:
-      - action: approve@v1
-  allow_js_logging_changes:
-    if:
-      - {{ checks.filetype.all.javascript }}
-      - {{ checks.only_logs.in.javascript }}
-    run:
-      - action: approve@v1
-```
-
-
 #### `isFormattingChange` filter
 
 :octicons-tag-24: Minimal version: 1.0
@@ -438,38 +375,6 @@ checks:
   filetypes:
     is:
      has_python: {{ files | isSomeInListRegex('\.py$') }}
-```
-
-
-
-#### `isSomeLineInFileDiffRegex` filter
-
-:octicons-beaker-24: Coming soon
-
-Syntax: 
-```
-isSomeLineInFileDiffRegex(filediffs, matchRegex)
-```
-
-| Values       | Usage    | Type   | Description                                     |
-| ------------ | ---------|--------|------------------------------------------------ |
-| `filediffs`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
-| `matchRegex` | Input    | String | Regex filter applied to the `diff` field of files diffs  |
-| `result`     | Output   | Bool   | `true` if the any of the lines in diffs match the regex |
-
-```yaml
-checks:
-  using:
-     fetch: {{ source.diff.files| isSomeLineInFileDiffRegex('fetch\(') }}
-
-automations:
-  mark_api_calls:
-    if:
-      - {{ checks.using.fetch }}
-    run:
-      - action: add-label@v1
-        args:
-          label: fetch
 ```
 
 
