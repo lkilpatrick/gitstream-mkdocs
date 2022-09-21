@@ -15,7 +15,11 @@ The following structures definitions:
 
 #### `branch` context
 
-The `branch` context contains info regarding the branch changes, but compared to the `source` context does not include actual source code.
+The `branch` context contains info regarding the branch changes compared to the latest main branch. 
+
+!!! note  
+
+    compared to the `source` context does not include actual source code.
 
 | Values               | Type      | Description                                              |
 |----------------------|-----------|--------------------------------------------------------- |
@@ -48,7 +52,7 @@ The `files` context includes the list of changed files in the branch compared to
 
 #### `source` context
 
-The `source` context includes a list of `FileDiff` objects that can be used to get insights based on code changes.
+The `source` context includes a list of `FileDiff` objects that can be used to get insights based on code changes. The changes compared to the latest main branch. 
 
 | Values              | Type  | Description                                        |
 |---------------------|-------|--------------------------------------------------- |
