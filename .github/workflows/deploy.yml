@@ -16,5 +16,7 @@ jobs:
         uses: mhausenblas/mkdocs-deploy-gh-pages@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CUSTOM_DOMAIN: docs.gitstream.cm
+          CUSTOM_DOMAIN: ${{ ! endsWith(github.repository, '-dev') && 'docs.gitstream.cm' || '' }}
+
+            
 
