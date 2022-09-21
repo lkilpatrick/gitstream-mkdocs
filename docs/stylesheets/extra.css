@@ -39,6 +39,15 @@ th:nth-child(1){
   --md-primary-fg-color: #40A0B5;
 }
 
+/* fix so tables takes the whole page width */
+.md-typeset__table {
+   min-width: 100%;
+}
+
+.md-typeset table:not([class]) {
+    display: table;
+}
+
 /*div.tabbed-block code {
   max-height: 250px;
 }
