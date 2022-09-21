@@ -78,7 +78,7 @@ automations:
       - {{ source.diff.files | isFormattingChange }}
     run:
       - action: approve@v1
-      - action: add-labels
+      - action: add-labels@v1
         args:
           labels: [code-formatting]
 
