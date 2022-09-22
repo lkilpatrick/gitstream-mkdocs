@@ -134,7 +134,7 @@ Used to workaround unnecessary checks, this action, update the defined check wit
 
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
-| `checkName`  | String    | The name of the check |
+| `check_name`  | String    | The name of the check |
 | `status`  | String    | The status of the check |
 | `conclusion`  | String    | The conclusion of the check |
 
@@ -147,7 +147,7 @@ automations:
     run:
       - action : update-check@v1
         args:
-          checkName: cypress-e2e
+          check_name: cypress-e2e
           status: completed
           conclusion: success
 ```
