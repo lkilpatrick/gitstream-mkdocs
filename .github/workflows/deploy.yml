@@ -17,6 +17,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CUSTOM_DOMAIN: ${{ ! endsWith(github.repository, '-dev') && 'docs.gitstream.cm' || '' }}
-
+          ANALYTICS_TAG: ${{ ! endsWith(github.repository, '-dev') && 'G-PPEJMF05RD' || '' }}
             
 
