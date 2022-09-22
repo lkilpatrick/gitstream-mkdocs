@@ -124,8 +124,8 @@ automations:
       - action: add-comment@v1
         args:
           comment: |
-          Core service update
-          (Updates API)
+            Core service update
+            (Updates API)
 ```
 
 ####  `update-check` action
