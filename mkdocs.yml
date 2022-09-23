@@ -24,6 +24,7 @@ plugins:
   - search
 markdown_extensions:
   - admonition
+  - markdown.extensions.extra
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite

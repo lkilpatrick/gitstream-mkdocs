@@ -25,7 +25,7 @@ This action, once triggered, adds a comment to the PR.
 automations:
   senior_review:
     if:
-      - {{ files | isSomeInListRegex('core\/') }}
+      - {{ files | isSomeInListRegex('core\\/') }}
     run:
       - action: add-comment@v1
         args:
@@ -47,7 +47,7 @@ This action, once triggered, adds a label to the PR.
 automations:
   senior_review:
     if:
-      - {{ files | isSomeInListRegex('api\/') }}
+      - {{ files | isSomeInListRegex('api\\/') }}
     run:
       - action: add-labels@v1
         args:
@@ -67,7 +67,7 @@ This action, once triggered, sets a specific reviewer.
 automations:
   senior_review:
     if:
-      - {{ files | isSomeInListRegex('src\/ui\/') }}
+      - {{ files | isSomeInListRegex('src\\/ui\\/') }}
     run:
       - action: add-reviewers@v1
         args:

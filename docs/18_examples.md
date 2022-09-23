@@ -89,3 +89,19 @@ automations:
     Multiple actions can be listed in a single automation. The actions are invoked one by one.
     
     Multiple conditons can be listed for a single automation. All listed conditions must pass to triger the actions.
+    
+### Automatcialy review and request code change when using deprecated APIs
+
+For example assume we have an old API `oldCall` we want to switch from to a new API `newCall`, gitStream can review and trigger a change request automatically when the PR includes use of the deprected API.
+
+```yaml
+catch_deprecated:
+  if:
+    - {{ source.diff.files | isSomeLineInFileDiffRegex('oldCall\\(') }}
+  run:
+    - action: request-changes@v1
+      args:
+      comment: |
+        Deprecated API used `oldCall`, use `newCall` instead
+```
+
