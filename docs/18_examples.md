@@ -83,3 +83,9 @@ automations:
           labels: [code-formatting]
 
 ```
+
+!!! note
+
+    Multiple actions can be listed in a single automation. The actions are invoked one by one.
+    
+    Multiple conditons can be listed for a single automation. All listed conditions must pass to triger the actions.
