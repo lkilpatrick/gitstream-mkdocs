@@ -6,9 +6,74 @@ gitStream executes actions in the order they are listed. If an action result fai
 - [`merge`](#merge-action)
 - [`set-required-approvals`](#set-required-approvals-action)
 - [`add-reviewers`](#add-reviewers-action)
+- [`require-reviewers`](#require-reviewers-action)
+- [`request-change`](#request-change-action)
 - [`add-labels`](#add-labels-action)
 - [`add-comment`](#add-comment-action)
 - [`update-check`](#update-check-action)
+
+
+#### `add-comment` action
+
+This action, once triggered, adds a comment to the PR.
+
+| Args       | Type      | Description                                     |
+| -----------|-----------|------------------------------------------------ |
+| `comment`  | String    | Sets the comment, markdown is supported |
+
+```yaml title="example"
+automations:
+  senior_review:
+    if:
+      - {{ files | isSomeInListRegex('core\/') }}
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            Core service update
+            (Updates API)
+```
+
+
+#### `add-labels` action
+
+This action, once triggered, adds a label to the PR.
+
+| Args       | Type      | Description                                     |
+| -----------|-----------|------------------------------------------------ |
+| `labels`    | [String]  | List of labels, any string can work |
+
+```yaml title="example"
+automations:
+  senior_review:
+    if:
+      - {{ files | isSomeInListRegex('api\/') }}
+    run:
+      - action: add-labels@v1
+        args:
+          labels: [api-change]
+```
+
+
+#### `add-reviewers` action
+
+This action, once triggered, sets a specific reviewer.
+
+| Args       | Type      | Description                                     |
+| -----------|-----------|------------------------------------------------ |
+| `reviewers` | [String]    | Sets reviewers user name |
+
+```yaml title="example"
+automations:
+  senior_review:
+    if:
+      - {{ files | isSomeInListRegex('src\/ui\/') }}
+    run:
+      - action: add-reviewers@v1
+        args:
+          reviewers: [popeye, olive]
+```
+
 
 #### `approve` action
 
@@ -69,13 +134,34 @@ automations:
           approvals: 2
 ```
 
-#### `add-reviewers` action
+
+#### `request-change` action
+
+This action, once triggered, request changes on the PR. As long as request change is set, gitStream will block the PR merge.
+
+| Args       | Type      | Description                                     |
+| -----------|-----------|------------------------------------------------ |
+| `reviewers` | [String]    | Sets reviewers user name, merge is blocked till approved by any of the listed users |
+
+```yaml title="example"
+automations:
+  senior_review:
+    if:
+      - {{ files | isLineInFileDiffRegex('oldFetch') | some }}
+    run:
+      - action: request-change@v1
+        args:
+          comment: |
+            You have used deprected API, use `newFetch` instead.
+```
+
+#### `require-reviewers` action
 
 This action, once triggered, sets a specific reviewer.
 
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
-| `reviewers` | [String]    | Sets reviewers user name |
+| `reviewers` | [String]    | Sets reviewers user name, merge is blocked till approved by any of the listed users |
 
 ```yaml title="example"
 automations:
@@ -83,49 +169,9 @@ automations:
     if:
       - {{ files | isSomeInListRegex('src\/ui\/') }}
     run:
-      - action: add-reviewers@v1
+      - action: require-reviewers@v1
         args:
-          reviewers: [popeye, olive]
-```
-
-#### `add-labels` action
-
-This action, once triggered, adds a label to the PR.
-
-| Args       | Type      | Description                                     |
-| -----------|-----------|------------------------------------------------ |
-| `labels`    | [String]  | List of labels, any string can work |
-
-```yaml title="example"
-automations:
-  senior_review:
-    if:
-      - {{ files | isSomeInListRegex('api\/') }}
-    run:
-      - action: add-labels@v1
-        args:
-          labels: [api-change]
-```
-
-#### `add-comment` action
-
-This action, once triggered, adds a comment to the PR.
-
-| Args       | Type      | Description                                     |
-| -----------|-----------|------------------------------------------------ |
-| `comment`  | String    | Sets the comment, markdown is supported |
-
-```yaml title="example"
-automations:
-  senior_review:
-    if:
-      - {{ files | isSomeInListRegex('core\/') }}
-    run:
-      - action: add-comment@v1
-        args:
-          comment: |
-            Core service update
-            (Updates API)
+          reviewers: ['popeye', 'olive']
 ```
 
 ####  `update-check` action
