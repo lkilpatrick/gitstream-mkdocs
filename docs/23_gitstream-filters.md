@@ -211,17 +211,9 @@ Return `true` if the all the items in the input list matches the regex term.
 
 #### `isFormattingChange` filter
 
-:octicons-tag-24: Minimal version: 1.0
-
 Return `true` if all file diffs are validated as formatting changes.
 
-Support source code languages: 
-
-- JavaScript
-- TypeScript
-- JSON
-- YAML
-- HTML
+Support source code languages: JavaScript, TypeScript, JSON, YAML and HTML.
 
 If changes in other formats detected, the filter will return `false`.
 
