@@ -9,8 +9,8 @@ gitStream includes a collection of variables called contexts.
 
 The following structures definitions:
 
-- [`FileMetadata`](#file-metadata-structure)
-- [`FileDiff`](#file-diff-structure)
+- [`FileMetadata`](#filemetadata-structure)
+- [`FileDiff`](#filediff-structure)
 - [`Contributor`](#contributor-structure)
 
 #### `branch` context

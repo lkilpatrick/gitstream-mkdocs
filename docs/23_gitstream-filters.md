@@ -8,46 +8,46 @@ Filters for lists of strings:
 
 Item checks:
 
-- [`isStringIncludes`](#isStringIncludes-filter) -  Return `true` if any of items in a list match either of the search terms.
-- [`isStringIncludesRegex`](#isStringIncludesRegex-filter) -  Return `true` if any of items in a list match the regex term.
+- [`isStringIncludes`](#isstringincludes-filter) -  Return `true` if any of items in a list match either of the search terms.
+- [`isStringIncludesRegex`](#isstringincludesregex-filter) -  Return `true` if any of items in a list match the regex term.
 
 List checks:
 
-- [`isEveryInList`](#isEveryInList-filter) - Return `true` if the all the items in the input list matches either of the search terms.
-- [`isEveryInListRegex`](#isEveryInListRegex-filter) - Return `true` if the all the items in the input list matches the regex term.
-- [`isSomeInList`](#isSomeInList-filter) -  Return `true` if any of items in a list match either of the search terms.
-- [`isSomeInListRegex`](#isSomeInListRegex-filter) -  Return `true` if any of items in a list match the regex term.
+- [`isEveryInList`](#iseveryinlist-filter) - Return `true` if the all the items in the input list matches either of the search terms.
+- [`isEveryInListRegex`](#iseveryinlistregex-filter) - Return `true` if the all the items in the input list matches the regex term.
+- [`isSomeInList`](#issomeinlist-filter) -  Return `true` if any of items in a list match either of the search terms.
+- [`isSomeInListRegex`](#issomeinlistregex-filter) -  Return `true` if any of items in a list match the regex term.
 
 List operations:
 
-- [`filterList`](#filterList-filter) - List of items that match either of the search terms from the input list.
-- [`filterListRegex`](#filterListRegex-filter) - List of items that match the regex from the input list.
+- [`filterList`](#filterlist-filter) - List of items that match either of the search terms from the input list.
+- [`filterListRegex`](#filterlistregex-filter) - List of items that match the regex from the input list.
 
 File names checks:
 
-- [`allDocs`](#allDocs-filter) - Return `true` if the input list includes only documents based on file extensions.
-- [`allImages`](#allImages-filter) - Return `true` if the input list includes only images based on file extensions.
-- [`allTests`](#allTests-filter) - Return `true` if the input list includes only tests based on file's path and name.
-- [`isEveryExtension`](#isEveryExtension-filter) - Return `true` if the input list includes only any of the specified extensions.
-- [`isEveryExtensionRegex`](#isEveryExtensionRegex-filter)- Return `true` if the input list includes only the matching regex.
+- [`allDocs`](#alldocs-filter) - Return `true` if the input list includes only documents based on file extensions.
+- [`allImages`](#allimages-filter) - Return `true` if the input list includes only images based on file extensions.
+- [`allTests`](#alltests-filter) - Return `true` if the input list includes only tests based on file's path and name.
+- [`isEveryExtension`](#iseveryextension-filter) - Return `true` if the input list includes only any of the specified extensions.
+- [`isEveryExtensionRegex`](#iseveryextensionregex-filter)- Return `true` if the input list includes only the matching regex.
 
 File names operators:
 
-- [`extractExtensions`](#extractExtensions-filter) - List of all unique file extensions from a list of file names.
+- [`extractExtensions`](#extractextensions-filter) - List of all unique file extensions from a list of file names.
 
-[`FileDiff` ](21_gitstream-context.md#file-diff-structure) checks:
+[`FileDiff` ](21_gitstream-context.md#filediff-structure) checks:
 
-- [`isFormattingChange`](#isFormattingChange-filter) - Return `true` if all file diffs are validated as formatting changes. 
-- [`isEveryLineInFileDiffRegex`](#isEveryLineInFileDiffRegex-filter) - Return `true` if every changed line matches the regex.
-- [`isSomeLineInFileDiffRegex`](#isSomeLineInFileDiffRegex-filter) - Return `true` if any changed line matches the regex.
+- [`isFormattingChange`](#isformattingchange-filter) - Return `true` if all file diffs are validated as formatting changes. 
+- [`isEveryLineInFileDiffRegex`](#iseverylineinfilediffregex-filter) - Return `true` if every changed line matches the regex.
+- [`isSomeLineInFileDiffRegex`](#issomelineinfilediffregex-filter) - Return `true` if any changed line matches the regex.
 
-[`FileDiff` ](21_gitstream-context.md#file-diff-structure) operators:
+[`FileDiff` ](21_gitstream-context.md#filediff-structure) operators:
 
-- [`filterFileDiffRegex`](#filter-filterFileDiffRegex-filter) - List of file diffs that match the regex from the input file diff list.
+- [`filterFileDiffRegex`](#filterfilediffregex-filter) - List of file diffs that match the regex from the input file diff list.
 
 PR checks: 
 
-- [`estimatedReviewTime`](#estimatedReviewTime-filter)
+- [`estimatedReviewTime`](#estimatedreviewtime-filter)
 
 Other:
 
