@@ -38,6 +38,12 @@ File names operators:
 [`FileDiff` ](21_gitstream-context.md#file-diff-structure) checks:
 
 - [`isFormattingChange`](#isFormattingChange-filter) - Return `true` if all file diffs are validated as formatting changes. 
+- [`isEveryLineInFileDiffRegex`](#isEveryLineInFileDiffRegex-filter) - Return `true` if every changed line matches the regex.
+- [`isSomeLineInFileDiffRegex`](#isSomeLineInFileDiffRegex-filter) - Return `true` if any changed line matches the regex.
+
+[`FileDiff` ](21_gitstream-context.md#file-diff-structure) operators:
+
+- [`filterFileDiffRegex`](#filter-filterFileDiffRegex-filter) - List of file diffs that match the regex from the input file diff list.
 
 PR checks: 
 
@@ -118,6 +124,19 @@ Expects `files` and provide a list of all unique file extensions.
 {{ files | extractExtensions | length == 1 }}
 ```
 
+#### `filterFileDiffRegex` filter
+
+List of file diffs that match the search term from the input file diff list.
+
+| Values        | Usage    | Type      | Description                                |
+| --------------| ---------|--------|-----------------------------------------------|
+| `files`       | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
+| `filterRegex` | Input    | String | Regex filter applied to the `new_file` field of files diffs |
+| `result`  | Output | [Map]  | List of matching file diffs           |
+
+```yaml
+{{ source.diff.files | filterFileDiffRegex('print') | length > 0 }}
+```
 
 #### `filterList` filter
 
@@ -208,6 +227,17 @@ Return `true` if the all the items in the input list matches the regex term.
 {{ files | isEveryInListRegex('.*\.png$|.*\.jpg$|.*\.svg$') }}
 ```
 
+#### `isEveryLineInFileDiffRegex` filter
+
+| Values       | Usage    | Type   | Description                                     |
+| ------------ | ---------|--------|------------------------------------------------ |
+| `filediffs`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
+| `matchRegex` | Input    | String | Regex filter applied to the `diff` field of files diffs  |
+| `result`     | Output   | Bool   | `true` if the all lines in diffs match the regex |
+
+```yaml
+{{ source.diff.files | isEveryLineInFileDiffRegex('logger\.(debug|info|warn|error)') }}
+```
 
 #### `isFormattingChange` filter
 
@@ -252,6 +282,18 @@ Expects a list and return `true` if any of items match the regex term.
 
 ```yaml
 {{ files | isSomeInListRegex('\.py$') }}
+```
+
+#### `isSomeLineInFileDiffRegex` filter
+
+| Values       | Usage    | Type   | Description                                     |
+| ------------ | ---------|--------|------------------------------------------------ |
+| `filediffs`      | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
+| `matchRegex` | Input    | String | Regex filter applied to the `diff` field of files diffs  |
+| `result`     | Output   | Bool   | `true` if any of the lines in diffs match the regex |
+
+```yaml
+{{ source.diff.files | isSomeLineInFileDiffRegex('oldAPIcall') }}
 ```
 
 
