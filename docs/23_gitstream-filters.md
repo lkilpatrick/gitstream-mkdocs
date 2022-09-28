@@ -130,12 +130,14 @@ List of file diffs that match the search term from the input file diff list.
 
 | Values        | Usage    | Type      | Description                                |
 | --------------| ---------|--------|-----------------------------------------------|
-| `files`       | Input    | [Map]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
+| `files`       | Input    | [FileDiff]  | List of file diffs, expects [`source.diff.files`](21_gitstream-context.md#source-context) |
 | `filterRegex` | Input    | String | Regex filter applied to the `new_file` field of files diffs |
-| `result`  | Output | [Map]  | List of matching file diffs           |
+| `result`  | Output | [FileDiff]  | List of matching file diffs           |
+
+Reduce the FileDiff list and keep only those that added or edited a line with call to `console.log`:
 
 ```yaml
-{{ source.diff.files | filterFileDiffRegex('print') | length > 0 }}
+{{ source.diff.files | filterFileDiffRegex('^\+.*console\.log') }}
 ```
 
 #### `filterList` filter
