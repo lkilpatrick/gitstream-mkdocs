@@ -7,7 +7,7 @@ gitStream executes actions in the order they are listed. If an action result fai
 - [`set-required-approvals`](#set-required-approvals-action)
 - [`add-reviewers`](#add-reviewers-action)
 - [`require-reviewers`](#require-reviewers-action)
-- [`request-change`](#request-change-action)
+- [`request-changes`](#request-changes-action)
 - [`add-labels`](#add-labels-action)
 - [`add-comment`](#add-comment-action)
 - [`update-check`](#update-check-action)
@@ -135,7 +135,7 @@ automations:
 ```
 
 
-#### `request-change` action
+#### `request-changes` action
 
 This action, once triggered, request changes on the PR. As long as request change is set, gitStream will block the PR merge.
 
@@ -149,7 +149,7 @@ automations:
     if:
       - {{ files | isLineInFileDiffRegex('oldFetch') | some }}
     run:
-      - action: request-change@v1
+      - action: request-changes@v1
         args:
           comment: |
             You have used deprected API, use `newFetch` instead.
