@@ -8,13 +8,14 @@ h4 {
 } 
 
 /* make the first column wider as usually this is a variable name that cant wrap normally */
-th:nth-child(1){
-     width: 30%;
+/*th:nth-child(1){
+     width: 20%;
+}
+*/
+div.big-summary th:nth-child(1){
+    width: 30%;
 }
 
-div.big-summary th:nth-child(1){
-    width: 50%;
-}
 
 /* change the table colors for light mode */
 [data-md-color-scheme="default"] table th{

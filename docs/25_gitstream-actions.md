@@ -12,6 +12,9 @@ gitStream executes actions in the order they are listed. If an action result fai
 - [`add-comment`](#add-comment-action)
 - [`update-check`](#update-check-action)
 
+!!! note
+
+    Multiple actions can be listed in a single automation. The actions are invoked one by one.
 
 #### `add-comment` action
 
