@@ -2,14 +2,14 @@
 
 gitStream executes actions in the order they are listed. If an action result fails, following actions will not be executed.
 
+- [`add-comment`](#add-comment-action)
+- [`add-labels`](#add-labels-action)
+- [`add-reviewers`](#add-reviewers-action)
 - [`approve`](#approve-action)
 - [`merge`](#merge-action)
 - [`set-required-approvals`](#set-required-approvals-action)
-- [`add-reviewers`](#add-reviewers-action)
 - [`require-reviewers`](#require-reviewers-action)
 - [`request-changes`](#request-changes-action)
-- [`add-labels`](#add-labels-action)
-- [`add-comment`](#add-comment-action)
 - [`update-check`](#update-check-action)
 
 !!! note

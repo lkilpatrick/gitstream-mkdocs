@@ -13,11 +13,11 @@ The following functions are supported in addition to the built-in functions prov
 | Function | Input | Args | Output |
 | --------------- | ------- | ---- |  ---- |
 | [`every`](#every)<br />Checks whether all element in the list are `true` | [Bool] | - | Bool |
-| [`filter`](#filter)<br />Filter items that match | [Object] | `regex`, `term`, `list`, `attr` | [Object] |
+| [`filter`](#filter)<br />Filter items that match | [String]<br />[Object][Object] | `regex`, `term`, `list`, `attr` | [String]<br />[Object] |
 | [`includes`](#match)<br />check if substring match | String | `regex`, `term`, `list` | Bool |
 | [`map`](#map)<br />maps the objects | [Object] | `attr` | [Object] |
-| [`match`](#match)<br />match every item | [Object] | `regex`, `term`, `list` `attr` | [Bool] |
-| [`reject`](#reject)<br />reject items that match | [Object] | `regex`, `term`, `list`, `attr` | [Object] |
+| [`match`](#match)<br />match every item | [String]<br />[Object] | `regex`, `term`, `list` `attr` | [Bool] |
+| [`reject`](#reject)<br />reject items that match | [String]<br />[Object] | `regex`, `term`, `list`, `attr` | [String]<br />[Object] |
 | [`some`](#some)<br />checks whether at least one element in the list is `true` | [Bool] | - | Bool |
 | [`true`](#true)<br />returns `true` always | - | - | Bool |
 
@@ -81,15 +81,21 @@ Creates a shallow copy of a portion of a given list, filtered down to just the e
 
 | Argument | Usage    | Type      | Description                              |
 | ---------|-----------|-----------|------------------------------------ |
-| - | Input | [Object]  | The list of objects      |
+| - | Input | [String]<br />[Object]  | The list of strings to match, or list of objects if `attr` is used      |
 | `term`<br />`regex`<br />`list`  | Input (either)  |  String<br />String<br />[String]  | Search term to match with the input items |
 | `attr` |Input  (optional) | String  | match a named attribute in the input object |
-| - | Output | [Object]      | The matching items |
+| - | Output | [String]<br />[Object] | The list with only the matching items |
+
+For example, check if all changes to JavaScript files are in tests directory:
+
+```yaml
+{{ files | filter(regex='\\.js$') | match(regex='tests\\/') | every }}
+```
 
 For example, check if all changes to JavaScript files are formatting:
 
 ```yaml
-{{ source.diffs | filter(attr='new_file', regex='\\.js$') | isFormattingChange }}
+{{ source.diff.files | filter(attr='new_file', regex='\\.js$') | isFormattingChange }}
 ```
 
 #### `includes`
@@ -118,10 +124,10 @@ Creates a new list populated with the values of the selected attribute of every 
 | `attr` | Input    | String    | Attribute to select      |
 | -      | Output   | [Object] | List of the selected attributes  |
 
-For example, the `source.diffs` context holds a list of [`FileDiff` ](21_gitstream-context.md#filediff-structure), each has `new_file` attribute. You can create a list of all the new file names by mapping to the `new_file` attribute and then check if there are changes to any `handler.js` file:
+For example, the `source.diff.files` context holds a list of [`FileDiff` ](21_gitstream-context.md#filediff-structure), each has `new_file` attribute. You can create a list of all the new file names by mapping to the `new_file` attribute and then check if there are changes to any `handler.js` file:
 
 ```yaml
-{{ source.diffs | map(attr='new_file') | match('handler.js') | some }}
+{{ source.diff.files | map(attr='new_file') | match('handler.js') | some }}
 ```
 
 #### `match`
@@ -130,16 +136,10 @@ Return `true` for each element in the list that match the search term.
 
 | Argument | Usage    | Type      | Description                                     |
 | ------ | ---------|-----------|------------------------------------------------ |
-| - | Input  | [Object]  | The list of objects      |
+| - | Input  | [String]<br />[Object]  | The list of strings or if `attr` used the list of objects      |
 | `term`<br />`regex`<br />`list`  | Input (either)  |  String<br />String<br />[String]  | Search term to match
 | `attr` | Input   | String  | match a named attribute in the input object |
-| - | Output | [Bool]      | `true` for every matching object |
-
-For example, to check if there are code changes with specific function call:
-
-```yaml
-{{ source.diffs | match(attr='diff', 'myFunction') | some }}
-```
+| - | Output | [Bool]      | `true` for every matching item |
 
 For example, to check if all code changes are in the `tests` directory:
 
@@ -147,16 +147,23 @@ For example, to check if all code changes are in the `tests` directory:
 {{ files | match(regex='tests\\/') | every }}
 ```
 
+For example, to check if there are code changes with specific function call:
+
+```yaml
+{{ source.diff.files | match(attr='diff', 'myFunction') | some }}
+```
+
 #### `reject`
 
 Creates a shallow copy of a portion of a given list, filtered down to just the elements that does **not** match the given term. You can use either single term, regex or a list of terms to match with.
 
-| Argument | Usage    | Type      | Description                                     |
-| ------ | ---------|-----------|------------------------------------------------ |
-| - | Input  | [Object]  | The list of objects      |
-| `term` <br />`regex`<br />`list`  | Input (either)  |  String<br />String<br />[String]  | Search term to match
-| `attr` | Input   | String  | match a named attribute in the input object |
-| - | Output | [Object]      | The non-matching items |
+| Argument | Usage    | Type      | Description                              |
+| ---------|-----------|-----------|------------------------------------ |
+| - | Input | [String]<br />[Object]  | The list of strings to match, or list of objects if `attr` is used      |
+| `term`<br />`regex`<br />`list`  | Input (either)  |  String<br />String<br />[String]  | Search term to match with the input items |
+| `attr` |Input  (optional) | String  | match a named attribute in the input object |
+| - | Output | [String]<br />[Object] | The list with only the non-matching items |
+
 
 For example, check if all changes except for `config.json` files are formatting:
 
@@ -316,5 +323,5 @@ Checks diff for matching lines.
 For example, to check if all the changes are of adding prints and ignore white spaces:
 
 ```yaml
-{{ source.diffs | matchDiffLines(regex='^\\+.*console\\.log', ignoreEmptyLines=true) | every }}
+{{ source.diff.files | matchDiffLines(regex='^\\+.*console\\.log', ignoreEmptyLines=true) | every }}
 ```

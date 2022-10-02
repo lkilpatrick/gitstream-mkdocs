@@ -1,5 +1,7 @@
 # Context variables
 
+## Overview
+
 gitStream includes a collection of variables called contexts. 
 
 - [`branch`](#branch-context)
@@ -12,6 +14,8 @@ The following structures definitions:
 - [`FileMetadata`](#filemetadata-structure)
 - [`FileDiff`](#filediff-structure)
 - [`Contributor`](#contributor-structure)
+
+## Reference
 
 #### `branch` context
 
@@ -27,10 +31,9 @@ The `branch` context contains info regarding the branch changes compared to the 
 | `branch.author`      | String    | The branch author (first commit)             |
 | `branch.base`        | String    | The main branch, `main`                 |
 | `branch.commits`     | Integer   | The number of commits in the branch |
-| `branch.diff`        | Map       | Includes the info compared to the default branch, `main` |
-| `branch.name`        | String    | The current branch, `feature-123-branch`                 |
 | `branch.diff.size`   | Integer   | The sum of line changed: additions, edits and deletions   |
 | `branch.diff.files_metadata`  | [`FileMetadata`]  | List of changed files including their relative path      |
+| `branch.name`        | String    | The current branch, `feature-123-branch`                 |
 
 The branch context doesn't include any source code, but only related metadata.
 
@@ -58,8 +61,6 @@ The `source` context includes a list of `FileDiff` objects that can be used to g
 
 | Values              | Type  | Description                                        |
 |---------------------|-------|--------------------------------------------------- |
-| `source`          | Map   | Info related to source code           |
-| `source.diff`     | [Map] | Includes the info compared to the default branch, `main` |
 | `source.diff.files` | [`FileDiff`] | List of changed files with their code changes |
 
 The source context include all code changes, it is not safe to share it with unknown services.

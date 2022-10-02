@@ -111,8 +111,8 @@ automations:
 You can use map to check that a PR was about adding more tests.
 
 ```yaml
-additions: {{ branch.files_meta | map(attr='additions') | sum }}
-deletions: {{ branch.files_meta | map(attr='deletions') | sum }}
+additions: {{ branch.diff.files_metadata | map(attr='additions') | sum }}
+deletions: {{ branch.diff.files_metadata | map(attr='deletions') | sum }}
 
 automations:
   tests_additions:
