@@ -2,7 +2,11 @@
 
 Filters can change the look and format of the source data, or even generate new data derived from the input values. What's important is that the original data is replaced by the result of transformations, and that's what ends up in rendered templates.
 
-### General filter function
+## Overview
+
+The following functions are supported in addition to the built-in functions provided by [Nunjucks](https://mozilla.github.io/nunjucks/templating.html#builtin-filters).
+
+### General functions
 
 <div class="big-summary" markdown=1>
 
@@ -19,7 +23,7 @@ Filters can change the look and format of the source data, or even generate new 
 
 </div>
 
-### High level filter function
+### High level functions
 
 <div class="big-summary" markdown=1>
 
@@ -28,13 +32,35 @@ Filters can change the look and format of the source data, or even generate new 
 | [`allDocs`](#alldocs)<br />checks the list includes only documents | [String] | - | Bool |
 | [`allImages`](#allimages)<br />checks the list includes only images | [String] | - | Bool |
 | [`allTests`](#alltests)<br />checks the list includes only tests | [String] | - | Bool |
-| [`estimatedReviewTime`](#estimatedreviewtime)<br />esitmated review time in minutes | [branch-context](21_gitstream-context#branch-context)<br />| - | Integer |
+| [`estimatedReviewTime`](#estimatedreviewtime)<br />esitmated review time in minutes | [branch-context](21_gitstream-context#branch-context)| - | Integer |
 | [`extensions`](#extensions)<br />lists all the unique file extensions | [String] | - | [String] |
+| [`ignoreFiles`](#ignorefiles)<br />removes selected files from the context copy | [branch-context](21_gitstream-context#branch-context)<br />[files-context](21_gitstream-context#files-context)<br />[source-context](21_gitstream-context#source-context) | `globs` | modofied context |
 | [`isFormattingChange`](#isformattingchange)<br />checks that only formatting changed | [[`FileDiff` ](21_gitstream-context.md#filediff-structure)] | - | Bool |
 | [`matchDiffLines`](#matchdifflines)<br />match every line in diff | [[`FileDiff` ](21_gitstream-context.md#filediff-structure)] | `regex`, `ignoreWhiteSpaces` | Bool |
 
 </div>
 
+### Named arguments
+
+Some functions supports named arguments, many of these repeat in different functions.
+
+`term` - a single string, used as substring to match with the matched item.
+
+`list` - a list of strings, trying to match any of the listed substrings with the matched item.
+
+`regex` - a single string, used as _regular expression_ to with the matched item.
+
+`globs` - a key to an element in the `.cm` that holds a list of strings, used as _glob_ pattern test on the matched item.
+
+For example, the following expressions provide an identical result:
+
+```yaml
+- {{ 'something' | includes(regex='^some.*') }}
+- {{ 'something' | includes(term='some') }}
+- {{ 'something' | includes(list=['some']) }}
+```
+
+## Reference
 
 #### `every`
 
@@ -92,7 +118,7 @@ Creates a new list populated with the values of the selected attribute of every 
 | `attr` | Input    | String    | Attribute to select      |
 | -      | Output   | [Object] | List of the selected attributes  |
 
-For example the `source.diffs` context holds a list of [`FileDiff` ](21_gitstream-context.md#filediff-structure), each has `new_file` attribute. You can create a list of all the new file names by mapping to the `new_file` atrribute and then check if there are changes to any `handler.js` file:
+For example, the `source.diffs` context holds a list of [`FileDiff` ](21_gitstream-context.md#filediff-structure), each has `new_file` attribute. You can create a list of all the new file names by mapping to the `new_file` attribute and then check if there are changes to any `handler.js` file:
 
 ```yaml
 {{ source.diffs | map(attr='new_file') | match('handler.js') | some }}
@@ -102,7 +128,7 @@ For example the `source.diffs` context holds a list of [`FileDiff` ](21_gitstrea
 
 Return `true` for each element in the list that match the search term.
 
-| Values | Usage    | Type      | Description                                     |
+| Argument | Usage    | Type      | Description                                     |
 | ------ | ---------|-----------|------------------------------------------------ |
 | - | Input  | [Object]  | The list of objects      |
 | `term`<br />`regex`<br />`list`  | Input (either)  |  String<br />String<br />[String]  | Search term to match
@@ -125,7 +151,7 @@ For example, to check if all code changes are in the `tests` directory:
 
 Creates a shallow copy of a portion of a given list, filtered down to just the elements that does **not** match the given term. You can use either single term, regex or a list of terms to match with.
 
-| Values | Usage    | Type      | Description                                     |
+| Argument | Usage    | Type      | Description                                     |
 | ------ | ---------|-----------|------------------------------------------------ |
 | - | Input  | [Object]  | The list of objects      |
 | `term` <br />`regex`<br />`list`  | Input (either)  |  String<br />String<br />[String]  | Search term to match
@@ -191,7 +217,7 @@ Image file extensions are: `svg`, `png`, `gif`.
 
 Return `true` if the input list includes only tests based on file's path and name.
 
-| Values | Usage    | Type      | Description                                     |
+| Argument | Usage    | Type      | Description                                     |
 | ------ | ---------|-----------|------------------------------------------------ |
 | - | Input   | [String]  | The list of changed files with their path       |
 | - | Output | Bool      | `true` if all file tests based on name and path |
@@ -204,7 +230,7 @@ Test files must include the substring `test` or `spec` in its name or path.
 
 #### `estimatedReviewTime`
 
-Retuens the estimated review time in minutes basesd on statistical model. The model uses the PR size and type of file changed to prodcue the estimation.
+Returns the estimated review time in minutes based on statistical model. The model uses the PR size and type of file changed to produce the estimation.
 
 | Argument   | Usage    | Type      | Description                                     |
 | -------- | ---------|-----------|------------------------------------------------ |
@@ -219,7 +245,7 @@ Retuens the estimated review time in minutes basesd on statistical model. The mo
 
 Expects `files` and provide a list of all unique file extensions.
 
-| Values | Usage    | Type      | Description                                     |
+| Argument | Usage    | Type      | Description                                     |
 | ------ | ---------|-----------|------------------------------------------------ |
 | -  | Input    | [String]  | The list of changed files with their path       |
 | - | Output   | [String]  | List of all unique file extensions              |
@@ -228,6 +254,35 @@ For example, check that only one file type was changed:
 
 ```yaml
 {{ files | extensions | length == 1 }}
+```
+
+#### `ignoreFiles`
+
+Takes a context and transform it by removing the matching files from it. 
+
+| Argument | Usage    | Type      | Description                                     |
+| ------ | ---------|-----------|------------------------------------------------ |
+| - | Input  | [Context]  | The context objects      |
+| `globs` | Input  | [String]  | Key in the `.cm` that holds the globs list for ignore files, using _glob_ pattern matching
+| - | Output | [Context] | Copy of the context object withtout the matching files |
+
+
+```yaml
+{{ files | ignoreFiles(globs='ignore') | allTests }}
+```
+
+```yaml
+{{ branch | ignoreFiles(globs='ignore') | map(attr='files_meta') | map(attr='additions') | sum }}
+```
+
+For both examples, the `.cm` includes the `ignore` key:
+
+```yaml
+ignore:
+  - yarn.lock
+  - package-lock.json
+  - openapi.json
+  - ui/src/**/*Model.d.ts
 ```
 
 #### `isFormattingChange`
@@ -251,7 +306,7 @@ If changes in other formats detected, the filter will return `false`.
 
 Checks diff for matching lines.
 
-| Values | Usage    | Type      | Description                                     |
+| Argument | Usage    | Type      | Description                                     |
 | ------ | ---------|-----------|------------------------------------------------ |
 | - | Input  | [Object]  | The list of objects      |
 | `regex` | Input   | String  | Regex term to match with the input items, use `\\` for `\` |
