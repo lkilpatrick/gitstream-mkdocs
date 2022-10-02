@@ -15,7 +15,7 @@ The following structures definitions:
 
 #### `branch` context
 
-The `branch` context contains info regarding the branch changes compared to the latest main branch. 
+The `branch` context contains info regarding the branch changes compared to the base branch. 
 
 !!! note  
 
@@ -24,9 +24,11 @@ The `branch` context contains info regarding the branch changes compared to the 
 | Values               | Type      | Description                                              |
 |----------------------|-----------|--------------------------------------------------------- |
 | `branch`             | Map       | Includes the info related to the current branch          |
-| `branch.name`        | String    | The current branch, `feature-123-branch`                 |
+| `branch.author`      | String    | The branch author (first commit)             |
 | `branch.base`        | String    | The main branch, `main`                 |
+| `branch.commits`     | Integer   | The number of commits in the branch |
 | `branch.diff`        | Map       | Includes the info compared to the default branch, `main` |
+| `branch.name`        | String    | The current branch, `feature-123-branch`                 |
 | `branch.diff.size`   | Integer   | The sum of line changed: additions, edits and deletions   |
 | `branch.diff.files_metadata`  | [`FileMetadata`]  | List of changed files including their relative path      |
 
@@ -38,9 +40,9 @@ The `branch.diff.files_metadata` mapping includes a list of `FileMetadata`:
 
 | Values          | Type      | Description                                                     |
 | ----------------|-----------|---------------------------------------------------------------- |
-| `file` | String    | The name of the file before the changes, including its path     |
 | `additions` | Integer   | The number of lines edited or added to the file  |
 | `deletions` | Integer   | The number of lines removed from the file      |
+| `file` | String    | The name of the file before the changes, including its path     |
 
 #### `files` context
 
@@ -68,11 +70,11 @@ The `source.diff.files` mapping includes a list of `FileDiff`:
 
 | Values          | Type      | Description                                          |
 | ----------------|-----------|----------------------------------------------------- |
-| `original_file` | String    | The name of the file before the changes, including its path |
-| `new_file`      | String    | The name of the file after the changes, including its path |
 | `diff`          | String    | The content in diff format `+` for additions, `-` for deletions |
-| `original_content` | String    | The content as is in the `main` branch     |
 | `new_content`      | String    | The new content in this branch     |
+| `new_file`      | String    | The name of the file after the changes, including its path |
+| `original_content` | String    | The content as is in the `main` branch     |
+| `original_file` | String    | The name of the file before the changes, including its path |
 
 #### `repo` context
 
