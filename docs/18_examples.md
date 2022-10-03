@@ -74,7 +74,7 @@ For PRs that include only code format change, approve merge automatically.
 automations:
   allow_formatting:
     if:
-      - {{ files | isEveryExtension(['js', 'ts']) }}
+      - {{ files | extensions | match(list=['js', 'ts']) | every }}
       - {{ source.diff.files | isFormattingChange }}
     run:
       - action: approve@v1
@@ -89,3 +89,36 @@ automations:
     Multiple actions can be listed in a single automation. The actions are invoked one by one.
     
     Multiple conditons can be listed for a single automation. All listed conditions must pass to triger the actions.
+    
+### Automatcialy review and request code change when using deprecated APIs
+
+For example assume we have an old API `oldCall` we want to switch from to a new API `newCall`, gitStream can review and trigger a change request automatically when the PR includes use of the deprected API.
+
+```yaml title=".cm/gitstream.cm"
+automations:
+  catch_deprecated:
+    if:
+      - {{ source.diff.files | matchDiffLines('oldCall\\(', ignoreWhiteSpaces=true) | every }}
+    run:
+      - action: request-changes@v1
+        args:
+        comment: |
+          Deprecated API used `oldCall`, use `newCall` instead
+```
+
+### Approve additonal tests automatically
+
+You can use map to check that a PR was about adding more tests.
+
+```yaml
+additions: {{ branch.files_meta | map(attr='additions') | sum }}
+deletions: {{ branch.files_meta | map(attr='deletions') | sum }}
+
+automations:
+  tests_additions:
+    if:
+      - {{ files | match('test') | every }}
+      - {{ additions / deletions > 0.8 }}
+    run:
+      - action: approve@v1
+```

@@ -26,16 +26,21 @@ You can also add custom filters, see [instructions](28_custom-filters.md).
 
 ## Automation actions
 
-Actions the desired automations that are triggered when all conditions are met, read more [here](25_gitstream-actions.md).
+Specify the desired automations that are triggered when all conditions are met, read more [here](25_gitstream-actions.md).
+
+The conditions are evaluated on new Pull Requests or changes to the Pull Request. 
+
+PRs that are marked as Draft are ignored.
 
 ## Schema
 
 The following sections are used in `.cm` file to describe the desired automations:
 
-- [`manifest`](#manifest-section)
-- [`automations`](#automations-section)
+- [`manifest`](#manifest)
+- [`automations`](#automations)
 
-### `manifest` section
+
+### `manifest`
 
 The first section in a `gitstream.cm` file is the `manifest`.
 
@@ -54,7 +59,7 @@ The only field required is `version`.
 The manifest version field is used to parse the `.cm` file, in the future if breaking changes are 
 introduced to the parser then older automation will be still supported.
 
-### `automations` section
+### `automations` 
 
 The `automations` section defines the automations and their conditions. 
 
