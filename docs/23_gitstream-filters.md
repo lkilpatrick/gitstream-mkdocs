@@ -273,32 +273,34 @@ For example, check that only one file type was changed:
 
 #### `ignoreFiles`
 
-Takes a context and transform it by removing the matching files from it. 
+??? tip "Coming soon"
 
-| Argument | Usage    | Type      | Description                                     |
-| ------ | ---------|-----------|------------------------------------------------ |
-| - | Input (either) | [`files`](21_gitstream-context.md#files-context)<br />[`branch`](21_gitstream-context.md#branch-context)<br />[`source`](21_gitstream-context.md#source-context)  | The context object  |
-| `globs` | Input  | [String]  | Key in the `.cm` that holds the globs list for ignore files, using _glob_ pattern matching
-| - | Output | [`files`](21_gitstream-context.md#files-context)<br />[`branch`](21_gitstream-context.md#branch-context)<br />[`source`](21_gitstream-context.md#source-context) | Copy of the context object withtout the matching files |
+    Takes a context and transform it by removing the matching files from it. 
+
+    | Argument | Usage    | Type      | Description                                     |
+    | ------ | ---------|-----------|------------------------------------------------ |
+    | - | Input (either) | [`files`](21_gitstream-context.md#files-context)<br />[`branch`](21_gitstream-context.md#branch-context)<br />[`source`](21_gitstream-context.md#source-context)  | The context object  |
+    | `globs` | Input  | [String]  | Key in the `.cm` that holds the globs list for ignore files, using _glob_ pattern matching
+    | - | Output | [`files`](21_gitstream-context.md#files-context)<br />[`branch`](21_gitstream-context.md#branch-context)<br />[`source`](21_gitstream-context.md#source-context) | Copy of the context object withtout the matching files |
 
 
-```yaml
-{{ files | ignoreFiles(globs='ignore') | allTests }}
-```
+    ```yaml
+    {{ files | ignoreFiles(globs='ignore') | allTests }}
+    ```
 
-```yaml
-{{ branch | ignoreFiles(globs='ignore') | map(attr='files_meta') | map(attr='additions') | sum }}
-```
+    ```yaml
+    {{ branch | ignoreFiles(globs='ignore') | map(attr='files_meta') | map(attr='additions') | sum }}
+    ```
 
-For both examples, the `.cm` includes the `ignore` key:
+    For both examples, the `.cm` includes the `ignore` key:
 
-```yaml
-ignore:
-  - yarn.lock
-  - package-lock.json
-  - openapi.json
-  - ui/src/**/*Model.d.ts
-```
+    ```yaml
+    ignore:
+      - yarn.lock
+      - package-lock.json
+      - openapi.json
+      - ui/src/**/*Model.d.ts
+    ```
 
 #### `isFormattingChange`
 
@@ -319,17 +321,19 @@ If changes in other formats detected, the filter will return `false`.
 
 #### `matchDiffLines`
 
-Checks diff for matching lines.
+??? tip "Coming soon"
 
-| Argument | Usage    | Type      | Description                                     |
-| ------ | ---------|-----------|------------------------------------------------ |
-| - | Input  | [Object]  | The list of objects      |
-| `regex` | Input   | String  | Regex term to match with the input items, use `\\` for `\` |
-| `ignoreWhiteSpaces` | Input   | Bool  | match a named attribute in the input object |
-| - | Output | [Bool]      | `true` for every matching object |
+    Checks diff for matching lines.
 
-For example, to check if all the changes are of adding prints and ignore white spaces:
+    | Argument | Usage    | Type      | Description                                     |
+    | ------ | ---------|-----------|------------------------------------------------ |
+    | - | Input  | [Object]  | The list of objects      |
+    | `regex` | Input   | String  | Regex term to match with the input items, use `\\` for `\` |
+    | `ignoreWhiteSpaces` | Input   | Bool  | match a named attribute in the input object |
+    | - | Output | [Bool]      | `true` for every matching object |
 
-```yaml
-{{ source.diff.files | matchDiffLines(regex='^\\+.*console\\.log', ignoreEmptyLines=true) | every }}
-```
+    For example, to check if all the changes are of adding prints and ignore white spaces:
+
+    ```yaml
+    {{ source.diff.files | matchDiffLines(regex='^\\+.*console\\.log', ignoreEmptyLines=true) | every }}
+    ```
