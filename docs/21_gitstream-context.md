@@ -2,6 +2,8 @@
 
 ## Overview
 
+### Context
+
 gitStream includes a collection of variables called contexts. 
 
 - [`branch`](#branch-context)
@@ -9,13 +11,17 @@ gitStream includes a collection of variables called contexts.
 - [`source`](#source-context)
 - [`repo`](#repo-context)
 
-The following structures definitions:
+### Structures
+
+The following structures are used in the context objects:
 
 - [`FileMetadata`](#filemetadata-structure)
 - [`FileDiff`](#filediff-structure)
 - [`Contributor`](#contributor-structure)
 
-Example context object for a PR that changed few lines in a `README.md` file:
+### Example 
+
+Context object for a PR that changed few lines in a `README.md` file:
 
 ```json
 {

@@ -29,12 +29,12 @@ The following functions are supported in addition to the built-in functions prov
 
 | Function | Input | Args | Output |
 | --------------- | ------- | ---- |  ---- |
-| [`allDocs`](#alldocs)<br />checks the list includes only documents | [String] | - | Bool |
-| [`allImages`](#allimages)<br />checks the list includes only images | [String] | - | Bool |
-| [`allTests`](#alltests)<br />checks the list includes only tests | [String] | - | Bool |
-| [`estimatedReviewTime`](#estimatedreviewtime)<br />esitmated review time in minutes | [branch-context](21_gitstream-context#branch-context)| - | Integer |
+| [`allDocs`](#alldocs)<br />checks the list includes only documents | [files](21_gitstream-context.md#files-context) | - | Bool |
+| [`allImages`](#allimages)<br />checks the list includes only images | [files](21_gitstream-context.md#files-context) | - | Bool |
+| [`allTests`](#alltests)<br />checks the list includes only tests | [files](21_gitstream-context.md#files-context) | - | Bool |
+| [`estimatedReviewTime`](#estimatedreviewtime)<br />estimated review time in minutes | [branch](21_gitstream-context.md#branch-context)| - | Integer |
 | [`extensions`](#extensions)<br />lists all the unique file extensions | [String] | - | [String] |
-| [`ignoreFiles`](#ignorefiles)<br />removes selected files from the context copy | [branch-context](21_gitstream-context#branch-context)<br />[files-context](21_gitstream-context#files-context)<br />[source-context](21_gitstream-context#source-context) | `globs` | modofied context |
+| [`ignoreFiles`](#ignorefiles)<br />removes selected files from the context copy | [branch](21_gitstream-context.md#branch-context)<br />[files](21_gitstream-context.md#files-context)<br />[source](21_gitstream-context.md#source-context) | `globs` | modified context |
 | [`isFormattingChange`](#isformattingchange)<br />checks that only formatting changed | [[`FileDiff` ](21_gitstream-context.md#filediff-structure)] | - | Bool |
 | [`matchDiffLines`](#matchdifflines)<br />match every line in diff | [[`FileDiff` ](21_gitstream-context.md#filediff-structure)] | `regex`, `ignoreWhiteSpaces` | Bool |
 
@@ -51,6 +51,8 @@ Some functions supports named arguments, many of these repeat in different funct
 `regex` - a single string, used as _regular expression_ to with the matched item.
 
 `globs` - a key to an element in the `.cm` that holds a list of strings, used as _glob_ pattern test on the matched item.
+
+`attr` - a key in the element to use when doing the requested operation.
 
 For example, the following expressions provide an identical result:
 
@@ -104,7 +106,7 @@ Determines whether a string includes a certain substring. You can use either sin
 
 | Argument        | Usage    | Type      | Description                                     |
 | ------------- | ---------|-----------|--------------------------------------|
-| -       | Input    | String  | Items                        |
+| -       | Input    | String  |  The list of strings to match                        |
 | `term`<br />`regex`<br />`list`  | Input (either)  |  String<br />String<br />[String]  | Substring term to match
 | -      | Output   | Bool | `true` if search terms matches   |
 
@@ -118,11 +120,11 @@ Check string matches either of the terms:
 
 Creates a new list populated with the values of the selected attribute of every element in the input list. 
 
-| Argument        | Usage    | Type      | Description                                     |
+| Argument      | Usage    | Type      | Description                        |
 | ------------- | ---------|-----------|--------------------------------------|
-| -       | Input    | [Object]  | Items                        |
-| `attr` | Input    | String    | Attribute to select      |
-| -      | Output   | [Object] | List of the selected attributes  |
+| -      | Input    | [Object] | The list of objects to map, see [context](21_gitstream-context) for valid inputs               |
+| `attr` | Input    | String   | Object attribute to select      |
+| -      | Output   | [Object] | List of the selected object attributes  |
 
 For example, the `source.diff.files` context holds a list of [`FileDiff` ](21_gitstream-context.md#filediff-structure), each has `new_file` attribute. You can create a list of all the new file names by mapping to the `new_file` attribute and then check if there are changes to any `handler.js` file:
 
@@ -202,7 +204,7 @@ Return `true` if the input list includes only documents based on file extensions
 
 | Argument   | Usage    | Type      | Description                         |
 | -------- | ---------|-----------|------------------------------------------------ |
-| -  | Input    | [String]  | The list of changed files with their path       |
+| -  | Input    | [`files`](21_gitstream-context.md#files-context)  | The list of changed files with their path     |
 | - | Output   | Bool      | `true` if all file extensions are of docs       |
 
 Doc files extensions are: `md`, `mkdown`, `txt`, `rst`.
@@ -217,7 +219,7 @@ Return `true` if the input list includes only images based on file extensions.
 
 | Argument   | Usage    | Type      | Description                                     |
 | -------- | ---------|-----------|------------------------------------------------ |
-| - | Input    | [String]  | The list of changed files with their path       |
+| - | Input    | [`files`](21_gitstream-context.md#files-context)  | The list of changed files with their path       |
 | - | Output   | Bool      | `true` if all file extensions are of images     |
 
 Image file extensions are: `svg`, `png`, `gif`.
@@ -232,7 +234,7 @@ Return `true` if the input list includes only tests based on file's path and nam
 
 | Argument | Usage    | Type      | Description                                     |
 | ------ | ---------|-----------|------------------------------------------------ |
-| - | Input   | [String]  | The list of changed files with their path       |
+| - | Input   | [`files`](21_gitstream-context.md#files-context)  |The list of changed files with their path        |
 | - | Output | Bool      | `true` if all file tests based on name and path |
 
 Test files must include the substring `test` or `spec` in its name or path.
@@ -247,7 +249,7 @@ Returns the estimated review time in minutes based on statistical model. The mod
 
 | Argument   | Usage    | Type      | Description                                     |
 | -------- | ---------|-----------|------------------------------------------------ |
-| - | Input  | [`branch-context`](20_reference#branch-context)    | Branch meta data |
+| - | Input  | [`branch`](21_gitstream-context.md#branch-context)    | Branch meta data |
 | -  | Output  | String    | the estimated time for review in minutes |
 
 ```yaml
@@ -260,7 +262,7 @@ Expects `files` and provide a list of all unique file extensions.
 
 | Argument | Usage    | Type      | Description                                     |
 | ------ | ---------|-----------|------------------------------------------------ |
-| -  | Input    | [String]  | The list of changed files with their path       |
+| -  | Input    | [`files`](21_gitstream-context.md#files-context)  | The list of changed files with their path       |
 | - | Output   | [String]  | List of all unique file extensions              |
 
 For example, check that only one file type was changed:
@@ -275,9 +277,9 @@ Takes a context and transform it by removing the matching files from it.
 
 | Argument | Usage    | Type      | Description                                     |
 | ------ | ---------|-----------|------------------------------------------------ |
-| - | Input  | [Context]  | The context objects      |
+| - | Input (either) | [`files`](21_gitstream-context.md#files-context)<br />[`branch`](21_gitstream-context.md#branch-context)<br />[`source`](21_gitstream-context.md#source-context)  | The context object  |
 | `globs` | Input  | [String]  | Key in the `.cm` that holds the globs list for ignore files, using _glob_ pattern matching
-| - | Output | [Context] | Copy of the context object withtout the matching files |
+| - | Output | [`files`](21_gitstream-context.md#files-context)<br />[`branch`](21_gitstream-context.md#branch-context)<br />[`source`](21_gitstream-context.md#source-context) | Copy of the context object withtout the matching files |
 
 
 ```yaml
@@ -308,7 +310,7 @@ If changes in other formats detected, the filter will return `false`.
 
 | Argument       | Usage    | Type   | Description                                     |
 | ------------ | ---------|--------|------------------------------------------------ |
-| -     | Input    | [`source.diff.files`](21_gitstream-context.md#source-context)  | List of file diffs, expects  |
+| -     | Input    | [`source.diff.files`](21_gitstream-context.md#source-context)  | List of file diffs  |
 | -     | Output   | Bool   | `true` if the all code changes are non functional |
 
 ```yaml

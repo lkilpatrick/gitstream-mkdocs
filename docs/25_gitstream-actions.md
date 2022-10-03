@@ -1,5 +1,7 @@
 # Automation actions
 
+## Overview
+
 gitStream executes actions in the order they are listed. If an action result fails, following actions will not be executed.
 
 - [`add-comment`](#add-comment-action)
@@ -15,6 +17,8 @@ gitStream executes actions in the order they are listed. If an action result fai
 !!! note
 
     Multiple actions can be listed in a single automation. The actions are invoked one by one.
+
+## Reference 
 
 #### `add-comment` action
 
