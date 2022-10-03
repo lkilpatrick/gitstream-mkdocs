@@ -165,6 +165,12 @@ Creates a shallow copy of a portion of a given list, filtered down to just the e
 | - | Output | [String]<br />[Object] | The list with only the non-matching items |
 
 
+For example, check if all changes but JavaScript files are in tests directory:
+
+```yaml
+{{ files | reject(regex='\\.js$') | match(regex='tests\\/') | every }}
+```
+
 For example, check if all changes except for `config.json` files are formatting:
 
 ```yaml

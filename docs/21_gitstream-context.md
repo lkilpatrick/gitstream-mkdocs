@@ -15,6 +15,51 @@ The following structures definitions:
 - [`FileDiff`](#filediff-structure)
 - [`Contributor`](#contributor-structure)
 
+Example context object for a PR that changed few lines in a `README.md` file:
+
+```json
+{
+  "branch": {
+    "name": "new-feature-branch",
+    "base": "main",
+    "diff": {
+      "size": 50,
+      "files_metadata": [
+        {
+          "original_file": "README.md",
+          "new_file": "README.md",
+          "deletions": 0,
+          "additions": 2
+        }
+      ]
+    },
+    "num_of_commits": 1
+  },
+  "source": {
+    "diff": {
+      "files": [
+        {
+          "original_file": "README.md",
+          "new_file": "README.md",
+          "diff": "@@ -10,3 +10,5 @@ This project \n+\n+## Intro",
+          "original_content": "This project \n",
+          "new_content": "This project \n\n## Intro"
+        }
+      ]
+    }
+  },
+  "repo": {
+    "contributors": {
+      "popeye": "46",
+      "olive": "6"
+    }
+  },
+  "files": [
+    "README.md"
+  ]
+}
+```
+
 ## Reference
 
 #### `branch` context
