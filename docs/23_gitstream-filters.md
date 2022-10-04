@@ -129,7 +129,7 @@ Creates a new list populated with the values of the selected attribute of every 
 For example, the `source.diff.files` context holds a list of [`FileDiff` ](21_gitstream-context.md#filediff-structure), each has `new_file` attribute. You can create a list of all the new file names by mapping to the `new_file` attribute and then check if there are changes to any `handler.js` file:
 
 ```yaml
-{{ source.diff.files | map(attr='new_file') | match('handler.js') | some }}
+{{ source.diff.files | map(attr='new_file') | match(term='handler.js') | some }}
 ```
 
 #### `match`
@@ -323,17 +323,17 @@ If changes in other formats detected, the filter will return `false`.
 
 ??? tip "Coming soon"
 
-    Checks diff for matching lines.
-
-    | Argument | Usage    | Type      | Description                                     |
-    | ------ | ---------|-----------|------------------------------------------------ |
-    | - | Input  | [Object]  | The list of objects      |
-    | `regex` | Input   | String  | Regex term to match with the input items, use `\\` for `\` |
-    | `ignoreWhiteSpaces` | Input   | Bool  | match a named attribute in the input object |
-    | - | Output | [Bool]      | `true` for every matching object |
-
-    For example, to check if all the changes are of adding prints and ignore white spaces:
-
-    ```yaml
-    {{ source.diff.files | matchDiffLines(regex='^\\+.*console\\.log', ignoreEmptyLines=true) | every }}
-    ```
+	Checks diff for matching lines.
+	
+	| Argument | Usage    | Type      | Description                                     |
+	| ------ | ---------|-----------|------------------------------------------------ |
+	| - | Input  | [Object]  | The list of objects      |
+	| `regex` | Input   | String  | Regex term to match with the input items, use `\\` for `\` |
+	| `ignoreWhiteSpaces` | Input   | Bool  | match a named attribute in the input object |
+	| - | Output | [Bool]      | `true` for every matching object |
+	
+	For example, to check if all the changes are of adding prints and ignore white spaces:
+	
+	```yaml
+	{{ source.diff.files | matchDiffLines(regex='^\\+.*console\\.log', ignoreWhiteSpaces=true) | every }}
+	```
