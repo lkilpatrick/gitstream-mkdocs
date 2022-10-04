@@ -113,14 +113,25 @@ automations:
 You can use map to check that a PR was about adding more tests.
 
 ```yaml
-additions: {{ branch.diff.files_metadata | map(attr='additions') | sum }}
-deletions: {{ branch.diff.files_metadata | map(attr='deletions') | sum }}
-
 automations:
-  tests_additions:
+  tests_safe_changes:
     if:
-      - {{ files | match('test') | every }}
-      - {{ additions / deletions > 0.8 }}
-    run:
-      - action: approve@v1
+      # Given the PR files changes, check that only tests were changed. The allTests filter checks for 
+      # the substring `test` or `spec` in the file path or file name.
+      - {{ files | allTests }}
+      - {{ changes.ratio > 0.8 }}
+    run: 
+      - action: add-labels@v1
+        args:
+          labels: ['tests-changes']
+      - action: add-comment@v1
+        args:
+          comment: |
+            PR added tests (ratio: {{ changes.ratio }})
+      # - action: approve@v1
+
+changes:
+  additions: {{ branch.diff.files_metadata | map(attr='additions') | sum }}
+  deletions: {{ branch.diff.files_metadata | map(attr='deletions') | sum }}
+  ratio: {{ changes.additions / (changes.additions + changes.deletions) }}
 ```
