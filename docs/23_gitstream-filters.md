@@ -152,7 +152,7 @@ For example, to check if all code changes are in the `tests` directory:
 For example, to check if there are code changes with specific function call:
 
 ```yaml
-{{ source.diff.files | match(attr='diff', 'myFunction') | some }}
+{{ source.diff.files | match(attr='diff', term='myFunction') | some }}
 ```
 
 #### `reject`
