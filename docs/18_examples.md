@@ -9,6 +9,7 @@ automations:
   mark_good_pr:
     if:
       - {{ branch.diff.size <= 100 }}
+      - {{ files | length <= 100 }}
     run:
       - action: add-labels@v1
         args:
@@ -53,13 +54,14 @@ automations:
 
 ### Set 2 reviewers for large PRs 
 
-Automatically require 2 reviewers for PRs that has more than 100 lines of code changed.
+Automatically require 2 reviewers for PRs that has more than 100 lines of code changed under the `src` directory.
 
 ```yaml title=".cm/gitstream.cm"
 automations:
   double_review:
     if:
       - {{ branch.diff.size > 100 }}
+      - {{ files | match(regex='src\\/') | some }}
     run:
       - action: set-required-approvals@v1
         args:
