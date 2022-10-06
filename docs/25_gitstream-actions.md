@@ -4,15 +4,15 @@
 
 gitStream executes actions in the order they are listed. If an action result fails, following actions will not be executed.
 
-- [`add-comment`](#add-comment-action)
-- [`add-labels`](#add-labels-action)
-- [`add-reviewers`](#add-reviewers-action)
-- [`approve`](#approve-action)
-- [`merge`](#merge-action)
-- [`set-required-approvals`](#set-required-approvals-action)
-- [`require-reviewers`](#require-reviewers-action)
-- [`request-changes`](#request-changes-action)
-- [`update-check`](#update-check-action)
+- [`add-comment`](#add-comment)
+- [`add-labels`](#add-labels)
+- [`add-reviewers`](#add-reviewers)
+- [`approve`](#approve)
+- [`merge`](#merge)
+- [`set-required-approvals`](#set-required-approvals)
+- [`require-reviewers`](#require-reviewers)
+- [`request-changes`](#request-changes)
+- [`update-check`](#update-check)
 
 !!! note
 
@@ -20,7 +20,7 @@ gitStream executes actions in the order they are listed. If an action result fai
 
 ## Reference 
 
-#### `add-comment` action
+#### `add-comment`
 
 This action, once triggered, adds a comment to the PR.
 
@@ -42,7 +42,7 @@ automations:
 ```
 
 
-#### `add-labels` action
+#### `add-labels`
 
 This action, once triggered, adds a label to the PR.
 
@@ -62,7 +62,7 @@ automations:
 ```
 
 
-#### `add-reviewers` action
+#### `add-reviewers`
 
 This action, once triggered, sets a specific reviewer.
 
@@ -82,7 +82,7 @@ automations:
 ```
 
 
-#### `approve` action
+#### `approve`
 
 This action, once triggered, approves the PR for merge.
 
@@ -96,7 +96,7 @@ automations:
 ```
 
 
-#### `merge` action
+#### `merge`
 
 This action, once triggered, approve & merge the PR. It can set to wait for required checks to pass or ignore checks.
 
@@ -118,7 +118,7 @@ automations:
 ```
 
 
-#### `set-required-approvals` action
+#### `set-required-approvals`
 
 This action, once triggered, blocks PR merge till the desired reviewers approved the PR. The actions fail the check to prevent the PR for merge.
 
@@ -142,7 +142,7 @@ automations:
 ```
 
 
-#### `request-changes` action
+#### `request-changes`
 
 This action, once triggered, request changes on the PR. As long as request change is set, gitStream will block the PR merge.
 
@@ -162,7 +162,7 @@ automations:
             You have used deprected API, use `newFetch` instead.
 ```
 
-#### `require-reviewers` action
+#### `require-reviewers`
 
 This action, once triggered, sets a specific reviewer.
 
@@ -181,7 +181,7 @@ automations:
           reviewers: ['popeye', 'olive']
 ```
 
-####  `update-check` action
+#### `update-check`
 
 Used to workaround unnecessary checks, this action, update the defined check with the defined status if all conditions pass.
 

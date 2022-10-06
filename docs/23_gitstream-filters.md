@@ -19,7 +19,6 @@ The following functions are supported in addition to the built-in functions prov
 | [`match`](#match)<br />Maps list of items into a list of booleans that match the specified term | [String]<br />[Object] | `regex`, `term`, `list` `attr` | [Bool] |
 | [`reject`](#reject)<br />Inverse of [`filter`](#filter), the result list contains non-matching items | [String]<br />[Object] | `regex`, `term`, `list`, `attr` | [String]<br />[Object] |
 | [`some`](#some)<br />Checks whether at least one element in the list is `true` | [Bool] | - | Bool |
-| [`true`](#true)<br />Returns `true` always | - | - | Bool |
 
 </div>
 
@@ -190,14 +189,6 @@ For example, check if all changes except for `config.json` files are formatting:
 {{ files | match(list=['src', 'dest']) | some }}
 ```
 
-#### `true`
-
-Returns `true`
-
-```yaml
-{{ true }}
-```
-
 #### `allDocs`
 
 Return `true` if the input list includes only documents based on file extensions.
@@ -250,7 +241,7 @@ Returns the estimated review time in minutes based on statistical model. The mod
 | Argument   | Usage    | Type      | Description                                     |
 | -------- | ---------|-----------|------------------------------------------------ |
 | - | Input  | [`branch`](21_gitstream-context.md#branch-context)    | Branch meta data |
-| -  | Output  | String    | the estimated time for review in minutes |
+| -  | Output  | Integer    | the estimated time for review in minutes |
 
 ```yaml
 {{ branch | estimatedReviewTime }}
