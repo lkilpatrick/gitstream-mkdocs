@@ -44,7 +44,7 @@ The following sections are used in `.cm` file to describe the desired automation
 
 The first section in a `gitstream.cm` file is the `manifest`.
 
-```yaml
+```yaml+jinja
 manifest: 
   version: 1.0
 ```
@@ -63,7 +63,7 @@ introduced to the parser then older automation will be still supported.
 
 The `automations` section defines the automations and their conditions. 
 
-```yaml
+```yaml+jinja
 automations:
   mark_small_pr:
     if:
@@ -101,7 +101,7 @@ gitStream supported actions, see [documentation](25_gitstream-actions.md).
 #### Dynamic actions arguments
 For actions arguments values a dynamic value is supported using expressions based on Jinja2 syntax, and includes gitStream context variables. For example:
 
-```yaml
+```yaml+jinja
 automations:
   pr_complexity:
     if:
@@ -116,22 +116,21 @@ automations:
 
 You can define an accessory section, e.g. `checks`, that defines common conditions, and resue.  
 
-```yaml
-checks:
-  size:
-    is:
-      small: {{ branch.diff.size < 20 }}
-      medium: {{ branch.diff.size >= 20 and branch.diff.size < 100 }}
-      large: {{ branch.diff.size >= 100 }}
+```yaml+jinja
+size:
+  is:
+    small: {{ branch.diff.size < 20 }}
+    medium: {{ branch.diff.size >= 20 and branch.diff.size < 100 }}
+    large: {{ branch.diff.size >= 100 }}
 automations:
   approve_small:
     if:
-      - {{ checks.size.is.small }}
+      - {{ size.is.small }}
     run:
       - action: approve@v1
   mark_small_medium:
     if:
-      - {{ checks.size.is.small or checks.size.is.medium }}
+      - {{ size.is.small or size.is.medium }}
     run:
       - action: add-labels@v1
         args:

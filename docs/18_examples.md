@@ -5,7 +5,7 @@
 
 Automatically add a label to PRs that are very small to get faster reviewer response.
 
-```yaml title=".cm/gitstream.cm"
+```yaml+jinja title=".cm/gitstream.cm"
 automations:
   mark_good_pr:
     if:
@@ -29,7 +29,7 @@ automations:
 
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
-```yaml title=".cm/gitstream.cm"
+```yaml+jinja title=".cm/gitstream.cm"
 automations:
   etr_on_all:
     if:
@@ -45,7 +45,7 @@ automations:
 
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
-```yaml title=".cm/gitstream.cm"
+```yaml+jinja title=".cm/gitstream.cm"
 automations:
   approve_docs:
     if:
@@ -63,7 +63,7 @@ automations:
 
 Automatically require 2 reviewers for PRs that has more than 100 lines of code changed under the `src` directory.
 
-```yaml title=".cm/gitstream.cm"
+```yaml+jinja title=".cm/gitstream.cm"
 automations:
   double_review:
     if:
@@ -85,7 +85,7 @@ automations:
 
 For PRs that include only code format change, approve merge automatically.
 
-```yaml title=".cm/gitstream.cm"
+```yaml+jinja title=".cm/gitstream.cm"
 automations:
   allow_formatting:
     if:
@@ -110,7 +110,7 @@ automations:
 
 For example, assume we have an old API `oldCall` we want to switch from to a new API `newCall`, gitStream can review and trigger a change request automatically when the PR includes use of the deprecated API.
 
-```yaml title=".cm/gitstream.cm"
+```yaml+jinja title=".cm/gitstream.cm"
 automations:
   catch_deprecated:
     if:
@@ -130,7 +130,7 @@ automations:
 
 You can use map to check that a PR was about adding more tests.
 
-```yaml title=".cm/gitstream.cm"
+```yaml+jinja title=".cm/gitstream.cm"
 automations:
   tests_safe_changes:
     if:

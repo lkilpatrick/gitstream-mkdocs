@@ -28,7 +28,7 @@ This action, once triggered, adds a comment to the PR.
 | -----------|-----------|------------------------------------------------ |
 | `comment`  | String    | Sets the comment, markdown is supported |
 
-```yaml title="example"
+```yaml+jinja title="example"
 automations:
   senior_review:
     if:
@@ -50,7 +50,7 @@ This action, once triggered, adds a label to the PR.
 | -----------|-----------|------------------------------------------------ |
 | `labels`    | [String]  | List of labels, any string can work |
 
-```yaml title="example"
+```yaml+jinja title="example"
 automations:
   senior_review:
     if:
@@ -70,7 +70,7 @@ This action, once triggered, sets a specific reviewer.
 | -----------|-----------|------------------------------------------------ |
 | `reviewers` | [String]    | Sets reviewers user name |
 
-```yaml title="example"
+```yaml+jinja title="example"
 automations:
   senior_review:
     if:
@@ -86,7 +86,7 @@ automations:
 
 This action, once triggered, approves the PR for merge.
 
-```yaml title="example"
+```yaml+jinja title="example"
 automations:
   small_change:
     if:
@@ -108,7 +108,7 @@ Syntax:
 | `squash_on_merge`| Boolean   | When merging use squash mode |
 
 
-```yaml title="example"
+```yaml+jinja title="example"
 automations:
   small_change:
     if:
@@ -130,7 +130,7 @@ This action, once triggered, blocks PR merge till the desired reviewers approved
 | -----------|-----------|------------------------------------------------ |
 | `approvals`| Integer   | Sets the number of required reviewer approvals for merge for that PR|
 
-```yaml title="example"
+```yaml+jinja title="example"
 automations:
   double_review:
     if:
@@ -150,7 +150,7 @@ This action, once triggered, request changes on the PR. As long as request chang
 | -----------|-----------|------------------------------------------------ |
 | `reviewers` | [String]    | Sets reviewers user name, merge is blocked till approved by any of the listed users |
 
-```yaml title="example"
+```yaml+jinja title="example"
 automations:
   senior_review:
     if:
@@ -170,7 +170,7 @@ This action, once triggered, sets a specific reviewer.
 | -----------|-----------|------------------------------------------------ |
 | `reviewers` | [String]    | Sets reviewers user name, merge is blocked till approved by any of the listed users |
 
-```yaml title="example"
+```yaml+jinja title="example"
 automations:
   senior_review:
     if:
@@ -192,7 +192,7 @@ Used to workaround unnecessary checks, this action, update the defined check wit
 | `conclusion`  | String    | The conclusion of the check |
 
 
-```yaml title="example"
+```yaml+jinja title="example"
 automations:
   senior_review:
     if:

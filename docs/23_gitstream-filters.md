@@ -56,7 +56,7 @@ Some functions supports named arguments, many of these repeat in different funct
 
 For example, the following expressions provide an identical result:
 
-```yaml
+```yaml+jinja
 - {{ 'something' | includes(regex='^some.*') }}
 - {{ 'something' | includes(term='some') }}
 - {{ 'something' | includes(list=['some']) }}
@@ -73,7 +73,7 @@ For example, the following expressions provide an identical result:
 
 For example, check that all changes are in either 'src' or 'dest' directories:
 
-```yaml
+```yaml+jinja
 {{ files | match(list=['src', 'dest']) | every }}
 ```
 
@@ -90,13 +90,13 @@ Creates a shallow copy of a portion of a given list, filtered down to just the e
 
 For example, check if all changes to JavaScript files are in tests directory:
 
-```yaml
+```yaml+jinja
 {{ files | filter(regex='\\.js$') | match(regex='tests\\/') | every }}
 ```
 
 For example, check if all changes to JavaScript files are formatting:
 
-```yaml
+```yaml+jinja
 {{ source.diff.files | filter(attr='new_file', regex='\\.js$') | isFormattingChange }}
 ```
 
@@ -112,7 +112,7 @@ Determines whether a string includes a certain substring. You can use either sin
 
 Check string matches either of the terms:
 
-```yaml
+```yaml+jinja
 {{ 'something' | includes(list=['any', 'thing']) }}
 ```
 
@@ -128,7 +128,7 @@ Creates a new list populated with the values of the selected attribute of every 
 
 For example, the `source.diff.files` context holds a list of [`FileDiff` ](21_gitstream-context.md#filediff-structure), each has `new_file` attribute. You can create a list of all the new file names by mapping to the `new_file` attribute and then check if there are changes to any `handler.js` file:
 
-```yaml
+```yaml+jinja
 {{ source.diff.files | map(attr='new_file') | match(term='handler.js') | some }}
 ```
 
@@ -145,13 +145,13 @@ Return `true` for each element in the list that match the search term.
 
 For example, to check if all code changes are in the `tests` directory:
 
-```yaml
+```yaml+jinja
 {{ files | match(regex='tests\\/') | every }}
 ```
 
 For example, to check if there are code changes with specific function call:
 
-```yaml
+```yaml+jinja
 {{ source.diff.files | match(attr='diff', term='myFunction') | some }}
 ```
 
@@ -164,7 +164,7 @@ For example, to check if there are code changes with specific function call:
 
 For example, check that no changes in either 'src' or 'dest' directories:
 
-```yaml
+```yaml+jinja
 {{ files | match(list=['src', 'dest']) | none }}
 ```
 
@@ -182,13 +182,13 @@ Creates a shallow copy of a portion of a given list, filtered down to just the e
 
 For example, check if all changes but JavaScript files are in tests directory:
 
-```yaml
+```yaml+jinja
 {{ files | reject(regex='\\.js$') | match(regex='tests\\/') | every }}
 ```
 
 For example, check if all changes except for `config.json` files are formatting:
 
-```yaml
+```yaml+jinja
 {{ source.diff.files | reject(attr='new_file', regex='config\\.json$') | isFormattingChange }}
 ```
 
@@ -199,7 +199,7 @@ For example, check if all changes except for `config.json` files are formatting:
 | - | Input  | [Bool]    | List of booleans |
 | -  | Output  | Bool    | Returns `true` when all any of the items is `true` |
 
-```yaml
+```yaml+jinja
 {{ files | match(list=['src', 'dest']) | some }}
 ```
 
@@ -214,7 +214,7 @@ Return `true` if the input list includes only documents based on file extensions
 
 Doc files extensions are: `md`, `mkdown`, `txt`, `rst`.
 
-```yaml
+```yaml+jinja
 {{ files | allDocs }}
 ```
 
@@ -229,7 +229,7 @@ Return `true` if the input list includes only images based on file extensions.
 
 Image file extensions are: `svg`, `png`, `gif`.
 
-```yaml
+```yaml+jinja
 {{ files | allImages }}
 ```
 
@@ -244,7 +244,7 @@ Return `true` if the input list includes only tests based on file's path and nam
 
 Test files must include the substring `test` or `spec` in its name or path.
 
-```yaml
+```yaml+jinja
 {{ files | allTests }}
 ```
 
@@ -257,7 +257,7 @@ Returns the estimated review time in minutes based on statistical model. The mod
 | - | Input  | [`branch`](21_gitstream-context.md#branch-context)    | Branch meta data |
 | -  | Output  | Integer    | the estimated time for review in minutes |
 
-```yaml
+```yaml+jinja
 {{ branch | estimatedReviewTime }}
 ```
 
@@ -272,7 +272,7 @@ Expects `files` and provide a list of all unique file extensions.
 
 For example, check that only one file type was changed:
 
-```yaml
+```yaml+jinja
 {{ files | extensions | length == 1 }}
 ```
 
@@ -289,17 +289,17 @@ For example, check that only one file type was changed:
     | - | Output | [`files`](21_gitstream-context.md#files-context)<br />[`branch`](21_gitstream-context.md#branch-context)<br />[`source`](21_gitstream-context.md#source-context) | Copy of the context object withtout the matching files |
 
 
-    ```yaml
+    ```yaml+jinja    
     {{ files | ignoreFiles(globs='ignore') | allTests }}
     ```
 
-    ```yaml
+    ```yaml+jinja    
     {{ branch | ignoreFiles(globs='ignore') | map(attr='files_meta') | map(attr='additions') | sum }}
     ```
 
     For both examples, the `.cm` includes the `ignore` key:
 
-    ```yaml
+    ```yaml+jinja    
     ignore:
       - yarn.lock
       - package-lock.json
@@ -320,7 +320,7 @@ If changes in other formats detected, the filter will return `false`.
 | -     | Input    | [`source.diff.files`](21_gitstream-context.md#source-context)  | List of file diffs  |
 | -     | Output   | Bool   | `true` if the all code changes are non functional |
 
-```yaml
+```yaml+jinja
 {{ source.diff.files | isFormattingChange }}
 ```
 
@@ -339,6 +339,6 @@ If changes in other formats detected, the filter will return `false`.
 	
 	For example, to check if all the changes are of adding prints and ignore white spaces:
 	
-	```yaml
-	{{ source.diff.files | matchDiffLines(regex='^\\+.*console\\.log', ignoreWhiteSpaces=true) | every }}
+	```yaml+jinja	
+  {{ source.diff.files | matchDiffLines(regex='^\\+.*console\\.log', ignoreWhiteSpaces=true) | every }}
 	```

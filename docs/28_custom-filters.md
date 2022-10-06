@@ -16,9 +16,11 @@ You can add custom filters by editing the `.cm/filters.js` file in your repo.
 ```
 
 ####  Adding filters
+
 Filters can have input arguments and return a result which can be any valid JavaScript type.
 
 An example for a `.cm/filters.js`:
+
 ```js
 export default {
   // The includes() method determines whether an array includes a 
@@ -35,11 +37,9 @@ export default {
 ```
 
 Once filters are added it can be used in the `.cm` files, for example using `isOdd` filter looks like this:
-```yaml
-checks:
-  pr_size:
-    is:
-      odd: {{ branch.diff.size | isOdd }}
+
+```yaml+jinja
+{{ branch.diff.size | isOdd }}
 ```
 
 #### Using npm packages 
@@ -66,19 +66,17 @@ exec('npm run test | wc -l', (err, stdout, stderr) => {
   console.log(`stderr: ${stderr}`);
   return 123;
 });
+
 ```
 
-for example
+For example:
 
-```yaml
-checks:
-  # access coverage results
-  coverage:
-    is:
-      # npm run test -> /file/here 
-      enough: {{ source | my_coverage > 80 }} # 2 user's filter 
-      # ignore certain files changes filterFile('/file/here')
-      # global ignore
+```yaml+jinja
+# access coverage results
+coverage:
+  is:
+    # npm run test -> /file/here 
+    enough: {{ source | my_coverage > 80 }} # 2 user's filter 
 ```
 
 
