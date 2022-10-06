@@ -16,8 +16,7 @@ manifest:
 # Conditions consists of an expression, which are wrapped with double curly braces, and 
 # includes a context variable like `files` and filter functions like `length`. Filters 
 # functions are essentially functions that can be applied to context variables. They are 
-# called with a pipe operator (|) and can take arguments. Read more on 
-# [Filter functions page](https://linear-b.github.io/gitstream-mkdocs/23_gitstream-filters/).
+# called with a pipe operator (|) and can take arguments. Read more on https://docs.gitstream.cm
 
 automations:
   # This is the name of the review automation. You can use whatever name, a meaningful name 
@@ -48,7 +47,7 @@ automations:
       - action: add-labels@v1
         args:
           labels: ['docs-changes']
-      # - action: approve@v1
+      - action: approve@v1
   
   tests_safe_changes:
     if:
@@ -59,7 +58,18 @@ automations:
       - action: add-labels@v1
         args:
           labels: ['tests-changes']
-      # - action: approve@v1
+      - action: approve@v1
+
+  images_safe_changes:
+    if:
+      # Check for every changed file if is a document file. The allImages filter checks for
+      # common file extensions used for graphics.
+      - {{ files | allImages }}
+    run:
+      - action: add-labels@v1
+        args:
+          labels: ['images']
+      - action: approve@v1
   
   mark_long_review:
     if:
@@ -67,6 +77,7 @@ automations:
       # based on a statistical model. Review that takes more than 20 minutes is considered 
       # bad practice and therefore marked accordingly.
       - {{ branch | estimatedReviewTime >= 20 }}
+      - {{ files | length >= 10  }}
     run:
       - action : add-labels@v1
         args:
