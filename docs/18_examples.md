@@ -1,7 +1,7 @@
 # Examples
 
 
-## Add label to PR by PR size
+## Label big PRs
 
 Automatically add a label to PRs that are very small to get faster reviewer response.
 
@@ -25,7 +25,7 @@ automations:
 ```
 
 
-## Add Estimated Time for Review in PRs comment 
+## Add Estimated Time for Review 
 
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
@@ -41,7 +41,7 @@ automations:
 ```
 
 
-## Automated check and approve low risk PRs 
+## Check and approve documents changes  
 
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
@@ -55,7 +55,7 @@ automations:
 ```
 
 
-## Set 2 reviewers for large PRs 
+## Require 2 approvals for complex changes 
 
 Automatically require 2 reviewers for PRs that has more than 100 lines of code changed under the `src` directory.
 
@@ -63,7 +63,8 @@ Automatically require 2 reviewers for PRs that has more than 100 lines of code c
 automations:
   double_review:
     if:
-      - {{ branch.diff.size > 100 }}
+      - {{ branch | estimatedReviewTime >= 30 }}
+      - {{ files | length >= 10 }}
       - {{ files | match(regex='src\\/') | some }}
     run:
       - action: set-required-approvals@v1
@@ -72,7 +73,7 @@ automations:
 ```
 
 
-## Approve indentation changes in JavaScript files 
+## Check and approve indentation changes
 
 For PRs that include only code format change, approve merge automatically.
 
@@ -97,7 +98,7 @@ automations:
     Multiple conditons can be listed for a single automation. All listed conditions must pass to triger the actions.
 
 
-## Automatically review and request code change when using deprecated APIs
+## Request change when using deprecated APIs
 
 For example, assume we have an old API `oldCall` we want to switch from to a new API `newCall`, gitStream can review and trigger a change request automatically when the PR includes use of the deprecated API.
 
@@ -121,7 +122,7 @@ automations:
 
 You can use map to check that a PR was about adding more tests.
 
-```yaml
+```yaml title=".cm/gitstream.cm"
 automations:
   tests_safe_changes:
     if:

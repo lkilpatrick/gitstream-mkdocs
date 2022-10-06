@@ -250,7 +250,7 @@ Returns the estimated review time in minutes based on statistical model. The mod
 | Argument   | Usage    | Type      | Description                                     |
 | -------- | ---------|-----------|------------------------------------------------ |
 | - | Input  | [`branch`](21_gitstream-context.md#branch-context)    | Branch meta data |
-| -  | Output  | String    | the estimated time for review in minutes |
+| -  | Output  | Integer    | the estimated time for review in minutes |
 
 ```yaml
 {{ branch | estimatedReviewTime }}
