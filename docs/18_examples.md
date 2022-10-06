@@ -25,7 +25,7 @@ automations:
 ```
 
 
-## Add Estimated Time for Review 
+## Estimated Time for Review 
 
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
@@ -41,7 +41,7 @@ automations:
 ```
 
 
-## Check and approve documents changes  
+## Approve documents changes  
 
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
@@ -54,8 +54,12 @@ automations:
       - action: approve@v1
 ```
 
+<div class="video-wrapper">
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/TVD6BbFcmoI?modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
-## Require 2 approvals for complex changes 
+
+## More approvals for complex changes 
 
 Automatically require 2 reviewers for PRs that has more than 100 lines of code changed under the `src` directory.
 
@@ -72,8 +76,12 @@ automations:
           reviewers: 2
 ```
 
+<div class="video-wrapper">
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/noXqKlH9Pxw?modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
-## Check and approve indentation changes
+
+## Validate formatting changes
 
 For PRs that include only code format change, approve merge automatically.
 
@@ -98,7 +106,7 @@ automations:
     Multiple conditons can be listed for a single automation. All listed conditions must pass to triger the actions.
 
 
-## Request change when using deprecated APIs
+## Request changes on deprecated APIs
 
 For example, assume we have an old API `oldCall` we want to switch from to a new API `newCall`, gitStream can review and trigger a change request automatically when the PR includes use of the deprecated API.
 
@@ -118,7 +126,7 @@ automations:
 ![Request changes automatically](screenshots/change_use_deprectaed_api.png)
 
 
-## Approve additional tests automatically
+## Approve additional tests
 
 You can use map to check that a PR was about adding more tests.
 
