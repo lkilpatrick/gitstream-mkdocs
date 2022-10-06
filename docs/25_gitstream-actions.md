@@ -18,6 +18,22 @@ gitStream executes actions in the order they are listed. If an action result fai
 
     Multiple actions can be listed in a single automation. The actions are invoked one by one.
 
+#### Dynamic actions arguments
+
+Arguments values a dynamic value is supported using expressions based on Jinja2 syntax, and includes gitStream context variables, for example:
+
+```yaml+jinja
+automations:
+  pr_complexity:
+    if:
+      - true
+    run:
+      - action: add-comment@v1
+        args:
+          comment: "Estimated {{ branch | estimatedReviewTime }} minutes to review"
+```
+
+
 ## Reference 
 
 #### `add-comment`
