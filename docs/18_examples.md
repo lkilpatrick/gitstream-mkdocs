@@ -1,6 +1,7 @@
 # Examples
 
-### Add label to PR by PR size
+
+## Add label to PR by PR size
 
 Automatically add a label to PRs that are very small to get faster reviewer response.
 
@@ -23,7 +24,8 @@ automations:
           labels: [big_size]
 ```
 
-### Add Estimated Time for Review in PRs comment 
+
+## Add Estimated Time for Review in PRs comment 
 
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
@@ -38,7 +40,8 @@ automations:
           comment: "Estimated {{ branch | estimatedReviewTime }} minutes to review"
 ```
 
-### Automated check and approve low risk PRs 
+
+## Automated check and approve low risk PRs 
 
 Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
 
@@ -52,7 +55,7 @@ automations:
 ```
 
 
-### Set 2 reviewers for large PRs 
+## Set 2 reviewers for large PRs 
 
 Automatically require 2 reviewers for PRs that has more than 100 lines of code changed under the `src` directory.
 
@@ -68,7 +71,8 @@ automations:
           reviewers: 2
 ```
 
-### Approve indentation changes in JavaScript files 
+
+## Approve indentation changes in JavaScript files 
 
 For PRs that include only code format change, approve merge automatically.
 
@@ -91,8 +95,9 @@ automations:
     Multiple actions can be listed in a single automation. The actions are invoked one by one.
     
     Multiple conditons can be listed for a single automation. All listed conditions must pass to triger the actions.
-    
-### Automatically review and request code change when using deprecated APIs
+
+
+## Automatically review and request code change when using deprecated APIs
 
 For example, assume we have an old API `oldCall` we want to switch from to a new API `newCall`, gitStream can review and trigger a change request automatically when the PR includes use of the deprecated API.
 
@@ -100,17 +105,19 @@ For example, assume we have an old API `oldCall` we want to switch from to a new
 automations:
   catch_deprecated:
     if:
-      - {{ source.diff.files | matchDiffLines('oldCall\\(', ignoreWhiteSpaces=true) | every }}
+      # Given the PR code changes, check if a call to an unwanted API was introduced
+      - {{ source.diff.files | matchDiffLines(regex='^[+].*callingElvis\\(') | some }}
     run:
       - action: request-changes@v1
         args:
         comment: |
-          Deprecated API used `oldCall`, use `newCall` instead
+          Deprecated API used `callingElvis`, use `callingGaga` instead
 ```
 
 ![Request changes automatically](screenshots/change_use_deprectaed_api.png)
 
-### Approve additional tests automatically
+
+## Approve additional tests automatically
 
 You can use map to check that a PR was about adding more tests.
 
@@ -121,6 +128,7 @@ automations:
       # Given the PR files changes, check that only tests were changed. The allTests filter checks for 
       # the substring `test` or `spec` in the file path or file name.
       - {{ files | allTests }}
+      # Checking `changes.ratio` which is calculated below
       - {{ changes.ratio > 0.8 }}
     run: 
       - action: add-labels@v1
@@ -132,9 +140,14 @@ automations:
             PR added tests (ratio: {{ changes.ratio }})
       # - action: approve@v1
 
+# You can add more sections to the .cm file to place more logic, and use it in your automations
+# The following logic `ratio` result is used in the automation above by checking `changes.ratio`
 changes:
+  # Sum all the line added/edited in the PR
   additions: {{ branch.diff.files_metadata | map(attr='additions') | sum }}
+  # Sum all the line removed in the PR
   deletions: {{ branch.diff.files_metadata | map(attr='deletions') | sum }}
+  # Calculate the ratio to check if it is about new code
   ratio: {{ changes.additions / (changes.additions + changes.deletions) }}
 ```
 
