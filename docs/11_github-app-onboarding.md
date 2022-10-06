@@ -13,12 +13,12 @@ Copy-paste from here:
 
 === ":octicons-file-code-16: `.cm/gitstream.cm`"
 
-	```yaml
+	```yaml+jinja
 	--8<-- "docs/assets/gitstream.cm"
 	```
 
 === ":octicons-file-code-16: `.github/workflows/gitstream.yml`"
 
-	```yaml
+	```yaml+jinja	
 	--8<-- "docs/assets/gitstream.yml"
 	```
