@@ -92,9 +92,9 @@ automations:
     
     Multiple conditons can be listed for a single automation. All listed conditions must pass to triger the actions.
     
-### Automatcialy review and request code change when using deprecated APIs
+### Automatically review and request code change when using deprecated APIs
 
-For example assume we have an old API `oldCall` we want to switch from to a new API `newCall`, gitStream can review and trigger a change request automatically when the PR includes use of the deprected API.
+For example, assume we have an old API `oldCall` we want to switch from to a new API `newCall`, gitStream can review and trigger a change request automatically when the PR includes use of the deprecated API.
 
 ```yaml title=".cm/gitstream.cm"
 automations:
@@ -108,7 +108,9 @@ automations:
           Deprecated API used `oldCall`, use `newCall` instead
 ```
 
-### Approve additonal tests automatically
+![Request changes automatically](screenshots/change_use_deprectaed_api.png)
+
+### Approve additional tests automatically
 
 You can use map to check that a PR was about adding more tests.
 
@@ -135,3 +137,7 @@ changes:
   deletions: {{ branch.diff.files_metadata | map(attr='deletions') | sum }}
   ratio: {{ changes.additions / (changes.additions + changes.deletions) }}
 ```
+
+As a result, if you add test cases to your repo, gitStream can automatically check that and approve the PR automatically.
+
+![Adding tests example](screenshots/adding_tests_to_repo.png)
