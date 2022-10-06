@@ -34,7 +34,6 @@ The following functions are supported in addition to the built-in functions prov
 | [`allTests`](#alltests)<br />Checks the list includes only tests | [files](21_gitstream-context.md#files-context) | - | Bool |
 | [`estimatedReviewTime`](#estimatedreviewtime)<br />Estimated review time in minutes | [branch](21_gitstream-context.md#branch-context)| - | Integer |
 | [`extensions`](#extensions)<br />Lists all the unique file extensions | [String] | - | [String] |
-| [`ignoreFiles`](#ignorefiles)<br />Removes selected files from the context copy | [branch](21_gitstream-context.md#branch-context)<br />[files](21_gitstream-context.md#files-context)<br />[source](21_gitstream-context.md#source-context) | `globs` | modified context |
 | [`isFormattingChange`](#isformattingchange)<br />Checks that only formatting changed | [[`FileDiff` ](21_gitstream-context.md#filediff-structure)] | - | Bool |
 | [`matchDiffLines`](#matchdifflines)<br />Match every line in diff | [[`FileDiff` ](21_gitstream-context.md#filediff-structure)] | `regex`, `ignoreWhiteSpaces` | [Bool] |
 
@@ -275,37 +274,6 @@ For example, check that only one file type was changed:
 ```yaml+jinja
 {{ files | extensions | length == 1 }}
 ```
-
-#### `ignoreFiles`
-
-??? tip "Coming soon"
-
-    Takes a context and transform it by removing the matching files from it. 
-
-    | Argument | Usage    | Type      | Description                                     |
-    | ------ | ---------|-----------|------------------------------------------------ |
-    | - | Input (either) | [`files`](21_gitstream-context.md#files-context)<br />[`branch`](21_gitstream-context.md#branch-context)<br />[`source`](21_gitstream-context.md#source-context)  | The context object  |
-    | `globs` | Input  | [String]  | Key in the `.cm` that holds the globs list for ignore files, using _glob_ pattern matching
-    | - | Output | [`files`](21_gitstream-context.md#files-context)<br />[`branch`](21_gitstream-context.md#branch-context)<br />[`source`](21_gitstream-context.md#source-context) | Copy of the context object withtout the matching files |
-
-
-    ```yaml+jinja    
-    {{ files | ignoreFiles(globs='ignore') | allTests }}
-    ```
-
-    ```yaml+jinja    
-    {{ branch | ignoreFiles(globs='ignore') | map(attr='files_meta') | map(attr='additions') | sum }}
-    ```
-
-    For both examples, the `.cm` includes the `ignore` key:
-
-    ```yaml+jinja    
-    ignore:
-      - yarn.lock
-      - package-lock.json
-      - openapi.json
-      - ui/src/**/*Model.d.ts
-    ```
 
 #### `isFormattingChange`
 
