@@ -17,6 +17,7 @@ The following functions are supported in addition to the built-in functions prov
 | [`includes`](#match)<br />Check if substring match | String | `regex`, `term`, `list` | Bool |
 | [`map`](#map)<br />Maps each object in a list into their specified attribute value | [Object] | `attr` | [Object] |
 | [`match`](#match)<br />Maps list of items into a list of booleans that match the specified term | [String]<br />[Object] | `regex`, `term`, `list` `attr` | [Bool] |
+| [`none`](#none)<br />Checks whether all element in the list are `false` | [Bool] | - | Bool |
 | [`reject`](#reject)<br />Inverse of [`filter`](#filter), the result list contains non-matching items | [String]<br />[Object] | `regex`, `term`, `list`, `attr` | [String]<br />[Object] |
 | [`some`](#some)<br />Checks whether at least one element in the list is `true` | [Bool] | - | Bool |
 
@@ -152,6 +153,19 @@ For example, to check if there are code changes with specific function call:
 
 ```yaml
 {{ source.diff.files | match(attr='diff', term='myFunction') | some }}
+```
+
+#### `none`
+
+| Argument   | Usage    | Type      | Description                                     |
+| -------- | ---------|-----------|------------------------------------------------ |
+| - | Input  | [Bool]    | List of booleans |
+| -  | Output  | Bool   | Returns `true` when all list items are `false` |
+
+For example, check that no changes in either 'src' or 'dest' directories:
+
+```yaml
+{{ files | match(list=['src', 'dest']) | none }}
 ```
 
 #### `reject`
