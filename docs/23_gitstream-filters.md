@@ -326,19 +326,18 @@ If changes in other formats detected, the filter will return `false`.
 
 #### `matchDiffLines`
 
-??? tip "Coming soon"
 
-	Checks diff for matching lines.
-	
-	| Argument | Usage    | Type      | Description                                     |
-	| ------ | ---------|-----------|------------------------------------------------ |
-	| - | Input  | [Object]  | The list of objects      |
-	| `regex` | Input   | String  | Regex term to match with the input items, use `\\` for `\` |
-	| `ignoreWhiteSpaces` | Input   | Bool  | match a named attribute in the input object |
-	| - | Output | [Bool]      | `true` for every matching object |
-	
-	For example, to check if all the changes are of adding prints and ignore white spaces:
-	
-	```yaml+jinja	
-  {{ source.diff.files | matchDiffLines(regex='^\\+.*console\\.log', ignoreWhiteSpaces=true) | every }}
-	```
+Checks diff for matching lines.
+
+| Argument | Usage    | Type      | Description                                     |
+| ------ | ---------|-----------|------------------------------------------------ |
+| - | Input  | [Object]  | The list of objects      |
+| `regex` | Input   | String  | Regex term to match with the input items, use `\\` for `\` |
+| `ignoreWhiteSpaces` | Input   | Bool  | match a named attribute in the input object |
+| - | Output | [Bool]      | `true` for every matching object |
+
+For example, to check if all the changes are of adding prints and ignore white spaces:
+
+```yaml+jinja	
+{{ source.diff.files | matchDiffLines(regex='^\\+.*console\\.log', ignoreWhiteSpaces=true) | every }}
+```
