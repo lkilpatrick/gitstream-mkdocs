@@ -96,21 +96,7 @@ The `run` field includes the automation to execute. It includes the following fi
 
 For `gitstream` engine, the action is specified by: `name@version`
 
-gitStream supported actions, see [documentation](25_gitstream-actions.md).
-
-#### Dynamic actions arguments
-For actions arguments values a dynamic value is supported using expressions based on Jinja2 syntax, and includes gitStream context variables. For example:
-
-```yaml+jinja
-automations:
-  pr_complexity:
-    if:
-      - true
-    run:
-      - action: add-comment@v1
-        args:
-          comment: "Estimated {{ branch | estimatedReviewTime }} minutes to review"
-```
+gitStream supported actions, see [actions](25_gitstream-actions.md).
 
 ### Reusing checks
 
