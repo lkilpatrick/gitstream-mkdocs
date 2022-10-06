@@ -32,7 +32,7 @@ This action, once triggered, adds a comment to the PR.
 automations:
   senior_review:
     if:
-      - {{ files | isSomeInListRegex('core\\/') }}
+      - {{ files | match(term='core/') | some }}
     run:
       - action: add-comment@v1
         args:
@@ -54,7 +54,7 @@ This action, once triggered, adds a label to the PR.
 automations:
   senior_review:
     if:
-      - {{ files | isSomeInListRegex('api\\/') }}
+      - {{ files | match(term='api/') | some }}
     run:
       - action: add-labels@v1
         args:
@@ -74,7 +74,7 @@ This action, once triggered, sets a specific reviewer.
 automations:
   senior_review:
     if:
-      - {{ files | isSomeInListRegex('src\\/ui\\/') }}
+      - {{ files | match(term='src/ui/') }}
     run:
       - action: add-reviewers@v1
         args:
@@ -134,7 +134,7 @@ This action, once triggered, blocks PR merge till the desired reviewers approved
 automations:
   double_review:
     if:
-      - {{ files | isSomeInListRegex('core\/') }}
+      - {{ files | match(regex='agent\\/') | some }}
     run:
       - action: set-required-approvals@v1
         args:
@@ -154,12 +154,12 @@ This action, once triggered, request changes on the PR. As long as request chang
 automations:
   senior_review:
     if:
-      - {{ files | isLineInFileDiffRegex('oldFetch') | some }}
+      - {{ source.diff.files | matchDiffLines(regex='^[+].*oldFetch\\(') | some }}
     run:
       - action: request-changes@v1
         args:
           comment: |
-            You have used deprected API, use `newFetch` instead.
+            You have used deprected API `oldFetch`, use `newFetch` instead.
 ```
 
 #### `require-reviewers`
@@ -174,7 +174,7 @@ This action, once triggered, sets a specific reviewer.
 automations:
   senior_review:
     if:
-      - {{ files | isSomeInListRegex('src\/ui\/') }}
+      - {{ files | match(regex='src\\/ui\\/') | some }}
     run:
       - action: require-reviewers@v1
         args:
@@ -196,7 +196,7 @@ Used to workaround unnecessary checks, this action, update the defined check wit
 automations:
   senior_review:
     if:
-      - {{ files | isEveryInListRegex('.*.png$|.*.jpg$|.*.svg$|.*\.css$') }}
+      - {{ files | match(regex='.*\\.png$|.*\\.jpg$|.*\\.svg$|.*\\.css$') | every }}
     run:
       - action : update-check@v1
         args:
