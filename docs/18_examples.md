@@ -161,7 +161,7 @@ As a result, if you add test cases to your repo, gitStream can automatically che
 When you just want to change the way to print to screen, you can get it approved as long as you didn't change anything else.
 
 ```yaml+jinja title=".cm/gitstream.cm" 
-automation  
+automations:
   # for JavaScript
   prints_changes_in_js:
     if: 
