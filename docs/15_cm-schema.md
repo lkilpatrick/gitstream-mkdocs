@@ -60,25 +60,27 @@ The manifest version field is used to parse the `.cm` file, in the future if bre
 
 ### `config`
 
-The `config` section is optional in `gitstream.cm` file and is used to specify configuration for the way gitStream works.
+??? tip "Coming soon"
+
+    The `config` section is optional in `gitstream.cm` file and is used to specify configuration for the way gitStream works.
 
 
-| Key         | Required | Type    |  Default | Description                              |
-| ----------- | ---------|---------|----------|------------------------------ |
-| `config`              | N | Map   | - | The config section root                |
-| `config.ignore_draft` | N | Bool  | `true` | When `true` Draft PRs are not processed |
-| `config.ignore_files` | N | [String]   | - | Specifies files that will not be included in the context variables |
+    | Key         | Required | Type    |  Default | Description                              |
+    | ----------- | ---------|---------|----------|------------------------------ |
+    | `config`              | N | Map   | - | The config section root                |
+    | `config.ignore_draft` | N | Bool  | `true` | When `true` Draft PRs are not processed |
+    | `config.ignore_files` | N | [String]   | - | Specifies files that will not be included in the context variables |
 
-`config.ignore_files` supports glob pattern matching that contains list of files to ignore, for example:
+    `config.ignore_files` supports glob pattern matching that contains list of files to ignore, for example:
 
-```yaml+jinja
-config:
-  ignore_files:
-    - yarn.lock
-    - package-lock.json
-    - openapi.json
-    - ui/src/**/*Model.d.ts
-```
+    ```yaml+jinja
+    config:
+      ignore_files:
+        - yarn.lock
+        - package-lock.json
+        - openapi.json
+        - ui/src/**/*Model.d.ts
+    ```
 
 ### `automations` 
 
