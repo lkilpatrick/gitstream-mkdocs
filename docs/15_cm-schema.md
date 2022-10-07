@@ -8,21 +8,21 @@ This document is a reference for the gitStream 1.x, used in .cm/gitstream.cm fil
 
 ## Context variables
 
-gitStream includes a collection of variables called contexts, these variables are intended 
-for use with the [`checks`](#checks-section) conditions.
+gitStream includes a collection of variables called contexts.
 
 gitStream built-in context variables are described [here](21_gitstream-context.md).
 
 ## Filter functions
 
-Filters are essentially functions that can be applied to variables. They are called with a pipe 
-operator `|` and can take arguments. The logic expressions are based on Jinja2 syntax, supported by Nunjucks lib.
+Filters are essentially functions that can be applied to variables. They are called with a pipe operator `|` and can take arguments. The logic expressions are based on Jinja2 syntax, supported by Nunjucks lib.
 
 All Nunjucks filters are supported, see [documentation](https://mozilla.github.io/nunjucks/templating.html#builtin-filters).
 
 gitStream built-in filter functions are described [here](23_gitstream-filters.md).
 
-You can also add custom filters, see [instructions](28_custom-filters.md).
+??? tip "Coming soon"
+
+	You can also add custom filters, see [instructions](28_custom-filters.md).
 
 ## Automation actions
 
@@ -30,15 +30,15 @@ Specify the desired automations that are triggered when all conditions are met, 
 
 The conditions are evaluated on new Pull Requests or changes to the Pull Request. 
 
-PRs that are marked as Draft are ignored.
+PRs that are marked as Draft are ignored by default, you can change that, see [`config`](#config) .
 
 ## Schema
 
 The following sections are used in `.cm` file to describe the desired automations:
 
 - [`manifest`](#manifest)
+- [`config`](#config)
 - [`automations`](#automations)
-
 
 ### `manifest`
 
@@ -56,8 +56,31 @@ The only field required is `version`.
 | `manifest`         | Y        | Map     | The manifest section root                |
 | `manifest.version` | Y        | String  | Specify the `.cm` spec version: 0.1, 1.0 |
 
-The manifest version field is used to parse the `.cm` file, in the future if breaking changes are 
-introduced to the parser then older automation will be still supported.
+The manifest version field is used to parse the `.cm` file, in the future if breaking changes are introduced to the parser then older automation will be still supported.
+
+### `config`
+
+??? tip "Coming soon"
+
+    The `config` section is optional in `gitstream.cm` file and is used to specify configuration for the way gitStream works.
+
+
+    | Key         | Required | Type    |  Default | Description                              |
+    | ----------- | ---------|---------|----------|------------------------------ |
+    | `config`              | N | Map   | - | The config section root                |
+    | `config.ignore_draft` | N | Bool  | `true` | When `true` Draft PRs are not processed |
+    | `config.ignore_files` | N | [String]   | - | Specifies files that will not be included in the context variables |
+
+    `config.ignore_files` supports glob pattern matching that contains list of files to ignore, for example:
+
+    ```yaml+jinja
+    config:
+      ignore_files:
+        - yarn.lock
+        - package-lock.json
+        - openapi.json
+        - ui/src/**/*Model.d.ts
+    ```
 
 ### `automations` 
 
