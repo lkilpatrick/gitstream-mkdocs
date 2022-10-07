@@ -155,3 +155,34 @@ changes:
 As a result, if you add test cases to your repo, gitStream can automatically check that and approve the PR automatically.
 
 ![Adding tests example](screenshots/adding_tests_to_repo.png)
+
+## Approve prints changes
+
+When you just want to change the way to print to screen, you can get it approved as long as you didn't change anything else.
+
+```yaml+jinja title=".cm/gitstream.cm" 
+automation  
+  # for JavaScript
+  prints_changes_in_js:
+    if: 
+      - {{ files | match(regex='\\.js$|\\.ts$') | every }}
+      - {{ files | length == 1 }}
+      - {{ source.diff.files | matchDiffLines(regex='^[+-].*console\\.log', ignoreWhiteSpaces=true) | every }}
+    run: 
+      - action: add-labels@v1
+        args:
+          labels: ['prints-changes']
+	    - action: approve@v1
+
+  # for Python
+  prints_changes_in_py:
+    if: 
+      - {{ files | match(regex='\\.py$') | every }}
+      - {{ files | length == 1 }}
+      - {{ source.diff.files | matchDiffLines(regex='^[+-].*logger\\.(trace|debug|info|warn|error)', ignoreWhiteSpaces=true) | every }}
+    run: 
+      - action: add-labels@v1
+        args:
+          labels: ['prints-changes']
+	    - action: approve@v1
+```
