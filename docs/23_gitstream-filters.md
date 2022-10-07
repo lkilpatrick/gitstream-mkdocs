@@ -156,16 +156,18 @@ For example, to check if there are code changes with specific function call:
 
 #### `none`
 
-| Argument   | Usage    | Type      | Description                                     |
-| -------- | ---------|-----------|------------------------------------------------ |
-| - | Input  | [Bool]    | List of booleans |
-| -  | Output  | Bool   | Returns `true` when all list items are `false` |
+??? tip "Coming soon"
 
-For example, check that no changes in either 'src' or 'dest' directories:
+    | Argument   | Usage    | Type      | Description                                     |
+    | -------- | ---------|-----------|------------------------------------------------ |
+    | - | Input  | [Bool]    | List of booleans |
+    | -  | Output  | Bool   | Returns `true` when all list items are `false` |
 
-```yaml+jinja
-{{ files | match(list=['src', 'dest']) | none }}
-```
+    For example, check that no changes in either 'src' or 'dest' directories:
+
+    ```yaml+jinja
+    {{ files | match(list=['src', 'dest']) | none }}
+    ```
 
 #### `reject`
 
