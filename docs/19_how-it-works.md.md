@@ -44,6 +44,8 @@ At the end, the PR is ready for further review or merge.
 
 The following diagram describes the flow:
 
+<div class="flow-chart">
+
 ``` mermaid
 sequenceDiagram
   autonumber
@@ -64,6 +66,8 @@ sequenceDiagram
     end
    end
 ```
+
+</div>
 
 ## The branch diff
 
