@@ -23,25 +23,24 @@ gitGraph
    commit id: "G"
 ```
 
-When a new PR is opened, several different actors are running:
+When a new PR is opened, several actors are running:
 
 1. GitHub API
 2. gitStream app which you have installed from the marketplace 
-3. Repo action that was placed in `.github/workflows/gitstream.yml`
-4. gitStream runner action `linear-b/gitstream-github-action@v1`
+3. gitStream **workflows** action that was placed in `.github/workflows/gitstream.yml` and pulls another **runner** action from `linear-b/gitstream-github-action@v1`
 
 Once a new PR is opened (or changed) the following process occurs:
 
 1. gitStream gets event for the new PR 
 2. gitStream calls the installed action in `.github/workflows/gitstream.yml`
-3. The installed action pulls and runs gitStream action `linear-b/gitstream-github-action@v1`. This action runs locally in the repo and relies on 
-    1. The provided PR context, gitStream compares the current branch agains the most recent common commit with the main branch.
-    2. The repos automations as defined in `.cm/gitstream.cm`
-4. It sends the list of applicable automations to the gitStream GitHub app
-5. gitStream GitHub app iterates over the automations and invokes each action using GitHub APIs
-6. The PR gets updated according to the desired automations
+3. The installed action pulls and runs gitStream action `linear-b/gitstream-github-action@v1`. 
+4. This action runs locally in the repo and relies on 
+5. The current branch is used to check which automations are valid from `.cm/gitstream.cm`
+6. The list of applicable automations are sent to the gitStream GitHub app
+7. gitStream GitHub app iterates over the automations and invokes each action using GitHub APIs
+8. The PR gets updated according to the desired automations
 
-At the end The PR is ready for further review or merge.
+At the end, the PR is ready for further review or merge.
 
 The following diagram describes the flow:
 
@@ -49,19 +48,47 @@ The following diagram describes the flow:
 sequenceDiagram
   autonumber
   GitHub API->>gitStream app: new PR
-  gitStream app->>gitStream action: run 
-  activate gitStream action
-  loop run
-    gitStream action->>gitStream action: pull `linear-b/gitstream-github-action@v1`
-    Note over gitStream action: pulls the branch and parse the `.cm` rules
-  end
-  gitStream action->>gitStream app: applicable automations
-  deactivate gitStream action
-  loop invoke actions
-    gitStream app->>gitStream app: automation actions
-    gitStream app->>GitHub API: update PR
-  end
+  gitStream app->>gitStream workflows actions: run 
+  activate gitStream workflows actions
+  gitStream workflows actions->>gitStream workflows actions: pull runner action
+  gitStream workflows actions->>gitStream runner action: run
+  activate gitStream runner action
+  gitStream runner action->>gitStream runner action: parse the `.cm` rules
+  gitStream runner action->>gitStream app: applicable automations
+  deactivate gitStream runner action
+  deactivate gitStream workflows actions
+  loop per automation
+    loop per action
+      gitStream app->>gitStream app: execute action
+      gitStream app->>GitHub API: update PR
+    end
+   end
 ```
+
+## The branch diff
+
+The branch diff is defined as the difference between the current branch and the most recent commit in the main branch which is shared between both branches.
+
+```mermaid
+gitGraph
+   commit id: "A"
+   commit id: "B"
+   branch feature
+   commit id: "C"
+   commit id: "D"
+   checkout main
+   commit id: "E"
+   commit id: "F" type: HIGHLIGHT
+   checkout feature
+   merge main
+   commit id: "G"
+   commit id: "H"
+   checkout main
+   commit id: "I"
+   commit id: "J"
+```
+
+In the example above, the diff is performed between commits `H` and `F`.
 
 ## Automation results
 
