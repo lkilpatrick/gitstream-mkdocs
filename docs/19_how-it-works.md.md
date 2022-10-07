@@ -82,7 +82,7 @@ gitGraph
    commit id: "D"
    checkout main
    commit id: "E"
-   commit id: "F" type: HIGHLIGHT
+   commit id: "F"
    checkout feature
    merge main
    commit id: "G"
