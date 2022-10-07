@@ -1,7 +1,7 @@
 # Examples
 
 
-## Label big PRs
+## Label PRs by size
 
 Automatically add a label to PRs that are very small to get faster reviewer response.
 
@@ -14,14 +14,14 @@ automations:
     run:
       - action: add-labels@v1
         args:
-          labels: [good_size]
+          labels: ['good-size']
   mark_big_pr:
     if:
       - {{ branch.diff.size > 100 }}
     run:
       - action: add-labels@v1
         args:
-          labels: [big_size]
+          labels: ['big-size']
 ```
 
 
@@ -43,9 +43,9 @@ automations:
 
 ## Approve documents changes  
 
-Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
+PRs that include only documentations changes are verified and approved by gitStream. In the example below, marked in yellow, the `files` context is checked by `allDocs` filter that verifies there are only document files. PRs that pass the check are approved by gitStream.
 
-```yaml+jinja title=".cm/gitstream.cm"
+```yaml+jinja title=".cm/gitstream.cm" hl_lines="4"
 automations:
   approve_docs:
     if:
@@ -53,10 +53,6 @@ automations:
     run:
       - action: approve@v1
 ```
-
-<div class="video-wrapper">
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/TVD6BbFcmoI?modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
 
 
 ## More approvals for complex changes 
@@ -76,16 +72,12 @@ automations:
           reviewers: 2
 ```
 
-<div class="video-wrapper">
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/noXqKlH9Pxw?modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
 
 ## Validate formatting changes
 
-For PRs that include only code format change, approve merge automatically.
+For PRs that include only code format change, approve merge automatically. The automation includes 2 actions that both are executed, one after another, when all conditions pass.
 
-```yaml+jinja title=".cm/gitstream.cm"
+```yaml+jinja title=".cm/gitstream.cm" hl_lines="7-8"
 automations:
   allow_formatting:
     if:
@@ -108,9 +100,9 @@ automations:
 
 ## Request changes on deprecated APIs
 
-For example, assume we have an old API `oldCall` we want to switch from to a new API `newCall`, gitStream can review and trigger a change request automatically when the PR includes use of the deprecated API.
+For example, assume we have an old API `callingElvis` we want to switch from to a new API `callingGaga`, gitStream can review and trigger a change request automatically when the PR includes use of the deprecated API.
 
-```yaml+jinja title=".cm/gitstream.cm"
+```yaml+jinja title=".cm/gitstream.cm" 
 automations:
   catch_deprecated:
     if:
@@ -130,7 +122,7 @@ automations:
 
 You can use map to check that a PR was about adding more tests.
 
-```yaml+jinja title=".cm/gitstream.cm"
+```yaml+jinja title=".cm/gitstream.cm" hl_lines="23 25"
 automations:
   tests_safe_changes:
     if:
