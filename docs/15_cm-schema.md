@@ -75,10 +75,10 @@ The manifest version field is used to parse the `.cm` file, in the future if bre
     ```yaml+jinja
     config:
       ignore_files:
-        - yarn.lock
-        - package-lock.json
-        - openapi.json
-        - ui/src/**/*Model.d.ts
+        - 'yarn.lock'
+        - 'package-lock.json'
+        - 'openapi.json'
+        - 'ui/src/**/*Model.d.ts'
     ```
 
 ### `automations` 
