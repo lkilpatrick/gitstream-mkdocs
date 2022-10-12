@@ -5,7 +5,7 @@
 gitStream executes actions in the order they are listed. If an action result fails, following actions will not be executed.
 
 - [`add-comment`](#add-comment)
-- [`add-labels`](#add-labels)
+- [`add-label`](#add-label)
 - [`add-reviewers`](#add-reviewers)
 - [`approve`](#approve)
 - [`merge`](#merge)
@@ -58,13 +58,14 @@ automations:
 ```
 
 
-#### `add-labels`
+#### `add-label`
 
 This action, once triggered, adds a label to the PR.
 
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
-| `labels`    | [String]  | List of labels, any string can work |
+| `label`    | String  | The label text any string can work |
+| `color`    | String  | (optional) The color in hexa, for exmaple: `'FEFEFE'` (you can also add `#` prefix `#FEFEFE`) |
 
 ```yaml+jinja title="example"
 automations:
@@ -72,9 +73,9 @@ automations:
     if:
       - {{ files | match(term='api/') | some }}
     run:
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: [api-change]
+          label: api-change
 ```
 
 
