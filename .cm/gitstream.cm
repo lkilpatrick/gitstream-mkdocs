@@ -36,24 +36,24 @@ automations:
       - {{ checks.content.is.docs_only }}
     run: 
       - action : approve@v1
-      - action : add-labels@v1
+      - action : add-label@v1
         args:
-          labels: ['non-code']
+          label: 'non-code'
   approve_images_changes:
     if:
       - {{ checks.content.is.images_only }}
     run: 
       - action : approve@v1
-      - action : add-labels@v1
+      - action : add-label@v1
         args:
-          labels: ['non-code']
+          label: 'non-code'
   small_pr:
     if:
       - {{ checks.size.is.small }}
     run: 
-      - action : add-labels@v1
+      - action : add-label@v1
         args:
-          labels: ['small']
+          label: 'small'
   add_context:
     if:
       - true

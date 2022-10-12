@@ -32,9 +32,9 @@ automations:
     run: 
       # When the changes are validated as formatting only, you can help to speed up the review 
       # by adding a label that marks it accordingly.
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: ['formatting-changes']
+          label: 'formatting-changes'
       # You can uncomment the following action to get gitStream can even automatically approve 
       # such PRs to save reviewers time for such changes.
       # - action: approve@v1
@@ -44,9 +44,9 @@ automations:
       # Given the PR files changes, check that only documents were changed.
       - {{ files | allDocs }}
     run: 
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: ['docs-changes']
+          label: 'docs-changes'
       - action: approve@v1
   
   tests_safe_changes:
@@ -55,9 +55,9 @@ automations:
       # the substring `test` or `spec` in the file path or file name.
       - {{ files | allTests }}
     run: 
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: ['tests-changes']
+          label: 'tests-changes'
       - action: approve@v1
 
   images_safe_changes:
@@ -66,9 +66,9 @@ automations:
       # common file extensions used for graphics.
       - {{ files | allImages }}
     run:
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: ['images']
+          label: 'images'
       - action: approve@v1
   
   mark_long_review:
@@ -79,6 +79,20 @@ automations:
       - {{ branch | estimatedReviewTime >= 20 }}
       - {{ files | length >= 10  }}
     run:
-      - action : add-labels@v1
+      - action : add-label@v1
         args:
-          labels: ['long-review']
+          label: 'long-review'
+          color: '#D2222D'
+
+  mark_short_review:
+    if:
+      # gitStream estimatedReviewTime filter calculates the estimated review time in minutes
+      # based on a statistical model. Review that takes more than 20 minutes is considered 
+      # bad practice and therefore marked accordingly.
+      - {{ branch | estimatedReviewTime <= 5 }}
+      - {{ files | length <= 2  }}
+    run:
+      - action : add-label@v1
+        args:
+          label: 'short-review'
+          color: '#238823'

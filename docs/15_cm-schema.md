@@ -92,7 +92,7 @@ automations:
     if:
       - {{ checks.size.is.xsmall }}
     run:
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
           label: xsmall
 ```
@@ -141,8 +141,8 @@ automations:
     if:
       - {{ size.is.small or size.is.medium }}
     run:
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: ['good-size']
+          label: 'good-size'
 
 ```

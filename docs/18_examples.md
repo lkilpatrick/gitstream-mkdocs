@@ -12,16 +12,16 @@ automations:
       - {{ branch.diff.size <= 100 }}
       - {{ files | length <= 100 }}
     run:
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: ['good-size']
+          label: 'good-size'
   mark_big_pr:
     if:
       - {{ branch.diff.size > 100 }}
     run:
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: ['big-size']
+          label: 'big-size'
 ```
 
 
@@ -85,9 +85,9 @@ automations:
       - {{ source.diff.files | isFormattingChange }}
     run:
       - action: approve@v1
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: [code-formatting]
+          label: code-formatting
 
 ```
 
@@ -132,9 +132,9 @@ automations:
       # Checking `changes.ratio` which is calculated below
       - {{ changes.ratio > 0.8 }}
     run: 
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: ['tests-changes']
+          label: 'tests-changes'
       - action: add-comment@v1
         args:
           comment: |
@@ -169,9 +169,9 @@ automations:
       - {{ files | length == 1 }}
       - {{ source.diff.files | matchDiffLines(regex='^[+-].*console\\.log', ignoreWhiteSpaces=true) | every }}
     run: 
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: ['prints-changes']
+          label: 'prints-changes'
 	    - action: approve@v1
 
   # for Python
@@ -181,8 +181,8 @@ automations:
       - {{ files | length == 1 }}
       - {{ source.diff.files | matchDiffLines(regex='^[+-].*logger\\.(trace|debug|info|warn|error)', ignoreWhiteSpaces=true) | every }}
     run: 
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: ['prints-changes']
+          label: 'prints-changes'
 	    - action: approve@v1
 ```
