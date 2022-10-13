@@ -6,7 +6,7 @@ Filters can change the look and format of the source data, or even generate new 
 
 The following functions are supported in addition to the built-in functions provided by [Nunjucks](https://mozilla.github.io/nunjucks/templating.html#builtin-filters).
 
-### General functions
+### Low level functions
 
 <div class="big-summary" markdown=1>
 
@@ -64,6 +64,8 @@ For example, the following expressions provide an identical result:
 ## Reference
 
 #### `every`
+
+Checks whether all element in the list are `true`. In case the list of elements is empty it will return `false`.
 
 | Argument   | Usage    | Type      | Description                                     |
 | -------- | ---------|-----------|------------------------------------------------ |
@@ -195,10 +197,12 @@ For example, check if all changes except for `config.json` files are formatting:
 
 #### `some`
 
+Checks whether any element in the list is `true`. In case the list of elements is empty it will return `false`.
+
 | Argument   | Usage    | Type      | Description                                     |
 | -------- | ---------|-----------|------------------------------------------------ |
 | - | Input  | [Bool]    | List of booleans |
-| -  | Output  | Bool    | Returns `true` when all any of the items is `true` |
+| -  | Output  | Bool    | Returns `true` when any of the items is `true` |
 
 ```yaml+jinja
 {{ files | match(list=['src', 'dest']) | some }}
