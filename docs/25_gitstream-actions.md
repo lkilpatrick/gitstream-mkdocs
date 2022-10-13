@@ -165,7 +165,7 @@ This action, once triggered, request changes on the PR. As long as request chang
 
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
-| `reviewers` | [String]    | Sets reviewers user name, merge is blocked till approved by any of the listed users |
+| `comment` | [String]    | The desired request changes comment |
 
 ```yaml+jinja title="example"
 automations:
