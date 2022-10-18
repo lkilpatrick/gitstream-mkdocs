@@ -1,59 +1,51 @@
 # Examples
 
 
-## Label PRs by size
+## Label PRs by their complexity
 
-Automatically add a label to PRs that are very small to get faster reviewer response.
-
-```yaml+jinja title=".cm/gitstream.cm"
-automations:
-  mark_good_pr:
-    if:
-      - {{ branch.diff.size <= 100 }}
-      - {{ files | length <= 100 }}
-    run:
-      - action: add-label@v1
-        args:
-          label: 'good-size'
-  mark_big_pr:
-    if:
-      - {{ branch.diff.size > 100 }}
-    run:
-      - action: add-label@v1
-        args:
-          label: 'big-size'
-```
-
-
-## Estimated Time for Review 
-
-Automatically add a comment to all PRs with the estimated time for review to get faster reviewer response.
+Automatically add a label to PRs with their Estimated Time to Review and a matching color.
 
 ```yaml+jinja title=".cm/gitstream.cm"
 automations:
-  etr_on_all:
+  estimated_time_to_review:
     if:
       - true
     run:
-      - action: add-comment@v1
+      - action : add-label@v1
         args:
-          comment: "Estimated {{ branch | estimatedReviewTime }} minutes to review"
+          label: "{{ calc.etr }} min review"
+          color: {{ 'E94637' if (calc.etr >= 20) else ('FBBD10' if (calc.etr >= 5) else '36A853') }}
+
+# To simplify the automation, this calculation is placed under a unique YAML key.
+# The result is is assigned to `calc.etr` which is used in the automation above.
+# You can add as many keys as you like.
+calc:
+  etr: {{ branch | estimatedReviewTime }}
 ```
 
-
-## Approve documents changes  
+## Approve safe changes  
 
 PRs that include only documentations changes are verified and approved by gitStream. In the example below, marked in yellow, the `files` context is checked by `allDocs` filter that verifies there are only document files. PRs that pass the check are approved by gitStream.
 
 ```yaml+jinja title=".cm/gitstream.cm" hl_lines="4"
 automations:
-  approve_docs:
+  safe_changes:
     if:
-      - {{ files | allDocs }}
-    run:
+      - {{ is.formatting or is.docs or is.tests }}
+    run: 
+      - action: add-labels@v1
+        args:
+          labels: ['safe-changes']
       - action: approve@v1
-```
 
+# To simplify the automation, this calculation is placed under a unique YAML key.
+# The result is is assigned to `is.formatting`, `is.docs` and `is.tests` which is 
+# used in the automation above. You can add as many keys as you like.
+is:
+  formatting: {{ source.diff.files | isFormattingChange }}
+  docs: {{ files | allDocs }}
+  tests: {{ files | allTests }}
+```
 
 ## More approvals for complex changes 
 
@@ -72,8 +64,7 @@ automations:
           reviewers: 2
 ```
 
-
-## Validate formatting changes
+## Validate formatting changes only for JavaScript/TypeScript
 
 For PRs that include only code format change, approve merge automatically. The automation includes 2 actions that both are executed, one after another, when all conditions pass.
 
@@ -95,30 +86,45 @@ automations:
 
     Multiple actions can be listed in a single automation. The actions are invoked one by one.
     
-    Multiple conditons can be listed for a single automation. All listed conditions must pass to triger the actions.
+    Multiple conditions can be listed for a single automation. All listed conditions must pass to trigger the actions.
 
 
 ## Request changes on deprecated APIs
 
-For example, assume we have an old API `callingElvis` we want to switch from to a new API `callingGaga`, gitStream can review and trigger a change request automatically when the PR includes use of the deprecated API.
+For example, assume we have an old API `callElvis` we want to switch from to a new API `callGaga`, gitStream can review and trigger a change request automatically when the PR includes use of the deprecated API.
 
 ```yaml+jinja title=".cm/gitstream.cm" 
 automations:
-  catch_deprecated:
+  {% for item in deprecated %}
+  # Automation names should be unique, therefore the iteration number postfix
+  catch_deprecated_components_{{ loop.index }}:
     if:
-      # Given the PR code changes, check if a call to an unwanted API was introduced
-      - {{ source.diff.files | matchDiffLines(regex='^[+].*callingElvis\\(') | some }}
+      - {{ source.diff.files | matchDiffLines(regex=item.regex) | some }}
     run:
+      - action: add-label@v1
+        args:
+          label: 'deprecated-component'
+          color: '#FF0000'
       - action: request-changes@v1
         args:
-        comment: |
-          Deprecated API used `callingElvis`, use `callingGaga` instead
+          comment: |
+            `{{ item.old }}` component is deprecated, use `{{ item.new }}` instead
+  {% endfor %}
+
+# This list includes the deprecated items
+deprecated:
+  - regex: 'callElvis'
+    old: Elvis
+    new: Gaga
+  - regex: 'callOldAPI'
+    old: callOldAPI
+    new: callBetterAPI
 ```
 
 ![Request changes automatically](screenshots/change_use_deprectaed_api.png)
 
 
-## Approve additional tests
+## Approve additions to tests
 
 You can use map to check that a PR was about adding more tests.
 
@@ -156,7 +162,7 @@ As a result, if you add test cases to your repo, gitStream can automatically che
 
 ![Adding tests example](screenshots/adding_tests_to_repo.png)
 
-## Approve prints changes
+## Approve changes to prints
 
 When you just want to change the way to print to screen, you can get it approved as long as you didn't change anything else.
 
