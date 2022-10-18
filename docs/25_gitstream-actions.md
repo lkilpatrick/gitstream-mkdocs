@@ -62,6 +62,8 @@ automations:
 
 This action, once triggered, adds a label to the PR.
 
+This is a manged action, when a PR updates existing labels that was added by gitStream are re-evaluated and those that are not applicable are removed.
+
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |
 | `label`    | String  | The label text any string can work |
