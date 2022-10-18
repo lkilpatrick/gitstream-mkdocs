@@ -41,9 +41,9 @@ automations:
     run: 
       # When the changes are validated as formatting only, you can help to speed up the review 
       # by adding a label that marks it accordingly.
-      - action: add-labels@v1
+      - action: add-label@v1
         args:
-          labels: ['safe-changes']
+          label: 'safe-changes'
       # You can uncomment the following action to get gitStream can even automatically approve 
       # such PRs to save reviewers time for such changes.
       # - action: approve@v1
