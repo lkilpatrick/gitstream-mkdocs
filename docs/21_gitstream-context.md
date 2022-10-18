@@ -81,7 +81,7 @@ The `branch` context contains info regarding the branch changes compared to the 
 | `branch`             | Map       | Includes the info related to the current branch          |
 | `branch.author`      | String    | The branch author (first commit)             |
 | `branch.base`        | String    | The main branch, `main`                 |
-| `branch.commits`     | Integer   | The number of commits in the branch |
+| `branch.num_of_commits` | Integer   | The number of commits in the branch |
 | `branch.diff.size`   | Integer   | The sum of line changed: additions, edits and deletions   |
 | `branch.diff.files_metadata`  | [`FileMetadata`]  | List of changed files including their relative path      |
 | `branch.name`        | String    | The current branch, `feature-123-branch`                 |
