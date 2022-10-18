@@ -79,7 +79,7 @@ The `branch` context contains info regarding the branch changes compared to the 
 | Values               | Type      | Description                                              |
 |----------------------|-----------|--------------------------------------------------------- |
 | `branch`             | Map       | Includes the info related to the current branch          |
-| `branch.author`      | String    | The branch author (first commit)             |
+| `branch.author`      | String    | The branch author (the user that did first commit in the branch). The formatted like author in `git-log`, e.g. `Popeye <popeye@acme.com>`        |
 | `branch.base`        | String    | The main branch, `main`                 |
 | `branch.num_of_commits` | Integer   | The number of commits in the branch |
 | `branch.diff.size`   | Integer   | The sum of line changed: additions, edits and deletions   |
