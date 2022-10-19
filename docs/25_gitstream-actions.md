@@ -153,7 +153,7 @@ This action, once triggered, blocks PR merge till the desired reviewers approved
 automations:
   double_review:
     if:
-      - {{ files | match(regex='agent\\/') | some }}
+      - {{ files | match(regex=r/agent\//) | some }}
     run:
       - action: set-required-approvals@v1
         args:
@@ -171,9 +171,9 @@ This action, once triggered, request changes on the PR. As long as request chang
 
 ```yaml+jinja title="example"
 automations:
-  senior_review:
+  catch_deprecated:
     if:
-      - {{ source.diff.files | matchDiffLines(regex='^[+].*oldFetch\\(') | some }}
+      - {{ source.diff.files | matchDiffLines(regex=r/^[+].*oldFetch\(/') | some }}
     run:
       - action: request-changes@v1
         args:
@@ -193,7 +193,7 @@ This action, once triggered, sets a specific reviewer.
 automations:
   senior_review:
     if:
-      - {{ files | match(regex='src\\/ui\\/') | some }}
+      - {{ files | match(regex=r/src\/ui\//) | some }}
     run:
       - action: require-reviewers@v1
         args:
@@ -215,7 +215,7 @@ Used to workaround unnecessary checks, this action, update the defined check wit
 automations:
   senior_review:
     if:
-      - {{ files | match(regex='.*\\.png$|.*\\.jpg$|.*\\.svg$|.*\\.css$') | every }}
+      - {{ files | match(regex=r/.*\.png$|.*\.jpg$|.*\.svg$|.*\.css$/) | every }}
     run:
       - action : update-check@v1
         args:
