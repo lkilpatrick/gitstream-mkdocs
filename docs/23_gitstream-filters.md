@@ -158,18 +158,18 @@ For example, to check if there are code changes with specific function call:
 
 #### `nope`
 
-??? tip "Coming soon"
+The inverse of [`every`](#every), checks whether all element in the list are `false`. In case the list of elements is empty it will return `false`.
 
-    | Argument   | Usage    | Type      | Description                                     |
-    | -------- | ---------|-----------|------------------------------------------------ |
-    | - | Input  | [Bool]    | List of booleans |
-    | -  | Output  | Bool   | Returns `true` when all list items are `false` |
+| Argument   | Usage    | Type      | Description                                     |
+| -------- | ---------|-----------|------------------------------------------------ |
+| - | Input  | [Bool]    | List of booleans |
+| -  | Output  | Bool   | Returns `true` when all list items are `false` |
 
-    For example, check that no changes in either 'src' or 'dest' directories:
+For example, check that no changes in either 'src' or 'dest' directories:
 
-    ```yaml+jinja
-    {{ files | match(list=['src', 'dest']) | nope }}
-    ```
+```yaml+jinja
+{{ files | match(list=['src', 'dest']) | nope }}
+```
 
 #### `reject`
 
