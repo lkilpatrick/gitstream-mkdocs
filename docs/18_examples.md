@@ -57,7 +57,7 @@ automations:
     if:
       - {{ branch | estimatedReviewTime >= 30 }}
       - {{ files | length >= 10 }}
-      - {{ files | match(regex='src\\/') | some }}
+      - {{ files | match(regex=r/src\//') | some }}
     run:
       - action: set-required-approvals@v1
         args:
@@ -113,10 +113,10 @@ automations:
 
 # This list includes the deprecated items
 deprecated:
-  - regex: 'callElvis'
+  - regex: r/callElvis/
     old: Elvis
     new: Gaga
-  - regex: 'callOldAPI'
+  - regex: r/callOldAPI/
     old: callOldAPI
     new: callBetterAPI
 ```
@@ -171,9 +171,9 @@ automations:
   # for JavaScript
   prints_changes_in_js:
     if: 
-      - {{ files | match(regex='\\.js$|\\.ts$') | every }}
+      - {{ files | match(regex=r/\.js$|\.ts$/) | every }}
       - {{ files | length == 1 }}
-      - {{ source.diff.files | matchDiffLines(regex='^[+-].*console\\.log', ignoreWhiteSpaces=true) | every }}
+      - {{ source.diff.files | matchDiffLines(regex=r/^[+-].*console\.log/, ignoreWhiteSpaces=true) | every }}
     run: 
       - action: add-label@v1
         args:
@@ -183,9 +183,9 @@ automations:
   # for Python
   prints_changes_in_py:
     if: 
-      - {{ files | match(regex='\\.py$') | every }}
+      - {{ files | match(regex=r/\.py$/) | every }}
       - {{ files | length == 1 }}
-      - {{ source.diff.files | matchDiffLines(regex='^[+-].*logger\\.(trace|debug|info|warn|error)', ignoreWhiteSpaces=true) | every }}
+      - {{ source.diff.files | matchDiffLines(regex=r/^[+-].*logger\.(trace|debug|info|warn|error)/, ignoreWhiteSpaces=true) | every }}
     run: 
       - action: add-label@v1
         args:

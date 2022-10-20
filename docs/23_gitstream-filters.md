@@ -47,16 +47,16 @@ Some functions supports named arguments, many of these repeat in different funct
 
 `list` - a list of strings, trying to match any of the listed substrings with the matched item.
 
-`regex` - a single string, used as _regular expression_ to with the matched item.
+`regex` - a single string, used as _regular expression_ to with the matched item. A regular expression can be created just like JavaScript, but needs to be prefixed with r, for example `r/^foo.*/g`, for more info see [Nunjucks](https://mozilla.github.io/nunjucks/templating.html#regular-expressions). 
 
-`globs` - a key to an element in the `.cm` that holds a list of strings, used as _glob_ pattern test on the matched item.
+`globs` - a key to an element in the `.cm` that holds a list of strings, used as _glob_ pattern test on the matched item. For more info see [Wikipedia](https://en.wikipedia.org/wiki/Glob_(programming)).
 
 `attr` - a key in the element to use when doing the requested operation.
 
 For example, the following expressions provide an identical result:
 
 ```yaml+jinja
-- {{ 'something' | includes(regex='^some.*') }}
+- {{ 'something' | includes(regex=r/^some.*/) }}
 - {{ 'something' | includes(term='some') }}
 - {{ 'something' | includes(list=['some']) }}
 ```
@@ -92,13 +92,13 @@ Creates a shallow copy of a portion of a given list, filtered down to just the e
 For example, check if all changes to JavaScript files are in tests directory:
 
 ```yaml+jinja
-{{ files | filter(regex='\\.js$') | match(regex='tests\\/') | every }}
+{{ files | filter(regex=r/\.js$/) | match(regex=r/tests\/) | every }}
 ```
 
 For example, check if all changes to JavaScript files are formatting:
 
 ```yaml+jinja
-{{ source.diff.files | filter(attr='new_file', regex='\\.js$') | isFormattingChange }}
+{{ source.diff.files | filter(attr='new_file', regex=r/\.js$/) | isFormattingChange }}
 ```
 
 #### `includes`
@@ -147,7 +147,7 @@ Return `true` for each element in the list that match the search term.
 For example, to check if all code changes are in the `tests` directory:
 
 ```yaml+jinja
-{{ files | match(regex='tests\\/') | every }}
+{{ files | match(regex=r/tests\//) | every }}
 ```
 
 For example, to check if there are code changes with specific function call:
@@ -158,18 +158,18 @@ For example, to check if there are code changes with specific function call:
 
 #### `nope`
 
-??? tip "Coming soon"
+The inverse of [`every`](#every), checks whether all element in the list are `false`. In case the list of elements is empty it will return `false`.
 
-    | Argument   | Usage    | Type      | Description                                     |
-    | -------- | ---------|-----------|------------------------------------------------ |
-    | - | Input  | [Bool]    | List of booleans |
-    | -  | Output  | Bool   | Returns `true` when all list items are `false` |
+| Argument   | Usage    | Type      | Description                                     |
+| -------- | ---------|-----------|------------------------------------------------ |
+| - | Input  | [Bool]    | List of booleans |
+| -  | Output  | Bool   | Returns `true` when all list items are `false` |
 
-    For example, check that no changes in either 'src' or 'dest' directories:
+For example, check that no changes in either 'src' or 'dest' directories:
 
-    ```yaml+jinja
-    {{ files | match(list=['src', 'dest']) | nope }}
-    ```
+```yaml+jinja
+{{ files | match(list=['src', 'dest']) | nope }}
+```
 
 #### `reject`
 
@@ -186,13 +186,13 @@ Creates a shallow copy of a portion of a given list, filtered down to just the e
 For example, check if all changes but JavaScript files are in tests directory:
 
 ```yaml+jinja
-{{ files | reject(regex='\\.js$') | match(regex='tests\\/') | every }}
+{{ files | reject(regex=r/\.js$/) | match(regex=r/tests\//') | every }}
 ```
 
 For example, check if all changes except for `config.json` files are formatting:
 
 ```yaml+jinja
-{{ source.diff.files | reject(attr='new_file', regex='config\\.json$') | isFormattingChange }}
+{{ source.diff.files | reject(attr='new_file', regex=r/config\.json$/) | isFormattingChange }}
 ```
 
 #### `some`
@@ -313,5 +313,5 @@ Checks diff for matching lines.
 For example, to check if all the changes are of adding prints and ignore white spaces:
 
 ```yaml+jinja	
-{{ source.diff.files | matchDiffLines(regex='^\\+.*console\\.log', ignoreWhiteSpaces=true) | every }}
+{{ source.diff.files | matchDiffLines(regex=r/^\+.*console\.log/, ignoreWhiteSpaces=true) | every }}
 ```
