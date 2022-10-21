@@ -12,7 +12,7 @@ Take these 3 steps to see how gitStream works, later on you can learn about the 
 
 ## Features
 
-**Set PRs checks as code based on multiple custom condition**
+**Checks based on multiple conditions**
 
 - [Files names and path](context-variables/#files-context)
 - [Code changes](context-variables/#source-context)
@@ -29,8 +29,10 @@ Take these 3 steps to see how gitStream works, later on you can learn about the 
 
 **Easy to configure and powerful automation `.cm` files**
 
+- Review automation as code
 - Based on Jinja2 template engine
-- [Powerful built-in functions](filter-functions)
+- Rich expressions support 
+- [Powerful built-in filter functions](filter-functions)
 
 ## Continuous Merge
 
