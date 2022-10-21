@@ -105,6 +105,8 @@ automations:
 
 This action, once triggered, approves the PR for merge.
 
+This is a manged action, when a PR updates existing approval by gitStream is re-evaluated and removed if no longer applicable.
+
 ```yaml+jinja title="example"
 automations:
   small_change:
@@ -164,6 +166,8 @@ automations:
 #### `request-changes`
 
 This action, once triggered, request changes on the PR. As long as request change is set, gitStream will block the PR merge.
+
+This is a manged action, when a PR updates existing change request by gitStream is re-evaluated and removed if no longer applicable.
 
 | Args       | Type      | Description                                     |
 | -----------|-----------|------------------------------------------------ |

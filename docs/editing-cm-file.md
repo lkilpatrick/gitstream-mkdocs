@@ -1,32 +1,21 @@
 # Overview gitstream.cm
 
-This document is a reference for the gitStream 1.x, used in .cm/gitstream.cm file.
-
-!!! note 
-
-    You can edit the `.cm/gitstream.cm` and add your own checks and automations. Check out the [examples](18_examples.md) 
+This document is a reference for the gitStream 1.x, used in `.cm/gitstream.cm` file. You can edit the `.cm/gitstream.cm` and add your own checks and automations. Check out the [examples](examples) 
 
 ## Context variables
 
-gitStream includes a collection of variables called contexts.
-
-gitStream built-in context variables are described [here](21_gitstream-context.md).
+gitStream includes a collection of variables called contexts. These variable has all the inputs you need to code your automation, including files names and paths, code that was changed or who did the change.
+See more [here](context-variables).
 
 ## Filter functions
 
-Filters are essentially functions that can be applied to variables. They are called with a pipe operator `|` and can take arguments. The logic expressions are based on Jinja2 syntax, supported by Nunjucks lib.
+Filter funstions are essentially callable functions that can be applied to variables. They are called with a pipe operator `|` and can take arguments inside parentheses `( )`. The logic expressions are based on Jinja2 syntax, supported by Nunjucks library.
 
-All Nunjucks filters are supported, see [documentation](https://mozilla.github.io/nunjucks/templating.html#builtin-filters).
-
-gitStream built-in filter functions are described [here](23_gitstream-filters.md).
-
-??? tip "Coming soon"
-
-	You can also add custom filters, see [instructions](28_custom-filters.md).
+See more about the Nunjucks built-in filters [here](https://mozilla.github.io/nunjucks/templating.html#builtin-filters), and about gitStream built-in filters [here](filter-functions).
 
 ## Automation actions
 
-Specify the desired automations that are triggered when all conditions are met, read more [here](25_gitstream-actions.md).
+Specify the desired automations that are triggered when all conditions are met, read more [here](automation-actions).
 
 The conditions are evaluated on new Pull Requests or changes to the Pull Request. 
 
@@ -115,7 +104,7 @@ The `run` field includes the automation to execute. It includes the following fi
 
 For `gitstream` engine, the action is specified by: `name@version`
 
-gitStream supported actions, see [actions](25_gitstream-actions.md).
+gitStream supported actions, see [actions](automation-actions).
 
 ### Reusing checks
 
