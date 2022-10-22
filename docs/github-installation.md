@@ -2,9 +2,11 @@
 
 ## Insert workflow automation files to your repo
 
-To start using gitStream, create the following files in each repo's main branch with the following content.
+To start using gitStream, install it and add the following files in your repo default branch.
 
-Add the following 2 files into each of your repos main branch:
+1. Make sure you have installed gitStream app from [GitHub marketplace](https://github.com/marketplace/gitstream-by-linearb), then
+
+Add the following 2 files into your repo default branch  (usually `master` or `main`):
 
 1. `.cm/gitstream.cm`
 2. `.github/workflows/gitstream.yml`

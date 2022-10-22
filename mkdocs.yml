@@ -1,4 +1,22 @@
-site_name: Documentation
+site_name: gitStream 
+
+site_description: Documentation of gitStream.
+site_author: Ofer Affias
+
+nav:
+  - Overview: index.md
+  - Getting started:
+    - Installation: github-installation.md
+    - GitHub app setup: github-app-setup.md
+    - How it works: how-it-works.md
+  - Examples: examples.md
+  - Reference:
+    - Editing the .cm file: editing-cm-file.md
+    - Context variables: context-variables.md
+    - Filter functions: filter-functions.md
+    - Automation actions: automation-actions.md
+  - Troubleshooting: troubleshooting.md
+  - FAQ: faq.md
 
 theme:
   name: material
@@ -22,6 +40,12 @@ extra_css:
   - stylesheets/extra.css
 plugins:
   - search
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+        remove_comments: true
 markdown_extensions:
   - admonition
   - markdown.extensions.extra
