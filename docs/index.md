@@ -12,7 +12,7 @@ Take these 3 steps to see how gitStream works, later on you can learn about the 
 
 ## Features
 
-**Checks based on multiple conditions**
+**Multiple conditions**
 
 - [Files names and path](context-variables/#files-context)
 - [Code changes](context-variables/#source-context)
@@ -20,16 +20,16 @@ Take these 3 steps to see how gitStream works, later on you can learn about the 
 - [Check for formatting changes](filter-functions/#isformattingchange)
 - [Calculate PR complexity](filter-functions/#estimatedreviewtime)  
 
-**Apply actions on PR based on checks results**
+**Reviews automations**
 
 - Add labels and comments to PR
 - Approve or Merge PRs
 - Request Changes with contextual content
 - [and more...](automation-actions)
 
-**Easy to configure and powerful automation `.cm` files**
+**Easy to configure and powerful**
 
-- Review automation as code
+- Review automation as code `.cm` files
 - Based on Jinja2 template engine
 - Rich expressions support 
 - [Powerful built-in filter functions](filter-functions)
