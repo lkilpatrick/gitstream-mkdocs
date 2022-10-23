@@ -6,10 +6,10 @@
 
 gitStream includes a collection of variables called contexts. 
 
-- [`branch`](#branch-context)
-- [`files`](#files-context)
-- [`source`](#source-context)
-- [`repo`](#repo-context)
+- [`branch`](#branch)
+- [`files`](#files)
+- [`source`](#source)
+- [`repo`](#repo)
 
 ### Structures
 
@@ -68,7 +68,7 @@ Context object for a PR that changed few lines in a `README.md` file:
 
 ## Reference
 
-#### `branch` context
+#### `branch`
 
 The `branch` context contains info regarding the branch changes compared to the base branch. 
 
@@ -98,7 +98,7 @@ The `branch.diff.files_metadata` mapping includes a list of `FileMetadata`:
 | `deletions` | Integer   | The number of lines removed from the file      |
 | `file` | String    | The name of the file before the changes, including its path     |
 
-#### `files` context
+#### `files`
 
 The `files` context includes the list of changed files in the branch compared to the main branch.
 
@@ -106,7 +106,7 @@ The `files` context includes the list of changed files in the branch compared to
 |---------|-----------|------------------------ |
 | `files` | [String]  | List of all changed files with their full path |
 
-#### `source` context
+#### `source`
 
 The `source` context includes a list of `FileDiff` objects that can be used to get insights based on code changes. The changes compared to the latest main branch. 
 
@@ -128,7 +128,7 @@ The `source.diff.files` mapping includes a list of `FileDiff`:
 | `original_content` | String    | The content as is in the `main` branch     |
 | `original_file` | String    | The name of the file before the changes, including its path |
 
-#### `repo` context
+#### `repo`
 
 The `repo` context includes metadata related to the repo.
 

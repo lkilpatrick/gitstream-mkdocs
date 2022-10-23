@@ -14,8 +14,8 @@ Take these 3 steps to see how gitStream works, later on you can learn about the 
 
 **Multiple conditions**
 
-- [Files names and path](context-variables/#files-context)
-- [Code changes](context-variables/#source-context)
+- [Files names and path](context-variables/#files)
+- [Code changes](context-variables/#source)
 - [Detect specific changes using regex expressions](filter-functions/#matchdifflines)
 - [Check for formatting changes](filter-functions/#isformattingchange)
 - [Calculate PR complexity](filter-functions/#estimatedreviewtime)  
