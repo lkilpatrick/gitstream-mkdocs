@@ -29,9 +29,9 @@ The following functions are supported in addition to the built-in functions prov
 
 | Function | Input | Args | Output |
 | --------------- | ------- | ---- |  ---- |
-| [`allDocs`](#alldocs)<br />Checks the list includes only documents | [files](context-variables.md#files-context) | - | Bool |
-| [`allImages`](#allimages)<br />Checks the list includes only images | [files](context-variables.md#files-context) | - | Bool |
-| [`allTests`](#alltests)<br />Checks the list includes only tests | [files](context-variables.md#files-context) | - | Bool |
+| [`allDocs`](#alldocs)<br />Checks the list includes only documents | [files](context-variables.md#files) | - | Bool |
+| [`allImages`](#allimages)<br />Checks the list includes only images | [files](context-variables.md#files) | - | Bool |
+| [`allTests`](#alltests)<br />Checks the list includes only tests | [files](context-variables.md#files) | - | Bool |
 | [`estimatedReviewTime`](#estimatedreviewtime)<br />Estimated review time in minutes | [branch](context-variables.md#branch-context)| - | Integer |
 | [`extensions`](#extensions)<br />Lists all the unique file extensions | [String] | - | [String] |
 | [`isFormattingChange`](#isformattingchange)<br />Checks that only formatting changed | [[`FileDiff` ](context-variables.md#filediff-structure)] | - | Bool |
@@ -214,7 +214,7 @@ Return `true` if the input list includes only documents based on file extensions
 
 | Argument   | Usage    | Type      | Description                         |
 | -------- | ---------|-----------|------------------------------------------------ |
-| -  | Input    | [`files`](context-variables.md#files-context)  | The list of changed files with their path     |
+| -  | Input    | [`files`](context-variables.md#files)  | The list of changed files with their path     |
 | - | Output   | Bool      | `true` if all file extensions are of docs       |
 
 Doc files extensions are: `md`, `mkdown`, `txt`, `rst`.
@@ -229,7 +229,7 @@ Return `true` if the input list includes only images based on file extensions.
 
 | Argument   | Usage    | Type      | Description                                     |
 | -------- | ---------|-----------|------------------------------------------------ |
-| - | Input    | [`files`](context-variables.md#files-context)  | The list of changed files with their path       |
+| - | Input    | [`files`](context-variables.md#files)  | The list of changed files with their path       |
 | - | Output   | Bool      | `true` if all file extensions are of images     |
 
 Image file extensions are: `svg`, `png`, `gif`.
@@ -244,7 +244,7 @@ Return `true` if the input list includes only tests based on file's path and nam
 
 | Argument | Usage    | Type      | Description                                     |
 | ------ | ---------|-----------|------------------------------------------------ |
-| - | Input   | [`files`](context-variables.md#files-context)  |The list of changed files with their path        |
+| - | Input   | [`files`](context-variables.md#files)  |The list of changed files with their path        |
 | - | Output | Bool      | `true` if all file tests based on name and path |
 
 Test files must include the substring `test` or `spec` in its name or path.
@@ -259,7 +259,7 @@ Returns the estimated review time in minutes based on statistical model. The mod
 
 | Argument   | Usage    | Type      | Description                                     |
 | -------- | ---------|-----------|------------------------------------------------ |
-| - | Input  | [`branch`](context-variables.md#branch-context)    | Branch meta data |
+| - | Input  | [`branch`](context-variables.md#branch)    | Branch meta data |
 | -  | Output  | Integer    | the estimated time for review in minutes |
 
 ```yaml+jinja
@@ -272,7 +272,7 @@ Expects `files` and provide a list of all unique file extensions.
 
 | Argument | Usage    | Type      | Description                                     |
 | ------ | ---------|-----------|------------------------------------------------ |
-| -  | Input    | [`files`](context-variables.md#files-context)  | The list of changed files with their path       |
+| -  | Input    | [`files`](context-variables.md#files)  | The list of changed files with their path       |
 | - | Output   | [String]  | List of all unique file extensions              |
 
 For example, check that only one file type was changed:
@@ -291,7 +291,7 @@ If changes in other formats detected, the filter will return `false`.
 
 | Argument       | Usage    | Type   | Description                                     |
 | ------------ | ---------|--------|------------------------------------------------ |
-| -     | Input    | [`source.diff.files`](context-variables.md#source-context)  | List of file diffs  |
+| -     | Input    | [`source.diff.files`](context-variables.md#source)  | List of file diffs  |
 | -     | Output   | Bool   | `true` if the all code changes are non functional |
 
 ```yaml+jinja
