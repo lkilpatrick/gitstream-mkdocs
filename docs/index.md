@@ -20,7 +20,7 @@ Take these 3 steps to see how gitStream works, later on you can learn about the 
 - [Check for formatting changes](filter-functions/#isformattingchange)
 - [Calculate PR complexity](filter-functions/#estimatedreviewtime)  
 
-**Reviews automations**
+**Review automations**
 
 - Add labels and comments to PR
 - Approve or Merge PRs
