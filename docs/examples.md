@@ -49,7 +49,7 @@ is:
 
 ## More approvals for complex changes 
 
-Automatically require 2 reviewers for PRs that has more than 100 lines of code changed under the `src` directory.
+Automatically require 2 reviewers for PRs that have more than 100 lines of code changed under the `src` directory.
 
 ```yaml+jinja title=".cm/gitstream.cm"
 automations:
